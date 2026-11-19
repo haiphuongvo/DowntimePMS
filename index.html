@@ -195,7 +195,7 @@
           <thead>
             <tr>
               <th style="width:36px"><input type="checkbox" id="select-all-res" onchange="toggleSelectAllBookings('res', this.checked)"></th>
-              <th>Room</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>Status / ETA</th><th>Rate</th><th>Rate Amount</th><th>Balance</th><th>Company</th><th>Conf No</th><th>Comments</th><th>Trace</th><th>Actions</th>
+              <th>Actions</th><th>Room</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>Status / ETA</th><th>Rate</th><th>Rate Amount</th><th>Balance</th><th>Company</th><th>Conf No</th><th>Comments</th><th>Trace</th>
             </tr>
           </thead>
           <tbody id="tbody-res"></tbody>
@@ -237,7 +237,7 @@
           <thead>
             <tr>
               <th style="width:36px"><input type="checkbox" id="select-all-arr" onchange="toggleSelectAllBookings('arr', this.checked)"></th>
-              <th>Room</th><th>Room Status</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>ETA</th><th>Rate</th><th>Rate Amount</th><th>Balance</th><th>Company</th><th>Conf No</th><th>Comments</th><th>Trace</th><th>Actions</th>
+              <th>Actions</th><th>Room</th><th>Room Status</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>ETA</th><th>Rate</th><th>Rate Amount</th><th>Balance</th><th>Company</th><th>Conf No</th><th>Comments</th><th>Trace</th>
             </tr>
           </thead>
           <tbody id="tbody-arr"></tbody>
@@ -279,7 +279,7 @@
           <thead>
             <tr>
               <th style="width:36px"><input type="checkbox" id="select-all-inh" onchange="toggleSelectAllBookings('inh', this.checked)"></th>
-              <th>Room</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>Rate</th><th>Rate Amount</th><th>Balance</th><th>Company</th><th>Comments</th><th>Trace</th><th>Actions</th>
+              <th>Actions</th><th>Room</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>Rate</th><th>Rate Amount</th><th>Balance</th><th>Company</th><th>Comments</th><th>Trace</th>
             </tr>
           </thead>
           <tbody id="tbody-inh"></tbody>
@@ -319,7 +319,7 @@
           <thead>
             <tr>
               <th style="width:36px"><input type="checkbox" id="select-all-dep" onchange="toggleSelectAllBookings('dep', this.checked)"></th>
-              <th>Room</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>Rate</th><th>Rate Amount</th><th>Payment</th><th>Balance</th><th>Company</th><th>Conf No</th><th>Comments</th><th>Trace</th><th>Actions</th>
+              <th>Actions</th><th>Room</th><th>Room Type</th><th>Guest Name</th><th>VIP</th><th>Arr - Dep</th><th>Pax</th><th>Rate</th><th>Rate Amount</th><th>Payment</th><th>Balance</th><th>Company</th><th>Conf No</th><th>Comments</th><th>Trace</th>
             </tr>
           </thead>
           <tbody id="tbody-dep"></tbody>
@@ -400,7 +400,7 @@
   </main>
 </div>
 
-<div id="guestModal" class="modal-bg hidden"><div class="modal"><div class="modal-head"><span id="modalTitle">Booking Details</span><button onclick="closeGuestModal()" style="background:none;border:none;color:#fff;font-size:20px">&times;</button></div><div class="modal-body"><input type="hidden" id="edit-guest-id"><input type="hidden" id="edit-guest-type"><div class="form-grid"><div class="form-group"><label>Room Type (Sold)</label><select id="edit-room-type" onchange="onRoomTypeChange()"></select></div><div class="form-group"><label>Room Number (Assign)</label><select id="edit-room"><option value="">-- Select Room --</option></select></div><div class="form-group"><label>VIP</label><input type="text" id="edit-vip"></div><div class="form-group" style="grid-column:span 2"><label>Guest Name</label><input type="text" id="edit-name"></div><div class="form-group"><label>Adults / Children</label><div style="display:flex;gap:4px"><input type="number" id="edit-adults"><input type="number" id="edit-children"></div></div><div class="form-group"><label>Arrival Date</label><input type="text" id="edit-arr" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Departure Date</label><input type="text" id="edit-dep" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Rate Amount</label><input type="number" id="edit-rate-amount" step="any"></div><div class="form-group"><label>Balance</label><input type="number" id="edit-balance" step="any"></div></div><div class="form-group"><label>Company</label><input type="text" id="edit-company"></div><div class="form-group"><label>Comments</label><textarea id="edit-comments" rows="3"></textarea></div><div class="form-group"><label>Trace</label><input type="text" id="edit-trace" placeholder="e.g. HSK pls combine bed"></div></div><div class="modal-foot"><button onclick="closeGuestModal()" class="btn btn-light">Close</button><button onclick="saveGuestModal()" class="btn btn-blue">Save & Assign Room</button></div></div></div>
+<div id="guestModal" class="modal-bg hidden"><div class="modal"><div class="modal-head"><span id="modalTitle">Booking Details</span><button onclick="closeGuestModal()" style="background:none;border:none;color:#fff;font-size:20px">&times;</button></div><div class="modal-body"><input type="hidden" id="edit-guest-id"><input type="hidden" id="edit-guest-type"><div class="form-grid"><div class="form-group"><label>Room Type (Sold)</label><select id="edit-room-type" onchange="onRoomTypeChange()"></select></div><div class="form-group" style="grid-column:span 2"><label>Room Filter (OCC/VAC & HK Status)</label><div style="display:flex;gap:6px"><select id="filter-room-occ" onchange="populateRoomSelect()"><option value="ALL">All (OCC & VAC)</option><option value="VAC">VAC (Vacant only)</option><option value="OCC">OCC (Occupied)</option></select><select id="filter-room-hk" onchange="populateRoomSelect()"><option value="ALL">HK: IP, CL, DI</option><option value="IP">IP only</option><option value="CL">CL only</option><option value="DI">DI only</option></select></div></div><div class="form-group"><label>Room Number (Assign)</label><select id="edit-room"><option value="">-- Select Room --</option></select></div><div class="form-group"><label>VIP</label><input type="text" id="edit-vip"></div><div class="form-group" style="grid-column:span 2"><label>Guest Name</label><input type="text" id="edit-name"></div><div class="form-group"><label>Adults / Children</label><div style="display:flex;gap:4px"><input type="number" id="edit-adults"><input type="number" id="edit-children"></div></div><div class="form-group"><label>Arrival Date</label><input type="text" id="edit-arr" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Departure Date</label><input type="text" id="edit-dep" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Rate Code</label><input type="text" id="edit-rate-code" list="rate-code-suggestions" placeholder="e.g. RACK, BAR, GRE8"><datalist id="rate-code-suggestions"><option value="RACK"><option value="BAR"><option value="COR"><option value="FIT"><option value="WHO"><option value="CEM"><option value="GRE8"><option value="WHPM10"><option value="COMCERT"><option value="OTADT"></datalist></div><div class="form-group"><label>Rate Amount</label><input type="number" id="edit-rate-amount" step="any"></div><div class="form-group"><label>Balance</label><input type="number" id="edit-balance" step="any"></div></div><div class="form-group"><label>Company</label><input type="text" id="edit-company"></div><div class="form-group"><label>Comments</label><textarea id="edit-comments" rows="3"></textarea></div><div class="form-group"><label>Trace</label><input type="text" id="edit-trace" placeholder="e.g. HSK pls combine bed"></div></div><div class="modal-foot"><button onclick="closeGuestModal()" class="btn btn-light">Close</button><button onclick="saveGuestModal()" class="btn btn-blue">Save & Assign Room</button></div></div></div>
 
 <script>
 const firebaseConfig = {
@@ -414,7 +414,7 @@ const firebaseConfig = {
 
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore(), docRef = db.collection("pms_downtime").doc("live_state");
-const DEFAULT_FOM = { username: 'FOM', fullName: 'Front Office Manager', password: '123456', role: 'FOM', active: true };
+const DEFAULT_FOM = { username: 'HP', fullName: 'Hai Phuong', password: '123456', role: 'FOM', active: true };
 
 let state = {
   workingDate: '2026-10-06',
@@ -606,7 +606,7 @@ docRef.onSnapshot(d => {
     document.getElementById('cloud-conn-msg').textContent = '🟢 Ready for login';
     document.getElementById('sync-status-text').textContent = `🟢 Synced (${new Date().toLocaleTimeString('en-US')})`;
     
-    const isFomUser = currentUser && (currentUser.role === 'FOM' || currentUser.username.toUpperCase() === 'FOM');
+    const isFomUser = currentUser && (currentUser.role === 'FOM' || ['FOM', 'HP'].includes(currentUser.username.toUpperCase()));
     const isLoginVisible = !document.getElementById('login-screen').classList.contains('hidden');
     if (state.isShutdown && !isFomUser && !isLoginVisible) {
       document.getElementById('login-screen').classList.add('hidden');
@@ -648,7 +648,7 @@ function openFomLoginFromShutdown() {
   document.getElementById('app-container').classList.add('hidden');
   document.getElementById('login-screen').classList.remove('hidden');
   const uInput = document.getElementById('login-user');
-  if (!uInput.value.trim()) uInput.value = 'FOM';
+  if (!uInput.value.trim()) uInput.value = 'HP';
   document.getElementById('login-pass').focus();
 }
 
@@ -658,7 +658,7 @@ function handleLogin() {
   const found = state.users.find(x => x.username.toLowerCase() === u.toLowerCase() && x.password === p);
   if (!found) return alert('Invalid username or password!');
   if (!found.active) return alert('This account has been deactivated by FOM!');
-  const isFomLogin = found.role === 'FOM' || found.username.toUpperCase() === 'FOM';
+  const isFomLogin = found.role === 'FOM' || ['FOM', 'HP'].includes(found.username.toUpperCase());
   if (state.isShutdown && !isFomLogin) {
     return alert('Hệ thống này đã ngừng hoạt động cho các user khác. Chỉ tài khoản FOM mới có thể đăng nhập!');
   }
@@ -705,7 +705,7 @@ function updateFomShutdownResumeButtons() {
   const shutdownBtn = document.getElementById('btn-shutdown-system');
   const resumeBtn = document.getElementById('btn-resume-system');
   if (!shutdownBtn || !resumeBtn) return;
-  const isFom = currentUser && (currentUser.role === 'FOM' || currentUser.username.toUpperCase() === 'FOM');
+  const isFom = currentUser && (currentUser.role === 'FOM' || ['FOM', 'HP'].includes(currentUser.username.toUpperCase()));
   if (!isFom) {
     shutdownBtn.classList.add('hidden');
     resumeBtn.classList.add('hidden');
@@ -770,8 +770,83 @@ function createUserAccount() {
   pushStateToCloud();
 }
 
+function editUserAccount(uname) {
+  if (!currentUser || currentUser.role !== 'FOM') return alert('Only FOM can edit users!');
+  const idx = state.users.findIndex(x => x.username === uname);
+  if (idx === -1) return;
+  const u = state.users[idx];
+
+  const usernameInput = prompt(`Username cho user ${u.username}:`, u.username);
+  if (usernameInput === null) return;
+  const cleanUsername = usernameInput.trim();
+  if (!cleanUsername) return alert('Username không được để trống!');
+  if (state.users.some((x, i) => i !== idx && x.username.toLowerCase() === cleanUsername.toLowerCase())) {
+    return alert(`Username "${cleanUsername}" đã tồn tại!`);
+  }
+
+  const newFullName = prompt(`Full Name cho user ${cleanUsername}:`, u.fullName || cleanUsername);
+  if (newFullName === null) return;
+
+  const rInput = prompt(`Role cho user ${cleanUsername} (FO / RES / HK / FOM):`, u.role);
+  if (rInput === null) return;
+  const cleanRole = rInput.trim().toUpperCase();
+  if (!['FO', 'RES', 'HK', 'FOM'].includes(cleanRole)) {
+    return alert('Role không hợp lệ! Chỉ chấp nhận: FO, RES, HK, FOM.');
+  }
+
+  const newPass = prompt(`Password cho user ${cleanUsername}:`, u.password);
+  if (newPass === null || !newPass.trim()) return;
+
+  const activeInput = prompt(`Status cho user ${cleanUsername} (Active / Inactive):`, u.active ? 'Active' : 'Inactive');
+  if (activeInput === null) return;
+  const cleanActiveStr = activeInput.trim().toLowerCase();
+  let newActive = u.active;
+  if (['active', 'true', '1', 'a', 'yes', 'y'].includes(cleanActiveStr)) {
+    newActive = true;
+  } else if (['inactive', 'false', '0', 'i', 'lock', 'locked', 'no', 'n'].includes(cleanActiveStr)) {
+    newActive = false;
+  } else {
+    return alert('Status không hợp lệ! Nhập Active hoặc Inactive.');
+  }
+
+  const oldUsername = u.username;
+  u.username = cleanUsername;
+  u.fullName = newFullName.trim() || cleanUsername;
+  u.role = cleanRole;
+  u.password = newPass.trim();
+  u.active = newActive;
+
+  if (currentUser.username === oldUsername) {
+    currentUser.username = u.username;
+    currentUser.fullName = u.fullName;
+    currentUser.role = u.role;
+    currentUser.password = u.password;
+    currentUser.active = u.active;
+    document.getElementById('header-user-title').textContent = `${currentUser.fullName} (${currentUser.username})`;
+  }
+
+  addLog('USER MGMT', '-', `Edited user ${oldUsername} -> ${u.username} (Name: ${u.fullName}, Role: ${u.role}, Active: ${u.active})`);
+  pushStateToCloud();
+  renderUsers();
+}
+
+function deleteUserAccount(uname) {
+  if (!currentUser || currentUser.role !== 'FOM') return alert('Only FOM can delete users!');
+  if (uname.toUpperCase() === 'HP') return alert('Không thể xóa tài khoản mặc định HP!');
+  if (currentUser && currentUser.username === uname) return alert('Không thể xóa tài khoản đang đăng nhập!');
+
+  const idx = state.users.findIndex(x => x.username === uname);
+  if (idx === -1) return;
+  if (!confirm(`Xác nhận XÓA VĨNH VIỄN user "${uname}"?`)) return;
+
+  state.users.splice(idx, 1);
+  addLog('USER MGMT', '-', `Deleted user ${uname}`);
+  pushStateToCloud();
+  renderUsers();
+}
+
 function toggleUserActive(uname) {
-  if (uname === 'FOM') return alert('Cannot deactivate root FOM account!');
+  if (uname.toUpperCase() === 'HP') return alert('Cannot deactivate default HP account!');
   const u = state.users.find(x => x.username === uname);
   if (!u) return;
   u.active = !u.active;
@@ -796,9 +871,11 @@ function renderUsers() {
     <td><span class="badge" style="background:#dbeafe;color:#1e40af">${u.role}</span></td>
     <td style="font-family:monospace">${u.password}</td>
     <td>${u.active ? '<span style="color:#059669;font-weight:700">Active</span>' : '<span style="color:#e11d48;font-weight:700">Inactive</span>'}</td>
-    <td>
+    <td style="white-space:nowrap">
+      <button onclick="editUserAccount('${u.username}')" class="btn btn-sm btn-blue">Edit</button>
       <button onclick="changeUserPass('${u.username}')" class="btn btn-sm btn-light">Chg Pass</button>
-      ${u.username !== 'FOM' ? `<button onclick="toggleUserActive('${u.username}')" class="btn btn-sm ${u.active ? 'btn-rose' : 'btn-emerald'}">${u.active ? 'Lock' : 'Unlock'}</button>` : ''}
+      ${u.username.toUpperCase() !== 'HP' ? `<button onclick="toggleUserActive('${u.username}')" class="btn btn-sm ${u.active ? 'btn-rose' : 'btn-emerald'}">${u.active ? 'Lock' : 'Unlock'}</button>` : ''}
+      ${u.username.toUpperCase() !== 'HP' ? `<button onclick="deleteUserAccount('${u.username}')" class="btn btn-sm btn-rose">Delete</button>` : ''}
     </td>
   </tr>`).join('');
 }
@@ -811,7 +888,7 @@ function switchTab(t) {
 }
 
 function isCurrentUserFOM() {
-  return !!(currentUser && (currentUser.role === 'FOM' || currentUser.username.toUpperCase() === 'FOM'));
+  return !!(currentUser && (currentUser.role === 'FOM' || ['FOM', 'HP'].includes(currentUser.username.toUpperCase())));
 }
 
 function canCurrentUserChangeWorkingDate() {
@@ -1455,7 +1532,7 @@ function checkInGuest(id) {
   }
   if (!rObj || rObj.status !== 'IP') {
     const curStatus = rObj ? rObj.status : 'UNKNOWN';
-    return alert(`CHECK-IN BLOCKED: Room ${rm} has housekeeping status [${curStatus}]. Rule requires room status to be IP (Inspected) and vacant before check-in.`);
+    return alert(`CHECK-IN BLOCKED: Room ${rm} đang ở trạng thái [${curStatus}] (phòng dơ/chưa kiểm tra). Chỉ được Check-in phòng VAC và trạng thái IP!`);
   }
 
   if (!confirm(`Confirm CHECK-IN for guest ${g.name} into room ${rm} (Status: IP)?`)) return;
@@ -1616,6 +1693,10 @@ function renderArr() {
 
     return `<tr class="${a.isSharer ? 'sharer' : ''} ${isSel ? 'row-selected' : ''}">
       <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('arr','${a.id}')"></td>
+      <td style="white-space:nowrap">
+        <button onclick="openGuestModal('arr','${a.id}')" class="btn btn-sm btn-light">Assign/Edit</button>
+        <button onclick="checkInGuest('${a.id}')" class="btn btn-sm btn-blue">Check-in</button>
+      </td>
       <td>${unassigned}</td>
       <td>${roomStatusBadge}</td>
       <td>${a.roomType}</td>
@@ -1631,10 +1712,6 @@ function renderArr() {
       <td>${a.confNo}</td>
       <td style="max-width:200px;font-size:11px;white-space:pre-wrap">${(a.comments || []).join(' | ') || '-'}</td>
       <td style="color:#b45309;font-weight:600;font-size:11px">${a.trace || '-'}</td>
-      <td>
-        <button onclick="openGuestModal('arr','${a.id}')" class="btn btn-sm btn-light">Assign/Edit</button>
-        <button onclick="checkInGuest('${a.id}')" class="btn btn-sm btn-blue">Check-in</button>
-      </td>
     </tr>`;
   }).join('') : `<tr><td colspan="17" style="text-align:center;padding:20px;color:#94a3b8">No arrivals found matching filter.</td></tr>`;
 }
@@ -1672,6 +1749,10 @@ function renderRes() {
 
     return `<tr class="${a.isSharer ? 'sharer' : ''} ${isSel ? 'row-selected' : ''}">
       <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('res','${a.id}')"></td>
+      <td style="white-space:nowrap">
+        <button onclick="openGuestModal('${a.resStatus === 'IN-HOUSE' ? 'inh' : 'arr'}','${a.id}')" class="btn btn-sm btn-light">View/Edit</button>
+        ${a.resStatus === 'RESERVED' && (currentUser && currentUser.role !== 'RES') ? `<button onclick="checkInGuest('${a.id}')" class="btn btn-sm btn-blue">Check-in</button>` : ''}
+      </td>
       <td>${unassigned}</td>
       <td>${a.roomType}</td>
       <td><strong>${a.name}</strong></td>
@@ -1686,10 +1767,6 @@ function renderRes() {
       <td>${a.confNo}</td>
       <td style="max-width:200px;font-size:11px;white-space:pre-wrap">${(a.comments || []).join(' | ') || '-'}</td>
       <td style="color:#b45309;font-weight:600;font-size:11px">${a.trace || '-'}</td>
-      <td>
-        <button onclick="openGuestModal('${a.resStatus === 'IN-HOUSE' ? 'inh' : 'arr'}','${a.id}')" class="btn btn-sm btn-light">View/Edit</button>
-        ${a.resStatus === 'RESERVED' && (currentUser && currentUser.role !== 'RES') ? `<button onclick="checkInGuest('${a.id}')" class="btn btn-sm btn-blue">Check-in</button>` : ''}
-      </td>
     </tr>`;
   }).join('') : `<tr><td colspan="16" style="text-align:center;padding:20px;color:#94a3b8">No bookings found matching filter.</td></tr>`;
 }
@@ -1725,6 +1802,10 @@ function renderDep() {
     const isSel = selectedBookings.dep.has(g.id);
     return `<tr class="${isSel ? 'row-selected' : ''}">
       <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('dep','${g.id}')"></td>
+      <td style="white-space:nowrap">
+        <button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
+        <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>
+      </td>
       <td><strong>${g.room || '<span class="badge" style="background:#fee2e2;color:#991b1b">No Room</span>'}</strong></td>
       <td>${g.roomType}</td>
       <td><strong>${g.name}</strong></td>
@@ -1739,10 +1820,6 @@ function renderDep() {
       <td>${g.confNo || '-'}</td>
       <td style="max-width:200px;font-size:11px;white-space:pre-wrap">${(g.comments || []).join(' | ') || '-'}</td>
       <td style="color:#b45309;font-weight:600;font-size:11px">${g.trace || '-'}</td>
-      <td>
-        <button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
-        <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>
-      </td>
     </tr>`;
   }).join('') : `<tr><td colspan="16" style="text-align:center;padding:20px;color:#94a3b8">No departures found matching filter.</td></tr>`;
 }
@@ -1760,6 +1837,10 @@ function renderInh() {
     const isSel = selectedBookings.inh.has(g.id);
     return `<tr class="${g.isSharer ? 'sharer' : ''} ${isSel ? 'row-selected' : ''}">
       <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('inh','${g.id}')"></td>
+      <td style="white-space:nowrap">
+        <button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
+        <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>
+      </td>
       <td><strong>${g.room || '<span class="badge" style="background:#fee2e2;color:#991b1b">No Room</span>'}</strong></td>
       <td>${g.roomType}</td>
       <td><strong>${g.name}</strong></td>
@@ -1772,10 +1853,6 @@ function renderInh() {
       <td>${g.company || '-'}</td>
       <td style="max-width:200px;font-size:11px;white-space:pre-wrap">${(g.comments || []).join(' | ') || '-'}</td>
       <td style="color:#b45309;font-weight:600;font-size:11px">${g.trace || '-'}</td>
-      <td>
-        <button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
-        <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>
-      </td>
     </tr>`;
   }).join('') : `<tr><td colspan="14" style="text-align:center;padding:20px;color:#94a3b8">No in-house guests found matching filter.</td></tr>`;
 }
@@ -2024,6 +2101,8 @@ function populateRoomSelect() {
   const guestArr = document.getElementById('edit-arr').value;
   const guestDep = document.getElementById('edit-dep').value;
   const currentGuestId = document.getElementById('edit-guest-id').value;
+  const occFilter = (document.getElementById('filter-room-occ') && document.getElementById('filter-room-occ').value) || 'ALL';
+  const hkFilter = (document.getElementById('filter-room-hk') && document.getElementById('filter-room-hk').value) || 'ALL';
   const select = document.getElementById('edit-room');
 
   select.innerHTML = `<option value="">-- Select Room Number --</option>`;
@@ -2034,24 +2113,15 @@ function populateRoomSelect() {
 
   validRooms.sort((a, b) => a.room.localeCompare(b.room)).forEach(r => {
     const roomNo = r.room;
+    const isOccupiedInhouse = state.inhouse.some(g => g.room === roomNo && g.id !== currentGuestId);
     let hasConflict = false;
     let conflictName = '';
 
-    if ((r.status === 'OO' || r.status === 'OS') && roomNo !== currentRoom) {
+    if (isOccupiedInhouse) {
+      const inhGuest = state.inhouse.find(g => g.room === roomNo && g.id !== currentGuestId);
       hasConflict = true;
-      conflictName = `Out of Order (${r.status})`;
+      conflictName = inhGuest ? inhGuest.name : 'Occupied';
     }
-
-    state.inhouse.forEach(g => {
-      if (g.room === roomNo && g.id !== currentGuestId) {
-        if (guestArr && guestDep) {
-          if (!(guestDep <= g.arrival || guestArr >= g.departure)) {
-            hasConflict = true;
-            conflictName = g.name;
-          }
-        }
-      }
-    });
 
     state.arrivals.forEach(a => {
       if (a.room === roomNo && a.id !== currentGuestId) {
@@ -2064,26 +2134,30 @@ function populateRoomSelect() {
       }
     });
 
+    const occState = isOccupiedInhouse ? 'OCC' : 'VAC';
+    const hkStatus = r.status || 'CL';
+    const isAllowedHk = ['IP', 'CL', 'DI'].includes(hkStatus);
+
+    if (roomNo !== currentRoom) {
+      if (!isAllowedHk) return;
+      if (occFilter !== 'ALL' && occState !== occFilter) return;
+      if (hkFilter !== 'ALL' && hkStatus !== hkFilter) return;
+    }
+
     let statusLabel = '';
-    let isAvailable = false;
-
-    if (hasConflict) {
-      statusLabel = conflictName.startsWith('Out of Order') ? `[${conflictName}]` : `[Occupied / Conflict: ${conflictName}]`;
-      isAvailable = false;
+    if (isOccupiedInhouse) {
+      statusLabel = `[OCC - ${hkStatus} - ${conflictName}]`;
+    } else if (hasConflict) {
+      statusLabel = `[VAC - ${hkStatus} - Conflict: ${conflictName}]`;
     } else {
-      isAvailable = true;
-      statusLabel = `[Vacant - ${r.status}]`;
+      statusLabel = `[VAC - ${hkStatus}]`;
     }
 
-    if (roomNo === currentRoom) isAvailable = true;
-
-    if (isAvailable || roomNo === currentRoom) {
-      const opt = document.createElement('option');
-      opt.value = roomNo;
-      opt.textContent = `Room ${roomNo} (${r.type}) ${statusLabel}`;
-      if (roomNo === currentRoom) opt.selected = true;
-      select.appendChild(opt);
-    }
+    const opt = document.createElement('option');
+    opt.value = roomNo;
+    opt.textContent = `Room ${roomNo} (${r.type}) ${statusLabel}`;
+    if (roomNo === currentRoom) opt.selected = true;
+    select.appendChild(opt);
   });
 }
 
@@ -2112,12 +2186,15 @@ function openGuestModal(t, id) {
     document.getElementById('edit-dep').value = depISO;
   }
 
+  document.getElementById('edit-rate-code').value = g.rateCode || 'RACK';
   document.getElementById('edit-rate-amount').value = parseNumericValue(g.rateAmount);
   document.getElementById('edit-balance').value = g.balance !== undefined ? g.balance : 0;
   document.getElementById('edit-company').value = g.company || '';
   document.getElementById('edit-comments').value = (g.comments || []).join('\n');
   document.getElementById('edit-trace').value = g.trace || '';
 
+  if (document.getElementById('filter-room-occ')) document.getElementById('filter-room-occ').value = 'ALL';
+  if (document.getElementById('filter-room-hk')) document.getElementById('filter-room-hk').value = 'ALL';
   document.getElementById('edit-room').setAttribute('data-current', g.room || '');
   populateRoomTypeSelect(g.roomType || '2F2KS');
   document.getElementById('guestModal').classList.remove('hidden');
@@ -2139,12 +2216,15 @@ function openWalkInModal() {
     document.getElementById('edit-dep').value = '';
   }
 
+  document.getElementById('edit-rate-code').value = 'RACK';
   document.getElementById('edit-rate-amount').value = 0;
   document.getElementById('edit-balance').value = 0;
   document.getElementById('edit-company').value = '';
   document.getElementById('edit-comments').value = '';
   document.getElementById('edit-trace').value = '';
 
+  if (document.getElementById('filter-room-occ')) document.getElementById('filter-room-occ').value = 'ALL';
+  if (document.getElementById('filter-room-hk')) document.getElementById('filter-room-hk').value = 'ALL';
   document.getElementById('edit-room').setAttribute('data-current', '');
   populateRoomTypeSelect('2F2KS');
   document.getElementById('guestModal').classList.remove('hidden');
@@ -2166,12 +2246,15 @@ function openNewResModal() {
     document.getElementById('edit-dep').value = '';
   }
 
+  document.getElementById('edit-rate-code').value = 'RACK';
   document.getElementById('edit-rate-amount').value = 0;
   document.getElementById('edit-balance').value = 0;
   document.getElementById('edit-company').value = '';
   document.getElementById('edit-comments').value = '';
   document.getElementById('edit-trace').value = '';
 
+  if (document.getElementById('filter-room-occ')) document.getElementById('filter-room-occ').value = 'ALL';
+  if (document.getElementById('filter-room-hk')) document.getElementById('filter-room-hk').value = 'ALL';
   document.getElementById('edit-room').setAttribute('data-current', '');
   populateRoomTypeSelect('2F2KS');
   document.getElementById('guestModal').classList.remove('hidden');
@@ -2234,18 +2317,26 @@ function saveGuestModal() {
     children: +document.getElementById('edit-children').value || 0,
     arrival: guestArr,
     departure: guestDep,
+    rateCode: (document.getElementById('edit-rate-code').value || 'RACK').trim().toUpperCase(),
     rateAmount: parseNumericValue(document.getElementById('edit-rate-amount').value),
     balance: parseNumericValue(document.getElementById('edit-balance').value),
     company: document.getElementById('edit-company').value,
     comments: document.getElementById('edit-comments').value.split('\n').filter(Boolean),
     trace: document.getElementById('edit-trace').value.trim(),
-    rateCode: 'RACK',
     payment: 'CA',
     isSharer: false
   };
 
   if (t === 'walkin') {
     if (!rm) return alert('Please select a room for Walk-in!');
+    if (state.inhouse.some(x => x.room === rm)) {
+      return alert(`WALK-IN BLOCKED: Room ${rm} đang có khách ở (OCC)!`);
+    }
+    const rObjWalkin = state.rooms[rm];
+    if (!rObjWalkin || rObjWalkin.status !== 'IP') {
+      const curSt = rObjWalkin ? rObjWalkin.status : 'UNKNOWN';
+      return alert(`WALK-IN BLOCKED: Phòng ${rm} đang ở trạng thái [${curSt}] (phòng dơ/chưa kiểm tra). Walk-in chỉ được nhận phòng VAC và trạng thái IP!`);
+    }
     state.inhouse.unshift(o);
     addLog('WALK-IN', rm, nm);
   } else if (t === 'new_res') {
