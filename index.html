@@ -403,6 +403,41 @@
 <div id="guestModal" class="modal-bg hidden"><div class="modal"><div class="modal-head"><span id="modalTitle">Booking Details</span><button onclick="closeGuestModal()" style="background:none;border:none;color:#fff;font-size:20px">&times;</button></div><div class="modal-body"><input type="hidden" id="edit-guest-id"><input type="hidden" id="edit-guest-type"><div class="form-grid"><div class="form-group"><label>Room Type (Sold)</label><select id="edit-room-type" onchange="onRoomTypeChange()"></select></div><div class="form-group" style="grid-column:span 2"><label>Room Filter (OCC/VAC & HK Status)</label><div style="display:flex;gap:6px"><select id="filter-room-occ" onchange="populateRoomSelect()"><option value="ALL">All (OCC & VAC)</option><option value="VAC">VAC (Vacant only)</option><option value="OCC">OCC (Occupied)</option></select><select id="filter-room-hk" onchange="populateRoomSelect()"><option value="ALL">HK: IP, CL, DI</option><option value="IP">IP only</option><option value="CL">CL only</option><option value="DI">DI only</option></select></div></div><div class="form-group"><label>Room Number (Assign)</label><select id="edit-room"><option value="">-- Select Room --</option></select></div><div class="form-group"><label>VIP</label><input type="text" id="edit-vip"></div><div class="form-group" style="grid-column:span 2"><label>Guest Name</label><input type="text" id="edit-name"></div><div class="form-group"><label>Adults / Children</label><div style="display:flex;gap:4px"><input type="number" id="edit-adults"><input type="number" id="edit-children"></div></div><div class="form-group"><label>Arrival Date</label><input type="text" id="edit-arr" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Departure Date</label><input type="text" id="edit-dep" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Rate Code</label><input type="text" id="edit-rate-code" list="rate-code-suggestions" placeholder="e.g. RACK, BAR, GRE8"><datalist id="rate-code-suggestions"><option value="RACK"><option value="BAR"><option value="COR"><option value="FIT"><option value="WHO"><option value="CEM"><option value="GRE8"><option value="WHPM10"><option value="COMCERT"><option value="OTADT"></datalist></div><div class="form-group"><label>Rate Amount</label><input type="number" id="edit-rate-amount" step="any"></div><div class="form-group"><label>Balance</label><input type="number" id="edit-balance" step="any"></div></div><div class="form-group"><label>Company</label><input type="text" id="edit-company"></div><div class="form-group"><label>Comments</label><textarea id="edit-comments" rows="3"></textarea></div><div class="form-group"><label>Trace</label><input type="text" id="edit-trace" placeholder="e.g. HSK pls combine bed"></div></div><div class="modal-foot"><button onclick="closeGuestModal()" class="btn btn-light">Close</button><button onclick="saveGuestModal()" class="btn btn-blue">Save & Assign Room</button></div></div></div>
 
 <script>
+
+function estimateStateSizeBytes(obj) {
+  try {
+    return new Blob([JSON.stringify(obj)]).size;
+  } catch (e) {
+    return JSON.stringify(obj).length;
+  }
+}
+
+function formatBytesToKB(bytes) {
+  return (bytes / 1024).toFixed(1) + ' KB';
+}
+
+function updateCloudQuotaIndicator() {
+  const bytes = estimateStateSizeBytes(state);
+  const maxBytes = 1048576; // 1 MiB Firestore document limit
+  const ratio = bytes / maxBytes;
+  const pct = (ratio * 100).toFixed(1);
+
+  const el = document.getElementById('sync-status-text');
+  if (!el) return;
+
+  const baseSync = el.getAttribute('data-last-sync') || `Synced (${new Date().toLocaleTimeString('en-US')})`;
+  if (ratio >= 0.95) {
+    el.innerHTML = `🔴 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — SẮP VƯỢT GIỚI HẠN 1MB! Hãy backup & Clear Cloud Data ngay.`;
+    el.style.color = '#fda4af';
+  } else if (ratio >= 0.75) {
+    el.innerHTML = `🟡 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — Dữ liệu đang lớn, nên backup định kỳ.`;
+    el.style.color = '#fcd34d';
+  } else {
+    el.innerHTML = `🟢 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%)`;
+    el.style.color = '';
+  }
+}
+
 const firebaseConfig = {
   apiKey: "AIzaSyBkzE-0ZPUdiIgBDXvco9LsmHfxnCc3qSk",
   authDomain: "downtime-pms.firebaseapp.com",
@@ -604,7 +639,11 @@ docRef.onSnapshot(d => {
     else document.getElementById('workingDateInput').value = state.workingDate;
 
     document.getElementById('cloud-conn-msg').textContent = '🟢 Ready for login';
-    document.getElementById('sync-status-text').textContent = `🟢 Synced (${new Date().toLocaleTimeString('en-US')})`;
+    const syncEl = document.getElementById('sync-status-text');
+    const syncLabel = `Synced (${new Date().toLocaleTimeString('en-US')})`;
+    syncEl.setAttribute('data-last-sync', syncLabel);
+    syncEl.textContent = `🟢 ${syncLabel}`;
+    updateCloudQuotaIndicator();
     
     const isFomUser = currentUser && (currentUser.role === 'FOM' || ['FOM', 'HP'].includes(currentUser.username.toUpperCase()));
     const isLoginVisible = !document.getElementById('login-screen').classList.contains('hidden');
@@ -628,7 +667,22 @@ docRef.onSnapshot(d => {
 });
 
 function pushStateToCloud() {
-  docRef.set(state).catch(e => alert("Cloud Error: " + e.message));
+  updateCloudQuotaIndicator();
+  const bytes = estimateStateSizeBytes(state);
+  if (bytes > 1000000) {
+    alert(`⚠️ CẢNH BÁO DỮ LIỆU QUÁ LỚN (${formatBytesToKB(bytes)} / 1024 KB)!
+Firestore giới hạn 1 document tối đa 1 MiB (1024 KB). Hãy xuất Backup và bấm Clear Cloud Data để tránh lỗi không lưu được.`);
+  }
+  docRef.set(state).catch(e => {
+    const isTooLarge = /exceeds the maximum allowed size|1048576|too large/i.test(e.message || '');
+    if (isTooLarge) {
+      alert(`🔴 LỖI ĐẦY DỮ LIỆU FIRESTORE (Vượt 1 MB)!
+Dữ liệu hiện tại (${formatBytesToKB(bytes)}) đã vượt giới hạn của 1 document.
+Vui lòng vào tab Backup & Logs tải backup về, sau đó vào tab Import bấm "Clear Cloud Data" để làm trống và nhập lại dữ liệu cần thiết.`);
+    } else {
+      alert("Cloud Error: " + e.message);
+    }
+  });
 }
 
 function addLog(a, r, d) {
@@ -1598,6 +1652,7 @@ function refreshAllUI() {
   document.getElementById('badge-hk').textContent = Object.keys(state.rooms).length;
   updateFomShutdownResumeButtons();
   updateWorkingDatePermission();
+  updateCloudQuotaIndicator();
 }
 
 function getAllRoomTypes() {
