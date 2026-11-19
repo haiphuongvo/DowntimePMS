@@ -121,7 +121,261 @@
     .inv-cell-low{color:#d97706;font-weight:700}
     .inv-expand-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;border:1px solid #94a3b8;background:#fff;color:#334155;font-size:11px;font-weight:800;cursor:pointer;margin-right:6px;line-height:1;user-select:none}
     .inv-expand-btn:hover{background:#2563eb;color:#fff;border-color:#2563eb}
-  </style>
+  
+/* === ROOM DIARY STYLES === */
+.diary-search-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.diary-search-header {
+  background: #2c3545;
+  color: #ffffff;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+.diary-search-body {
+  padding: 12px 14px;
+  font-size: 12px;
+}
+.diary-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 12px 18px;
+  align-items: start;
+}
+@media (max-width: 1024px) {
+  .diary-filter-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+}
+.diary-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.diary-field label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #334155;
+}
+.diary-field input,
+.diary-field select {
+  height: 28px;
+  padding: 2px 8px;
+  border: 1px solid #94a3b8;
+  border-radius: 3px;
+  font-size: 12px;
+  color: #0f172a;
+  background: #fff;
+}
+.diary-req-note {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+.diary-chk-col label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: #1e293b;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+.diary-search-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  padding-top: 6px;
+  border-top: 1px solid #e2e8f0;
+}
+.diary-btn-reset {
+  background: transparent;
+  border: none;
+  color: #0284c7;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.diary-btn-search {
+  background: #1e293b;
+  color: #ffffff;
+  border: 1px solid #0f172a;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 14px;
+  cursor: pointer;
+}
+.diary-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-bottom: none;
+  border-radius: 6px 6px 0 0;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+.diary-toolbar-left,
+.diary-toolbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.diary-link-btn {
+  background: none;
+  border: none;
+  color: #0284c7;
+  font-size: 12px;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+.diary-link-btn:hover { text-decoration: underline; }
+.diary-grid-wrap {
+  position: relative;
+  overflow-x: auto;
+  max-height: 620px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0 0 6px 6px;
+}
+.diary-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 11.5px;
+}
+.diary-table th,
+.diary-table td {
+  border-right: 1px solid #e2e8f0;
+  border-bottom: 1px solid #cbd5e1;
+  height: 28px;
+  padding: 0;
+  box-sizing: border-box;
+}
+.diary-room-col {
+  width: 175px;
+  min-width: 175px;
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  background: #ffffff;
+}
+.diary-table thead th.diary-room-col {
+  z-index: 5;
+  background: #f8fafc;
+  text-align: left;
+  padding: 4px 8px;
+  font-weight: 700;
+  color: #0f172a;
+}
+.diary-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #ffffff;
+  font-weight: 600;
+  color: #1e293b;
+  text-align: center;
+}
+.diary-wknd-cell {
+  background-color: #f1f0ec !important;
+}
+.diary-room-cell-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  height: 100%;
+  gap: 4px;
+}
+.diary-room-left {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.diary-hk-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+}
+.diary-hk-DI { background: #dc2626; }
+.diary-hk-CL { background: #eab308; }
+.diary-hk-IP { background: #16a34a; }
+.diary-hk-OO { background: #ea580c; }
+.diary-hk-OS { background: #0284c7; }
+.diary-room-no { font-weight: 700; color: #0f172a; }
+.diary-room-type { font-size: 10px; color: #2563eb; font-weight: 600; }
+.diary-day-cell {
+  position: relative;
+  cursor: pointer;
+}
+.diary-day-cell:hover {
+  background-color: #e0f2fe !important;
+}
+.diary-bar {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 2px;
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  z-index: 2;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+.diary-bar-inh { background: #1e5f66; }
+.diary-bar-arr { background: #26999e; }
+.diary-bar-linked { background: #9c8412; }
+.diary-bar-oos {
+  background: #8c8d91;
+  color: #f8fafc;
+  font-weight: 600;
+  cursor: default;
+}
+.diary-group-row td {
+  background: #e2e8f0 !important;
+  font-weight: 700;
+  color: #0f172a;
+  padding-left: 10px !important;
+  font-size: 11px;
+}
+
+</style>
 </head>
 <body>
 
@@ -177,6 +431,7 @@
         <button onclick="switchTab('inh')" id="tab-inh" class="tab-btn">🏨 In-house <span id="badge-inh" class="pill pill-emerald">0</span></button>
         <button onclick="switchTab('dep')" id="tab-dep" class="tab-btn">🛫 Dep <span id="badge-dep" class="pill pill-rose">0</span></button>
         <button onclick="switchTab('inv')" id="tab-inv" class="tab-btn">📊 Inventory <span id="badge-inv" class="pill pill-amber">0</span></button>
+        <button onclick="switchTab('diary')" id="tab-diary" class="tab-btn">📅 Room Diary <span id="badge-diary" class="pill pill-indigo">0</span></button>
         <button onclick="switchTab('hk')" id="tab-hk" class="tab-btn">🧹 Housekeeping <span id="badge-hk" class="pill pill-cyan">0</span></button>
         <button onclick="switchTab('import')" id="tab-import" class="tab-btn">📥 Import</button>
         <button onclick="switchTab('export')" id="tab-export" class="tab-btn">📤 Backup & Logs</button>
@@ -399,6 +654,115 @@
         <table class="inv-table">
           <thead id="thead-inv"></thead>
           <tbody id="tbody-inv"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ROOM DIARY TAB -->
+    <section id="view-diary" class="tab-view hidden">
+      <div class="diary-search-card">
+        <div class="diary-search-header" onclick="toggleDiarySearchPanel()">
+          <span>🔍 Search</span>
+          <span id="diary-search-chevron">⌄</span>
+        </div>
+        <div id="diary-search-body" class="diary-search-body">
+          <div class="diary-req-note">* Required Field</div>
+          <div class="diary-filter-grid">
+            <div>
+              <div class="diary-field">
+                <label>* Date</label>
+                <div style="display:flex;align-items:center;gap:6px">
+                  <input id="diary-filter-date" type="date" onchange="syncDiaryDateFromFilter()" style="flex:1" />
+                  <span id="diary-filter-dow" style="font-size:11px;color:#475569;min-width:26px"></span>
+                </div>
+              </div>
+              <div class="diary-field">
+                <label>Room</label>
+                <input id="diary-filter-room" type="text" placeholder="e.g. 1000, 1102..." oninput="renderRoomDiary()" />
+              </div>
+            </div>
+
+            <div>
+              <div class="diary-field">
+                <label>Room Type</label>
+                <select id="diary-filter-type" onchange="renderRoomDiary()">
+                  <option value="ALL">All Room Types</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <div class="diary-field">
+                <label>Floor</label>
+                <select id="diary-filter-floor" onchange="renderRoomDiary()">
+                  <option value="ALL">All Floors</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="diary-chk-col">
+              <label><input id="diary-group-type" type="checkbox" onchange="renderRoomDiary()" /> Group By Room Type</label>
+              <label><input id="diary-include-moves" type="checkbox" checked onchange="renderRoomDiary()" /> Include Room Move History</label>
+              <label><input id="diary-include-suite" type="checkbox" checked onchange="renderRoomDiary()" /> Include Component Suite Block Out Dates</label>
+            </div>
+          </div>
+
+          <div class="diary-search-actions">
+            <button type="button" class="diary-btn-reset" onclick="resetDiaryFilters()">Reset</button>
+            <button type="button" class="diary-btn-search" onclick="renderRoomDiary()">Search</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="diary-toolbar">
+        <div class="diary-toolbar-left">
+          <input id="diary-start-date" type="date" onchange="syncDiaryFilterFromStart()" style="height:26px;border:1px solid #94a3b8;border-radius:3px;padding:0 6px;font-size:12px" />
+          <button type="button" class="btn btn-sm btn-light" onclick="shiftDiaryDate(-1)" title="Previous Day">◀</button>
+          <button type="button" class="btn btn-sm btn-light" onclick="shiftDiaryDate(1)" title="Next Day">▶</button>
+
+          <label style="margin-left:6px;color:#334155">View</label>
+          <select id="diary-days-select" onchange="renderRoomDiary()" style="height:26px;border:1px solid #94a3b8;border-radius:3px;padding:0 6px;font-size:12px">
+            <option value="7" selected>7 Days</option>
+            <option value="5">5 Days</option>
+            <option value="10">10 Days</option>
+            <option value="14">14 Days</option>
+          </select>
+
+          <label style="margin-left:6px;color:#334155">Sort By</label>
+          <select id="diary-sort-select" onchange="renderRoomDiary()" style="height:26px;border:1px solid #94a3b8;border-radius:3px;padding:0 6px;font-size:12px">
+            <option value="default" selected>Default</option>
+            <option value="room-asc">Room (Asc)</option>
+            <option value="type-asc">Room Type</option>
+            <option value="hk-status">HK Status</option>
+          </select>
+
+          <button type="button" class="diary-link-btn" onclick="toggleDiaryLegend()">Legend</button>
+          <button type="button" class="diary-link-btn" onclick="toggleDiarySearchPanel()">▼ Filter Results</button>
+        </div>
+
+        <div class="diary-toolbar-right">
+          <button type="button" class="diary-link-btn" onclick="showDiaryStatistics()">Statistics</button>
+          <button type="button" class="diary-link-btn" onclick="switchTab('inv')">Property Calendar</button>
+          <span id="diary-results-count" style="font-weight:600;color:#1e293b">0 results</span>
+        </div>
+      </div>
+
+      <div id="diary-legend-bar" class="hidden" style="background:#f8fafc;border:1px solid #cbd5e1;border-bottom:none;padding:6px 12px;font-size:11.5px;display:flex;flex-wrap:wrap;gap:14px;align-items:center">
+        <span><strong style="color:#1e5f66">■</strong> In-house</span>
+        <span><strong style="color:#26999e">■</strong> Arrival / Due In</span>
+        <span><strong style="color:#9c8412">■</strong> Linked / Sharer</span>
+        <span><strong style="color:#8c8d91">■</strong> Out of Service / Block</span>
+        <span><span class="diary-hk-dot diary-hk-DI">D</span> Dirty</span>
+        <span><span class="diary-hk-dot diary-hk-CL">C</span> Clean</span>
+        <span><span class="diary-hk-dot diary-hk-IP">I</span> Inspected</span>
+        <span><span class="diary-hk-dot diary-hk-OO">O</span> OO</span>
+        <span><span class="diary-hk-dot diary-hk-OS">S</span> OS</span>
+      </div>
+
+      <div class="diary-grid-wrap">
+        <table class="diary-table" id="diary-grid-table">
+          <thead id="diary-thead"></thead>
+          <tbody id="diary-tbody"></tbody>
         </table>
       </div>
     </section>
@@ -709,9 +1073,20 @@ function formatRateAmount(item) {
   return curr && curr.toUpperCase() !== 'VND' ? `${numStr} ${curr}` : numStr;
 }
 
-docRef.onSnapshot(d => {
+let cloudReadyTimer = setTimeout(() => {
+  const msgEl = document.getElementById('cloud-conn-msg');
+  if (msgEl && msgEl.textContent.includes('Connecting')) {
+    msgEl.textContent = '🟡 Ready for login (waiting for cloud sync...)';
+  }
+}, 1500);
+
+docRef.onSnapshot({ includeMetadataChanges: true }, d => {
+  clearTimeout(cloudReadyTimer);
+  const msgEl = document.getElementById('cloud-conn-msg');
+  const syncEl = document.getElementById('sync-status-text');
+
   if (d.exists) {
-    const v = d.data();
+    const v = d.data() || {};
     state = {
       workingDate: v.workingDate || '2026-10-06',
       inhouse: v.inhouse || [],
@@ -723,7 +1098,7 @@ docRef.onSnapshot(d => {
       isShutdown: v.isShutdown || false
     };
     if (fpWorkingDate) fpWorkingDate.setDate(state.workingDate, false);
-    else document.getElementById('workingDateInput').value = state.workingDate;
+    else if (document.getElementById('workingDateInput')) document.getElementById('workingDateInput').value = state.workingDate;
 
     const invDateEl = document.getElementById('inv-start-date');
     if (invDateEl && !invDateEl.value) {
@@ -731,11 +1106,12 @@ docRef.onSnapshot(d => {
       else invDateEl.value = state.workingDate;
     }
 
-    document.getElementById('cloud-conn-msg').textContent = '🟢 Ready for login';
-    const syncEl = document.getElementById('sync-status-text');
-    const syncLabel = `Synced (${new Date().toLocaleTimeString('en-US')})`;
-    syncEl.setAttribute('data-last-sync', syncLabel);
-    syncEl.textContent = `🟢 ${syncLabel}`;
+    if (msgEl) msgEl.textContent = d.metadata.fromCache ? '🟡 Ready for login (Local cache)' : '🟢 Ready for login';
+    if (syncEl) {
+      const syncLabel = `${d.metadata.fromCache ? 'Cached' : 'Synced'} (${new Date().toLocaleTimeString('en-US')})`;
+      syncEl.setAttribute('data-last-sync', syncLabel);
+      syncEl.textContent = `${d.metadata.fromCache ? '🟡' : '🟢'} ${syncLabel}`;
+    }
     updateCloudQuotaIndicator();
     
     const isFomUser = currentUser && (currentUser.role === 'FOM' || ['FOM', 'HP'].includes(currentUser.username.toUpperCase()));
@@ -753,10 +1129,15 @@ docRef.onSnapshot(d => {
 
     if (currentUser) refreshAllUI();
   } else {
-    pushStateToCloud();
+    if (msgEl) msgEl.textContent = '🟢 Ready for login (New Cloud Doc)';
+    if (!d.metadata.fromCache) {
+      pushStateToCloud();
+    }
   }
 }, e => {
-  document.getElementById('cloud-conn-msg').textContent = `🔴 Cloud Error: ${e.message}`;
+  clearTimeout(cloudReadyTimer);
+  const msgEl = document.getElementById('cloud-conn-msg');
+  if (msgEl) msgEl.textContent = `🟡 Ready for login (Offline/Error: ${e.message})`;
 });
 
 function pushStateToCloud() {
@@ -1036,6 +1417,7 @@ function switchTab(t) {
   document.getElementById('view-' + t).classList.remove('hidden');
   document.getElementById('tab-' + t).classList.add('active');
   if (t === 'inv') renderInventory();
+  if (t === 'diary') renderRoomDiary();
 }
 
 function isCurrentUserFOM() {
@@ -1749,6 +2131,9 @@ function refreshAllUI() {
   document.getElementById('badge-dep').textContent = dc;
   document.getElementById('badge-inh').textContent = state.inhouse.length;
   document.getElementById('badge-hk').textContent = Object.keys(state.rooms).length;
+  const badgeDiary = document.getElementById('badge-diary');
+  if (badgeDiary) badgeDiary.textContent = Object.keys(state.rooms).length;
+  if (typeof renderRoomDiary === 'function') renderRoomDiary();
   updateFomShutdownResumeButtons();
   updateWorkingDatePermission();
   updateCloudQuotaIndicator();
@@ -2849,6 +3234,285 @@ function resetAllData() {
     refreshAllUI();
   }
 }
+
+// === ROOM DIARY LOGIC ===
+function toggleDiarySearchPanel() {
+  const body = document.getElementById('diary-search-body');
+  const chev = document.getElementById('diary-search-chevron');
+  if (!body) return;
+  const isHidden = body.classList.toggle('hidden');
+  if (chev) chev.textContent = isHidden ? '▸' : '⌄';
+}
+
+function toggleDiaryLegend() {
+  const el = document.getElementById('diary-legend-bar');
+  if (!el) return;
+  el.classList.toggle('hidden');
+}
+
+function populateDiaryFilterOptions() {
+  const rooms = Object.values(state.rooms || {});
+  const typeSel = document.getElementById('diary-filter-type');
+  const floorSel = document.getElementById('diary-filter-floor');
+  if (typeSel) {
+    const curType = typeSel.value || 'ALL';
+    const types = [...new Set(rooms.map(r => (r.type || '').trim()).filter(Boolean))].sort();
+    typeSel.innerHTML = `<option value="ALL">All Room Types</option>` + types.map(t => `<option value="${t}">${t}</option>`).join('');
+    if ([...typeSel.options].some(o => o.value === curType)) typeSel.value = curType;
+  }
+  if (floorSel) {
+    const curFloor = floorSel.value || 'ALL';
+    const floors = [...new Set(rooms.map(r => String(r.room || '').trim().slice(0, 2)).filter(Boolean))].sort();
+    floorSel.innerHTML = `<option value="ALL">All Floors</option>` + floors.map(f => `<option value="${f}">${f}</option>`).join('');
+    if ([...floorSel.options].some(o => o.value === curFloor)) floorSel.value = curFloor;
+  }
+}
+
+function ensureDiaryDateInputs() {
+  const baseISO = parseDateToISO(state.workingDate) || '2026-11-19';
+  const startEl = document.getElementById('diary-start-date');
+  const filterEl = document.getElementById('diary-filter-date');
+  if (startEl && !startEl.value) startEl.value = baseISO;
+  if (filterEl && !filterEl.value) filterEl.value = startEl ? startEl.value : baseISO;
+  updateDiaryDowLabel();
+}
+
+function updateDiaryDowLabel() {
+  const filterEl = document.getElementById('diary-filter-date');
+  const dowEl = document.getElementById('diary-filter-dow');
+  if (!filterEl || !dowEl || !filterEl.value) return;
+  const [y, m, d] = filterEl.value.split('-').map(Number);
+  const dt = new Date(y, (m || 1) - 1, d || 1);
+  const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  dowEl.textContent = days[dt.getDay()] || '';
+}
+
+function syncDiaryDateFromFilter() {
+  const filterEl = document.getElementById('diary-filter-date');
+  const startEl = document.getElementById('diary-start-date');
+  if (filterEl && startEl && filterEl.value) startEl.value = filterEl.value;
+  updateDiaryDowLabel();
+  renderRoomDiary();
+}
+
+function syncDiaryFilterFromStart() {
+  const startEl = document.getElementById('diary-start-date');
+  const filterEl = document.getElementById('diary-filter-date');
+  if (startEl && filterEl && startEl.value) filterEl.value = startEl.value;
+  updateDiaryDowLabel();
+  renderRoomDiary();
+}
+
+function shiftDiaryDate(deltaDays) {
+  const startEl = document.getElementById('diary-start-date');
+  const curISO = parseDateToISO(startEl?.value) || state.workingDate || '2026-11-19';
+  const [y, m, d] = curISO.split('-').map(Number);
+  const next = new Date(y, (m || 1) - 1, (d || 1) + deltaDays);
+  const nextISO = `${next.getFullYear()}-${String(next.getMonth() + 1).padStart(2, '0')}-${String(next.getDate()).padStart(2, '0')}`;
+  if (startEl) startEl.value = nextISO;
+  const filterEl = document.getElementById('diary-filter-date');
+  if (filterEl) filterEl.value = nextISO;
+  updateDiaryDowLabel();
+  renderRoomDiary();
+}
+
+function resetDiaryFilters() {
+  const baseISO = parseDateToISO(state.workingDate) || '2026-11-19';
+  const roomEl = document.getElementById('diary-filter-room');
+  if (roomEl) roomEl.value = '';
+  ['diary-filter-type', 'diary-filter-floor'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = 'ALL';
+  });
+  const grpEl = document.getElementById('diary-group-type');
+  if (grpEl) grpEl.checked = false;
+  const startEl = document.getElementById('diary-start-date');
+  const filterEl = document.getElementById('diary-filter-date');
+  if (startEl) startEl.value = baseISO;
+  if (filterEl) filterEl.value = baseISO;
+  updateDiaryDowLabel();
+  renderRoomDiary();
+}
+
+function showDiaryStatistics() {
+  const numDays = parseInt(document.getElementById('diary-days-select')?.value || '7', 10);
+  const startISO = parseDateToISO(document.getElementById('diary-start-date')?.value) || state.workingDate || '2026-11-19';
+  const dates = getDateSequence(startISO, numDays);
+  const totalRooms = Object.keys(state.rooms || {}).length;
+  const allBookings = [
+    ...(state.inhouse || []).map(b => ({ ...b, _src: 'inh' })),
+    ...(state.arrivals || []).map(b => ({ ...b, _src: 'arr' }))
+  ];
+  const lines = dates.map(dt => {
+    const occ = allBookings.filter(b => {
+      const a = parseDateToISO(b.arrival);
+      const d = parseDateToISO(b.departure) || a;
+      return a && a <= dt.iso && dt.iso < d;
+    }).length;
+    const pct = totalRooms > 0 ? ((occ / totalRooms) * 100).toFixed(1) : '0.0';
+    return `${dt.label} (${dt.dayName}): ${occ}/${totalRooms} rooms (${pct}%)`;
+  });
+  alert(`Room Diary Occupancy (${totalRooms} rooms):\n\n` + lines.join('\n'));
+}
+
+function renderRoomDiary() {
+  const thead = document.getElementById('diary-thead');
+  const tbody = document.getElementById('diary-tbody');
+  if (!thead || !tbody) return;
+
+  populateDiaryFilterOptions();
+  ensureDiaryDateInputs();
+
+  const startISO = parseDateToISO(document.getElementById('diary-start-date')?.value) || state.workingDate || '2026-11-19';
+  const numDays = parseInt(document.getElementById('diary-days-select')?.value || '7', 10);
+  const sortBy = document.getElementById('diary-sort-select')?.value || 'default';
+  const roomQ = (document.getElementById('diary-filter-room')?.value || '').trim().toLowerCase();
+  const typeF = document.getElementById('diary-filter-type')?.value || 'ALL';
+  const floorF = document.getElementById('diary-filter-floor')?.value || 'ALL';
+  const groupByType = !!document.getElementById('diary-group-type')?.checked;
+
+  const dates = getDateSequence(startISO, numDays);
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const firstParts = dates[0].iso.split('-');
+  const monthHeaderLabel = `${monthNames[(Number(firstParts[1]) - 1) || 0]} ${firstParts[0]}`;
+
+  thead.innerHTML = `
+    <tr>
+      <th class="diary-room-col" rowspan="2">Room</th>
+      <th colspan="${dates.length}" style="height:22px;font-size:11px;color:#334155;background:#f8fafc">${monthHeaderLabel}</th>
+    </tr>
+    <tr>
+      ${dates.map(d => `<th class="${d.isWeekend ? 'diary-wknd-cell' : ''}" style="height:24px;font-size:11px">${d.label} ${d.dayName}</th>`).join('')}
+    </tr>
+  `;
+
+  let rooms = Object.values(state.rooms || {});
+  const allBookings = [
+    ...(state.inhouse || []).map(b => ({ ...b, _src: 'inh' })),
+    ...(state.arrivals || []).map(b => ({ ...b, _src: 'arr' }))
+  ];
+
+  rooms = rooms.filter(r => {
+    const rNo = String(r.room || '').trim();
+    const rType = String(r.type || '').trim();
+    const rFloor = rNo.slice(0, 2);
+
+    if (roomQ && !rNo.toLowerCase().includes(roomQ)) return false;
+    if (typeF !== 'ALL' && rType !== typeF) return false;
+    if (floorF !== 'ALL' && rFloor !== floorF) return false;
+    return true;
+  });
+
+  if (sortBy === 'room-asc') {
+    rooms.sort((a, b) => String(a.room).localeCompare(String(b.room), undefined, { numeric: true }));
+  } else if (sortBy === 'type-asc') {
+    rooms.sort((a, b) => String(a.type).localeCompare(String(b.type)) || String(a.room).localeCompare(String(b.room), undefined, { numeric: true }));
+  } else if (sortBy === 'hk-status') {
+    rooms.sort((a, b) => String(a.status).localeCompare(String(b.status)) || String(a.room).localeCompare(String(b.room), undefined, { numeric: true }));
+  } else {
+    rooms.sort((a, b) => String(a.room).localeCompare(String(b.room), undefined, { numeric: true }));
+  }
+
+  const countEl = document.getElementById('diary-results-count');
+  if (countEl) countEl.textContent = `${rooms.length} results`;
+
+  if (!rooms.length) {
+    tbody.innerHTML = `<tr><td colspan="${dates.length + 1}" style="text-align:center;padding:30px;color:#64748b">No rooms found matching filter.</td></tr>`;
+    return;
+  }
+
+  const buildRoomRowHtml = (r) => {
+    const rNo = String(r.room || '').trim();
+    const rType = String(r.type || '').trim();
+    const st = String(r.status || 'CL').trim();
+    const hkCodeChar = st.charAt(0) || 'C';
+
+    const roomBookings = allBookings.filter(b => String(b.room || '').trim() === rNo);
+    const hasOosBlock = ['OO', 'OS'].includes(st);
+
+    const dayCellsHtml = dates.map((d, idx) => {
+      const wkndCls = d.isWeekend ? 'diary-wknd-cell' : '';
+      let barHtml = '';
+
+      if (hasOosBlock && idx === 0) {
+        const spanCount = Math.min(dates.length, 3);
+        barHtml = `<div class="diary-bar diary-bar-oos" style="width:calc(${spanCount * 100}% - 4px);left:2px" title="${st}: ${r.note || rNo}">${st} Room ${rNo}</div>`;
+      } else {
+        const booking = roomBookings.find(b => {
+          const arrISO = parseDateToISO(b.arrival);
+          const depISO = parseDateToISO(b.departure);
+          if (!arrISO) return false;
+          if (!depISO) return arrISO === d.iso;
+          return arrISO <= d.iso && d.iso < depISO;
+        });
+
+        if (booking) {
+          const arrISO = parseDateToISO(booking.arrival);
+          const depISO = parseDateToISO(booking.departure);
+          const isStartInWindow = arrISO === d.iso || (idx === 0 && arrISO < d.iso);
+
+          if (isStartInWindow) {
+            let spanDays = 1;
+            for (let k = idx + 1; k < dates.length; k++) {
+              const nextDayISO = dates[k].iso;
+              const stillInside = depISO ? nextDayISO < depISO : false;
+              if (stillInside) spanDays++;
+              else break;
+            }
+            const barCls = booking.isSharer ? 'diary-bar-linked' : (booking._src === 'inh' ? 'diary-bar-inh' : 'diary-bar-arr');
+            const labelText = booking.name || booking.confNo || 'Guest';
+            barHtml = `<div class="diary-bar ${barCls}" style="width:calc(${spanDays * 100}% - 4px);left:2px" onclick="event.stopPropagation();openGuestModal('${booking._src}','${booking.id}')" title="${labelText} (${booking.arrival || ''} → ${booking.departure || ''})">${labelText}</div>`;
+          }
+        }
+      }
+
+      return `<td class="diary-day-cell ${wkndCls}" onclick="openWalkInModalForRoom('${rNo}','${d.iso}')">${barHtml}</td>`;
+    }).join('');
+
+    return `
+      <tr>
+        <td class="diary-room-col">
+          <div class="diary-room-cell-inner">
+            <div class="diary-room-left">
+              <span class="diary-hk-dot diary-hk-${st}" title="HK: ${st}">${hkCodeChar}</span>
+              <span class="diary-room-no">${rNo}</span>
+              <span class="diary-room-type">${rType}</span>
+            </div>
+            <span style="font-size:10px;color:#7e22ce;font-weight:700">${r.note ? '•' : ''}</span>
+          </div>
+        </td>
+        ${dayCellsHtml}
+      </tr>
+    `;
+  };
+
+  let html = '';
+  if (groupByType) {
+    const grouped = {};
+    rooms.forEach(r => {
+      const k = r.type || 'UNKNOWN';
+      if (!grouped[k]) grouped[k] = [];
+      grouped[k].push(r);
+    });
+    Object.keys(grouped).sort().forEach(rt => {
+      html += `<tr class="diary-group-row"><td colspan="${dates.length + 1}">Room Type: ${rt} (${grouped[rt].length})</td></tr>`;
+      grouped[rt].forEach(r => { html += buildRoomRowHtml(r); });
+    });
+  } else {
+    rooms.forEach(r => { html += buildRoomRowHtml(r); });
+  }
+
+  tbody.innerHTML = html;
+}
+
+function openWalkInModalForRoom(roomNo, isoDate) {
+  if (typeof openWalkInModal === 'function') openWalkInModal();
+  const rmEl = document.getElementById('edit-room');
+  const arrEl = document.getElementById('edit-arr');
+  if (rmEl && roomNo) rmEl.value = roomNo;
+  if (arrEl && isoDate) arrEl.value = isoDate;
+}
+
 </script>
 </body>
 </html>
