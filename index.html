@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Opera Cloud Downtime PMS</title>
+  <title>Opera Cloud Downtime PMS - V21</title>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -40,6 +40,7 @@
     .pill-emerald{background:#d1fae5;color:#047857}
     .pill-cyan{background:#cffafe;color:#0e7490}
     .pill-indigo{background:#e0e7ff;color:#3730a3}
+    .pill-amber{background:#fef3c7;color:#b45309}
     main{max-width:1400px;width:100%;margin:0 auto;padding:20px 16px;flex:1}
     .card{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:16px;margin-bottom:16px}
     .toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
@@ -96,6 +97,30 @@
     .dropdown-check-list.visible .items{display:block}
     .flatpickr-calendar{z-index:9999!important}
     input[type="checkbox"]{width:15px;height:15px;cursor:pointer}
+
+    /* INVENTORY / PROPERTY AVAILABILITY (OPERA CLOUD STYLE) */
+    .inv-panel-header{background:#1e293b;color:#fff;padding:10px 16px;border-radius:8px 8px 0 0;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center}
+    .inv-search-body{background:#fff;border:1px solid #cbd5e1;border-top:none;border-radius:0 0 8px 8px;padding:14px 16px;margin-bottom:16px}
+    .inv-table-wrap{background:#fff;border:1px solid #cbd5e1;border-radius:8px;overflow-x:auto;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.05)}
+    .inv-table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;font-size:12px}
+    .inv-table th,.inv-table td{border-bottom:1px solid #e2e8f0;border-right:1px solid #f1f5f9;padding:7px 10px;white-space:nowrap}
+    .inv-table thead th{background:#f8fafc;color:#1e293b;font-weight:700;text-align:center;border-bottom:2px solid #cbd5e1;position:sticky;top:0;z-index:10;text-transform:none;font-size:12px}
+    .inv-table th.col-sticky-1,.inv-table td.col-sticky-1{position:sticky;left:0;z-index:12;min-width:125px;width:125px;text-align:left;background:#fff}
+    .inv-table th.col-sticky-2,.inv-table td.col-sticky-2{position:sticky;left:125px;z-index:12;min-width:165px;width:165px;text-align:left;background:#fff;border-right:2px solid #cbd5e1}
+    .inv-table thead th.col-sticky-1,.inv-table thead th.col-sticky-2{background:#f8fafc;z-index:15}
+    .inv-table tr.row-house td{background:#e2e8f0!important;font-weight:800;color:#0f172a;border-bottom:2px solid #94a3b8}
+    .inv-table tr.row-type td{font-weight:600;color:#1e293b}
+    .inv-table tr.row-type:hover td:not(.wknd-col){background:#f8fafc}
+    .inv-table tr.row-sub td{background:#f8fafc;color:#475569;font-size:11px;padding:5px 10px}
+    .inv-table tr.row-sub td.col-sticky-2{padding-left:22px;color:#64748b}
+    .inv-table th.wknd-col,.inv-table td.wknd-col{background:#f1f5f9}
+    .inv-table tr.row-house td.wknd-col{background:#cbd5e1!important}
+    .inv-cell-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+    .inv-cell-zero{color:#94a3b8;font-weight:500}
+    .inv-cell-neg{color:#dc2626!important;background:#fee2e2!important;font-weight:800}
+    .inv-cell-low{color:#d97706;font-weight:700}
+    .inv-expand-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;border:1px solid #94a3b8;background:#fff;color:#334155;font-size:11px;font-weight:800;cursor:pointer;margin-right:6px;line-height:1;user-select:none}
+    .inv-expand-btn:hover{background:#2563eb;color:#fff;border-color:#2563eb}
   </style>
 </head>
 <body>
@@ -151,6 +176,7 @@
         <button onclick="switchTab('arr')" id="tab-arr" class="tab-btn">🛬 Arr (Today) <span id="badge-arr" class="pill pill-blue">0</span></button>
         <button onclick="switchTab('inh')" id="tab-inh" class="tab-btn">🏨 In-house <span id="badge-inh" class="pill pill-emerald">0</span></button>
         <button onclick="switchTab('dep')" id="tab-dep" class="tab-btn">🛫 Dep <span id="badge-dep" class="pill pill-rose">0</span></button>
+        <button onclick="switchTab('inv')" id="tab-inv" class="tab-btn">📊 Inventory <span id="badge-inv" class="pill pill-amber">0</span></button>
         <button onclick="switchTab('hk')" id="tab-hk" class="tab-btn">🧹 Housekeeping <span id="badge-hk" class="pill pill-cyan">0</span></button>
         <button onclick="switchTab('import')" id="tab-import" class="tab-btn">📥 Import</button>
         <button onclick="switchTab('export')" id="tab-export" class="tab-btn">📤 Backup & Logs</button>
@@ -327,6 +353,56 @@
       </div>
     </section>
 
+    <!-- INVENTORY / PROPERTY AVAILABILITY TAB -->
+    <section id="view-inv" class="tab-view hidden">
+      <div class="inv-panel-header">
+        <span>Property Availability (Inventory Check)</span>
+        <span style="font-size:11px;font-weight:500;color:#cbd5e1">Formula: Available = Total Room Plan − Booked (In-house + Reserved) − OOO</span>
+      </div>
+      <div class="inv-search-body">
+        <div class="toolbar">
+          <div class="filters">
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#64748b;margin-bottom:3px">Start Date</label>
+              <input type="text" id="inv-start-date" class="date-picker-input" placeholder="dd/mm/yyyy" style="width:140px" readonly>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#64748b;margin-bottom:3px">Days</label>
+              <select id="inv-days-select" onchange="renderInventory()" style="width:105px">
+                <option value="7">7 Days</option>
+                <option value="14" selected>14 Days</option>
+                <option value="21">21 Days</option>
+                <option value="28">28 Days</option>
+              </select>
+            </div>
+            <div>
+              <label style="display:block;font-size:11px;font-weight:700;color:#64748b;margin-bottom:3px">Room Type</label>
+              <div id="inv-type-dropdown" class="dropdown-check-list">
+                <div class="selector" onclick="toggleGenericDropdown('inv-type-dropdown')"><span>Room Types (<span id="inv-type-count">All</span>)</span> ▾</div>
+                <div class="items" id="inv-type-checkboxes"></div>
+              </div>
+            </div>
+            <div style="align-self:flex-end;display:flex;gap:6px">
+              <button onclick="shiftInventoryDate(-7)" class="btn btn-sm btn-light" title="Previous 7 days">◀ Prev 7d</button>
+              <button onclick="resetInventorySearch()" class="btn btn-sm btn-light">Today (Business Date)</button>
+              <button onclick="shiftInventoryDate(7)" class="btn btn-sm btn-light" title="Next 7 days">Next 7d ▶</button>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
+            <button onclick="toggleExpandAllInventory()" id="btn-inv-expand-all" class="btn btn-sm btn-light">⊞ Expand All</button>
+            <button onclick="exportInventoryCSV()" class="btn btn-sm btn-emerald">⬇ Export CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="inv-table-wrap">
+        <table class="inv-table">
+          <thead id="thead-inv"></thead>
+          <tbody id="tbody-inv"></tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- HK TAB -->
     <section id="view-hk" class="tab-view hidden">
       <div class="card toolbar">
@@ -462,7 +538,8 @@ let state = {
   isShutdown: false
 };
 let currentUser = null, selectedHKRooms = new Set(), backupTimer = null;
-let fpWorkingDate = null, fpArr = null, fpDep = null;
+let fpWorkingDate = null, fpArr = null, fpDep = null, fpInvStart = null;
+let expandedInvRows = new Set();
 
 // Lưu trữ các booking được tick chọn cho từng tab
 let selectedBookings = {
@@ -510,6 +587,16 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     onChange: function(selectedDates, dateStr) {
       if (dateStr) updateWorkingDate(dateStr);
+    }
+  });
+
+  fpInvStart = flatpickr("#inv-start-date", {
+    dateFormat: "Y-m-d",
+    altInput: true,
+    altFormat: "d/m/Y",
+    defaultDate: state.workingDate,
+    onChange: function(selectedDates, dateStr) {
+      if (dateStr) renderInventory();
     }
   });
 
@@ -638,6 +725,12 @@ docRef.onSnapshot(d => {
     if (fpWorkingDate) fpWorkingDate.setDate(state.workingDate, false);
     else document.getElementById('workingDateInput').value = state.workingDate;
 
+    const invDateEl = document.getElementById('inv-start-date');
+    if (invDateEl && !invDateEl.value) {
+      if (fpInvStart) fpInvStart.setDate(state.workingDate, false);
+      else invDateEl.value = state.workingDate;
+    }
+
     document.getElementById('cloud-conn-msg').textContent = '🟢 Ready for login';
     const syncEl = document.getElementById('sync-status-text');
     const syncLabel = `Synced (${new Date().toLocaleTimeString('en-US')})`;
@@ -724,7 +817,10 @@ function handleLogin() {
   
   updateFomShutdownResumeButtons();
 
-  ['res', 'arr', 'inh', 'dep', 'hk', 'import', 'export', 'users'].forEach(t => document.getElementById('tab-' + t).classList.remove('hidden'));
+  if (fpInvStart) fpInvStart.setDate(state.workingDate, false);
+  else document.getElementById('inv-start-date').value = state.workingDate;
+
+  ['res', 'arr', 'inh', 'dep', 'inv', 'hk', 'import', 'export', 'users'].forEach(t => document.getElementById('tab-' + t).classList.remove('hidden'));
   if (r === 'FO') {
     b.textContent = 'FO'; b.style.background = '#2563eb';
     document.getElementById('tab-users').classList.add('hidden');
@@ -735,7 +831,7 @@ function handleLogin() {
     switchTab('res');
   } else if (r === 'HK') {
     b.textContent = 'HK'; b.style.background = '#0891b2';
-    ['res', 'arr', 'dep', 'import', 'export', 'users'].forEach(t => document.getElementById('tab-' + t).classList.add('hidden'));
+    ['res', 'arr', 'dep', 'inv', 'import', 'export', 'users'].forEach(t => document.getElementById('tab-' + t).classList.add('hidden'));
     switchTab('hk');
   } else {
     b.textContent = 'Downtime PMS'; b.style.background = '#d97706';
@@ -939,6 +1035,7 @@ function switchTab(t) {
   document.querySelectorAll('.tab-btn').forEach(e => e.classList.remove('active'));
   document.getElementById('view-' + t).classList.remove('hidden');
   document.getElementById('tab-' + t).classList.add('active');
+  if (t === 'inv') renderInventory();
 }
 
 function isCurrentUserFOM() {
@@ -991,6 +1088,7 @@ function updateWorkingDate(v) {
   state.workingDate = cleanV;
   const sel = document.getElementById('filter-dep-date');
   if (sel) sel.value = state.workingDate;
+  if (fpInvStart) fpInvStart.setDate(state.workingDate, false);
   addLog('SYSTEM', '-', `Changed Business Date to ${formatDate(state.workingDate)}`);
   pushStateToCloud();
   refreshAllUI();
@@ -1635,6 +1733,7 @@ function refreshAllUI() {
   renderRes();
   renderDep();
   renderInh();
+  renderInventory();
   renderHK();
   renderLogs();
   renderUsers();
@@ -1668,7 +1767,7 @@ function getAllRoomTypes() {
 
 function updateBookingTypeCheckboxes(forceReset = false) {
   const types = getAllRoomTypes();
-  ['res', 'arr', 'inh', 'dep'].forEach(tabKey => {
+  ['res', 'arr', 'inh', 'dep', 'inv'].forEach(tabKey => {
     const cbs = document.getElementById(`${tabKey}-type-checkboxes`);
     if (!cbs) return;
     const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll(`.${tabKey}-type-chk:checked`)).map(cb => cb.value));
@@ -1686,6 +1785,8 @@ function updateBookingTypeCheckboxes(forceReset = false) {
 
 function toggleAllBookingTypes(tabKey, source) {
   document.querySelectorAll(`.${tabKey}-type-chk`).forEach(cb => cb.checked = source.checked);
+  const allCbs = document.querySelectorAll(`.${tabKey}-type-chk`);
+  updateBookingTypeCountLabel(tabKey, allCbs.length);
   triggerRenderTab(tabKey);
 }
 
@@ -1714,6 +1815,7 @@ function triggerRenderTab(tabKey) {
   else if (tabKey === 'arr') renderArr();
   else if (tabKey === 'inh') renderInh();
   else if (tabKey === 'dep') renderDep();
+  else if (tabKey === 'inv') renderInventory();
 }
 
 function isRoomTypeAllowed(tabKey, rType) {
@@ -1721,6 +1823,290 @@ function isRoomTypeAllowed(tabKey, rType) {
   if (checkedCbs.length === 0) return true;
   const allowed = Array.from(checkedCbs).map(cb => cb.value);
   return allowed.includes(rType);
+}
+
+/* ================= INVENTORY / PROPERTY AVAILABILITY ================= */
+
+function getDateSequence(startISO, numDays) {
+  const dates = [];
+  const cleanStart = parseDateToISO(startISO) || state.workingDate || '2026-10-06';
+  const parts = cleanStart.split('-');
+  let baseDate = parts.length === 3
+    ? new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]))
+    : new Date();
+  if (isNaN(baseDate.getTime())) baseDate = new Date();
+
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  for (let i = 0; i < numDays; i++) {
+    const d = new Date(baseDate.getFullYear(), baseDate.getMonth(), baseDate.getDate() + i);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const dow = d.getDay();
+    dates.push({
+      iso: `${yyyy}-${mm}-${dd}`,
+      label: `${dd}/${mm}`,
+      dowName: dayNames[dow],
+      isWeekend: dow === 0 || dow === 6
+    });
+  }
+  return dates;
+}
+
+function shiftInventoryDate(deltaDays) {
+  const curISO = parseDateToISO(document.getElementById('inv-start-date')?.value) || state.workingDate;
+  const parts = curISO.split('-');
+  if (parts.length !== 3) return;
+  const d = new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]) + deltaDays);
+  const nextISO = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  if (fpInvStart) fpInvStart.setDate(nextISO, true);
+  else {
+    document.getElementById('inv-start-date').value = nextISO;
+    renderInventory();
+  }
+}
+
+function resetInventorySearch() {
+  if (fpInvStart) fpInvStart.setDate(state.workingDate, true);
+  else {
+    document.getElementById('inv-start-date').value = state.workingDate;
+    renderInventory();
+  }
+}
+
+function toggleInvRowExpand(key) {
+  if (expandedInvRows.has(key)) expandedInvRows.delete(key);
+  else expandedInvRows.add(key);
+  renderInventory();
+}
+
+function toggleExpandAllInventory() {
+  const roomTypes = getAllRoomTypes();
+  const allKeys = ['HOUSE', ...roomTypes];
+  const anyCollapsed = allKeys.some(k => !expandedInvRows.has(k));
+  if (anyCollapsed) {
+    allKeys.forEach(k => expandedInvRows.add(k));
+  } else {
+    expandedInvRows.clear();
+  }
+  renderInventory();
+}
+
+function computeInventoryMatrix(startISO, numDays) {
+  const dates = getDateSequence(startISO, numDays);
+  const allRooms = Object.values(state.rooms);
+
+  // Tập hợp toàn bộ Room Type từ Room Plan và Booking
+  const typeSet = new Set();
+  allRooms.forEach(r => { if (r.type) typeSet.add(r.type.trim()); });
+  state.inhouse.forEach(g => { if (g.roomType) typeSet.add(g.roomType.trim()); });
+  state.arrivals.forEach(a => { if (a.roomType) typeSet.add(a.roomType.trim()); });
+  const allTypes = Array.from(typeSet).sort();
+
+  // Tổng số phòng vật lý theo từng loại dựa vào Room Plan & số phòng OOO
+  const totalByType = {};
+  const oooByType = {};
+  allTypes.forEach(rt => {
+    totalByType[rt] = 0;
+    oooByType[rt] = 0;
+  });
+
+  allRooms.forEach(r => {
+    const rt = (r.type || 'UNKNOWN').trim();
+    if (totalByType[rt] === undefined) {
+      totalByType[rt] = 0;
+      oooByType[rt] = 0;
+    }
+    totalByType[rt]++;
+    if ((r.status || '').toUpperCase() === 'OO') {
+      oooByType[rt]++;
+    }
+  });
+
+  // Gom các booking đang chiếm phòng (In-house + Arrivals/Reserved), loại bỏ Sharer để không đếm trùng 1 phòng 2 lần
+  const activeBookings = [
+    ...state.inhouse.filter(g => !g.isSharer),
+    ...state.arrivals.filter(a => !a.isSharer)
+  ];
+
+  // Tính theo từng ngày d:
+  // Available = Total (Room Plan) - Booked (arr <= d < dep) - OOO
+  const dataByType = {};
+  allTypes.forEach(rt => {
+    dataByType[rt] = dates.map(dt => {
+      const total = totalByType[rt] || 0;
+      const ooo = oooByType[rt] || 0;
+      let booked = 0;
+      activeBookings.forEach(b => {
+        const bType = (b.roomType || '').trim();
+        if (bType !== rt) return;
+        const arrISO = parseDateToISO(b.arrival);
+        const depISO = parseDateToISO(b.departure);
+        if (!arrISO) return;
+        if (depISO) {
+          if (arrISO <= dt.iso && dt.iso < depISO) booked++;
+        } else {
+          if (arrISO === dt.iso) booked++;
+        }
+      });
+      const avail = total - booked - ooo;
+      return { total, booked, ooo, avail };
+    });
+  });
+
+  const houseTotals = dates.map((_, idx) => {
+    let total = 0, booked = 0, ooo = 0, avail = 0;
+    allTypes.forEach(rt => {
+      total += dataByType[rt][idx].total;
+      booked += dataByType[rt][idx].booked;
+      ooo += dataByType[rt][idx].ooo;
+      avail += dataByType[rt][idx].avail;
+    });
+    return { total, booked, ooo, avail };
+  });
+
+  return { dates, allTypes, dataByType, houseTotals };
+}
+
+function renderInventory() {
+  const thead = document.getElementById('thead-inv');
+  const tbody = document.getElementById('tbody-inv');
+  if (!thead || !tbody) return;
+
+  const startEl = document.getElementById('inv-start-date');
+  const startISO = parseDateToISO(startEl && startEl.value) || state.workingDate;
+  const numDays = parseInt(document.getElementById('inv-days-select')?.value || '14', 10);
+
+  const { dates, allTypes, dataByType, houseTotals } = computeInventoryMatrix(startISO, numDays);
+
+  // Cập nhật badge trên tab Inventory = Tổng số phòng trống ngày đầu tiên đang xem (hoặc Business Date)
+  const badgeInv = document.getElementById('badge-inv');
+  if (badgeInv) {
+    badgeInv.textContent = houseTotals.length ? houseTotals[0].avail : 0;
+  }
+
+  // Cập nhật nút Expand All / Collapse All
+  const expandAllBtn = document.getElementById('btn-inv-expand-all');
+  if (expandAllBtn) {
+    const allKeys = ['HOUSE', ...allTypes];
+    const allExpanded = allKeys.length > 0 && allKeys.every(k => expandedInvRows.has(k));
+    expandAllBtn.textContent = allExpanded ? '⊟ Collapse All' : '⊞ Expand All';
+  }
+
+  // Render Header theo mẫu Opera Cloud Property Availability
+  let headHtml = `<tr>
+    <th class="col-sticky-1">Room Type</th>
+    <th class="col-sticky-2">Availability Metric</th>`;
+  dates.forEach(d => {
+    headHtml += `<th class="${d.isWeekend ? 'wknd-col' : ''}" style="min-width:62px">
+      <div style="font-size:12px;font-weight:800;color:#0f172a">${d.label}</div>
+      <div style="font-size:10px;font-weight:500;color:${d.isWeekend ? '#be123c' : '#64748b'}">${d.dowName}</div>
+    </th>`;
+  });
+  headHtml += `</tr>`;
+  thead.innerHTML = headHtml;
+
+  const renderCells = (arr, field) => arr.map((item, i) => {
+    const val = item[field];
+    const wknd = dates[i].isWeekend ? 'wknd-col' : '';
+    let cls = 'inv-cell-num';
+    if (field === 'avail') {
+      if (val < 0) cls += ' inv-cell-neg';
+      else if (val === 0) cls += ' inv-cell-zero';
+      else if (val <= 2) cls += ' inv-cell-low';
+    }
+    return `<td class="${wknd} ${cls}">${val}</td>`;
+  }).join('');
+
+  // Lọc Room Type theo dropdown checkbox
+  const visibleTypes = allTypes.filter(rt => isRoomTypeAllowed('inv', rt));
+
+  // Dòng tổng toàn khách sạn (House)
+  const houseExp = expandedInvRows.has('HOUSE');
+  let bodyHtml = `<tr class="row-house">
+    <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('HOUSE')">${houseExp ? '−' : '+'}</span>House</td>
+    <td class="col-sticky-2">Max. Available Rooms</td>
+    ${renderCells(houseTotals, 'avail')}
+  </tr>`;
+
+  if (houseExp) {
+    bodyHtml += `<tr class="row-sub">
+      <td class="col-sticky-1"></td>
+      <td class="col-sticky-2">• Total Rooms (Room Plan)</td>
+      ${renderCells(houseTotals, 'total')}
+    </tr>
+    <tr class="row-sub">
+      <td class="col-sticky-1"></td>
+      <td class="col-sticky-2">• Booked Rooms (Inh + Res)</td>
+      ${renderCells(houseTotals, 'booked')}
+    </tr>
+    <tr class="row-sub">
+      <td class="col-sticky-1"></td>
+      <td class="col-sticky-2">• Out of Order (OOO)</td>
+      ${renderCells(houseTotals, 'ooo')}
+    </tr>`;
+  }
+
+  if (visibleTypes.length === 0) {
+    bodyHtml += `<tr><td colspan="${dates.length + 2}" style="text-align:center;padding:24px;color:#94a3b8">No room types found. Please import Room Plan first.</td></tr>`;
+  } else {
+    visibleTypes.forEach(rt => {
+      const isExp = expandedInvRows.has(rt);
+      const rowsData = dataByType[rt];
+      bodyHtml += `<tr class="row-type">
+        <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('${rt}')">${isExp ? '−' : '+'}</span>${rt}</td>
+        <td class="col-sticky-2">Max. Available Rooms</td>
+        ${renderCells(rowsData, 'avail')}
+      </tr>`;
+
+      if (isExp) {
+        bodyHtml += `<tr class="row-sub">
+          <td class="col-sticky-1"></td>
+          <td class="col-sticky-2">• Total Rooms (Room Plan)</td>
+          ${renderCells(rowsData, 'total')}
+        </tr>
+        <tr class="row-sub">
+          <td class="col-sticky-1"></td>
+          <td class="col-sticky-2">• Booked Rooms (Inh + Res)</td>
+          ${renderCells(rowsData, 'booked')}
+        </tr>
+        <tr class="row-sub">
+          <td class="col-sticky-1"></td>
+          <td class="col-sticky-2">• Out of Order (OOO)</td>
+          ${renderCells(rowsData, 'ooo')}
+        </tr>`;
+      }
+    });
+  }
+
+  tbody.innerHTML = bodyHtml;
+}
+
+function exportInventoryCSV() {
+  const startISO = parseDateToISO(document.getElementById('inv-start-date')?.value) || state.workingDate;
+  const numDays = parseInt(document.getElementById('inv-days-select')?.value || '14', 10);
+  const { dates, allTypes, dataByType, houseTotals } = computeInventoryMatrix(startISO, numDays);
+  const visibleTypes = allTypes.filter(rt => isRoomTypeAllowed('inv', rt));
+
+  const rows = [];
+  rows.push(['Room Type', 'Metric', ...dates.map(d => `${d.label} (${d.dowName})`)]);
+  rows.push(['House', 'Max. Available Rooms', ...houseTotals.map(x => x.avail)]);
+  rows.push(['House', 'Total Rooms (Room Plan)', ...houseTotals.map(x => x.total)]);
+  rows.push(['House', 'Booked Rooms', ...houseTotals.map(x => x.booked)]);
+  rows.push(['House', 'OOO Rooms', ...houseTotals.map(x => x.ooo)]);
+
+  visibleTypes.forEach(rt => {
+    const arr = dataByType[rt];
+    rows.push([rt, 'Max. Available Rooms', ...arr.map(x => x.avail)]);
+    rows.push([rt, 'Total Rooms (Room Plan)', ...arr.map(x => x.total)]);
+    rows.push([rt, 'Booked Rooms', ...arr.map(x => x.booked)]);
+    rows.push([rt, 'OOO Rooms', ...arr.map(x => x.ooo)]);
+  });
+
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob(['\uFEFF' + rows.map(r => r.join(',')).join('\n')], { type: 'text/csv' }));
+  a.download = `Inventory_${startISO}_${numDays}d.csv`;
+  a.click();
 }
 
 function renderArr() {
@@ -1913,7 +2299,7 @@ function renderInh() {
 }
 
 function toggleGenericDropdown(dropdownId) {
-  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
+  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     if (id === dropdownId) el.classList.toggle('visible');
@@ -1922,7 +2308,7 @@ function toggleGenericDropdown(dropdownId) {
 }
 
 window.addEventListener('click', function (e) {
-  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
+  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
     const el = document.getElementById(id);
     if (el && !el.contains(e.target)) {
       el.classList.remove('visible');
