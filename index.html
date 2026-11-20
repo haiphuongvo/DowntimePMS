@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Opera Cloud Downtime PMS - V21</title>
+  <title>Opera Cloud Downtime PMS - V34</title>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -64,18 +64,20 @@
     tr.sharer td{background:#f8fafc;color:#64748b}
     tr.row-selected td{background:#fef9c3!important}
     .badge{font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;display:inline-block}
-    .hk-IP{background:#d1fae5;color:#065f46}
-    .hk-CL{background:#dbeafe;color:#1e40af}
-    .hk-DI{background:#ffe4e6;color:#9f1239}
-    .hk-OO{background:#334155;color:#fff}
-    .hk-OS{background:#fef3c7;color:#92400e}
+    .hk-IP{background:#4eab49;color:#fff}
+    .hk-CL{background:#2d9cdb;color:#fff}
+    .hk-PU{background:#f59e0b;color:#fff}
+    .hk-DI{background:#e11d48;color:#fff}
+    .hk-OO{background:#f97316;color:#fff}
+    .hk-OS{background:#f97316;color:#fff}
     .bulk-bar{background:#1e293b;color:#fff;padding:10px 16px;border-radius:8px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;margin-bottom:16px;font-size:13px}
     .room-card{border-radius:8px;border:2px solid #cbd5e1;padding:12px;display:flex;flex-direction:column;justify-content:space-between;background:#fff}
-    .room-card.st-IP{background:#ecfdf5;border-color:#6ee7b7}
-    .room-card.st-CL{background:#eff6ff;border-color:#93c5fd}
-    .room-card.st-DI{background:#fff1f2;border-color:#fda4af}
-    .room-card.st-OO{background:#e2e8f0;border-color:#94a3b8}
-    .room-card.st-OS{background:#fffbeb;border-color:#fcd34d}
+    .room-card.st-IP{background:#eef9ee;border-color:#4eab49}
+    .room-card.st-CL{background:#eef7fc;border-color:#2d9cdb}
+    .room-card.st-PU{background:#fffbeb;border-color:#f59e0b}
+    .room-card.st-DI{background:#fff1f2;border-color:#e11d48}
+    .room-card.st-OO{background:#fff7ed;border-color:#f97316}
+    .room-card.st-OS{background:#fff7ed;border-color:#f97316}
     .room-card.selected{box-shadow:0 0 0 3px #f59e0b}
     .grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
     .grid-4{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
@@ -93,7 +95,10 @@
     .hk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px}
     .dropdown-check-list{position:relative;display:inline-block}
     .dropdown-check-list .selector{background:#fff;border:1px solid #cbd5e1;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;min-width:150px;gap:8px}
-    .dropdown-check-list .items{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #cbd5e1;border-top:none;border-radius:0 0 6px 6px;display:none;z-index:40;max-height:220px;overflow-y:auto;padding:8px 10px;box-shadow:0 4px 6px -1px rgba(0,0,0,.1)}
+    .dropdown-check-list .items{position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #cbd5e1;border-top:none;border-radius:0 0 6px 6px;display:none;z-index:60;max-height:380px;overflow-y:auto;padding:8px 10px;box-shadow:0 10px 15px -3px rgba(0,0,0,.15)}
+    .dropdown-check-list .items label{display:flex!important;align-items:center!important;gap:8px!important;margin-bottom:6px!important;cursor:pointer;white-space:nowrap;font-size:12.5px;color:#1e293b;line-height:1.2}
+    .dropdown-check-list .items label:last-child{margin-bottom:0!important}
+    .dropdown-check-list .items input[type="checkbox"]{margin:0!important;flex-shrink:0}
     .dropdown-check-list.visible .items{display:block}
     .flatpickr-calendar{z-index:9999!important}
     input[type="checkbox"]{width:15px;height:15px;cursor:pointer}
@@ -113,8 +118,9 @@
     .inv-table tr.row-type:hover td:not(.wknd-col){background:#f8fafc}
     .inv-table tr.row-sub td{background:#f8fafc;color:#475569;font-size:11px;padding:5px 10px}
     .inv-table tr.row-sub td.col-sticky-2{padding-left:22px;color:#64748b}
-    .inv-table th.wknd-col,.inv-table td.wknd-col{background:#f1f5f9}
-    .inv-table tr.row-house td.wknd-col{background:#cbd5e1!important}
+    .inv-table th.wknd-col,.inv-table td.wknd-col{background:#fef9c3}
+    .inv-table th.wknd-col{background:#fef08a!important;color:#854d0e!important}
+    .inv-table tr.row-house td.wknd-col{background:#fde047!important}
     .inv-cell-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
     .inv-cell-zero{color:#94a3b8;font-weight:500}
     .inv-cell-neg{color:#dc2626!important;background:#fee2e2!important;font-weight:800}
@@ -128,8 +134,11 @@
   border: 1px solid #cbd5e1;
   border-radius: 6px;
   margin-bottom: 12px;
-  overflow: hidden;
+  overflow: visible;
   box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+}
+.diary-search-header {
+  border-radius: 5px 5px 0 0;
 }
 .diary-search-header {
   background: #2c3545;
@@ -295,7 +304,11 @@
   text-align: center;
 }
 .diary-wknd-cell {
-  background-color: #f1f0ec !important;
+  background-color: #fef9c3 !important;
+}
+.diary-table thead th.diary-wknd-cell {
+  background-color: #fef08a !important;
+  color: #854d0e !important;
 }
 .diary-room-cell-inner {
   display: flex;
@@ -325,11 +338,12 @@
   color: #fff;
   flex-shrink: 0;
 }
-.diary-hk-DI { background: #dc2626; }
-.diary-hk-CL { background: #eab308; }
-.diary-hk-IP { background: #16a34a; }
-.diary-hk-OO { background: #ea580c; }
-.diary-hk-OS { background: #0284c7; }
+.diary-hk-IP { background: #4eab49; }
+.diary-hk-CL { background: #2d9cdb; }
+.diary-hk-PU { background: #f59e0b; }
+.diary-hk-DI { background: #e11d48; }
+.diary-hk-OO { background: #f97316; }
+.diary-hk-OS { background: #f97316; }
 .diary-room-no { font-weight: 700; color: #0f172a; }
 .diary-room-type { font-size: 10px; color: #2563eb; font-weight: 600; }
 .diary-day-cell {
@@ -375,7 +389,18 @@
   font-size: 11px;
 }
 
-</style>
+
+/* Preserve title/normal casing like Inventory tab */
+.diary-table thead th,
+.diary-field label,
+.diary-search-header,
+.diary-btn-search,
+.diary-btn-reset,
+.diary-link-btn {
+  text-transform: none;
+}
+
+  </style>
 </head>
 <body>
 
@@ -397,8 +422,8 @@
 <div id="shutdown-screen" class="login-bg hidden">
   <div class="login-box" style="text-align:center">
     <span class="badge" style="background:#e11d48;color:#fff;font-size:12px;padding:6px 12px">DOWNTIME ENDED</span>
-    <h2 style="font-size:20px;margin-top:12px;color:#1e293b">Hệ thống đã ngừng hoạt động</h2>
-    <p style="font-size:13px;color:#64748b;margin-top:8px">Opera Cloud đã hoạt động trở lại. Webapp downtime này đã được FOM khóa và kết thúc phiên làm việc cho các user khác.</p>
+    <h2 style="font-size:20px;margin-top:12px;color:#1e293b">System Has Been Deactivated</h2>
+    <p style="font-size:13px;color:#64748b;margin-top:8px">Opera Cloud is back online. This downtime webapp has been locked by FOM and ended the session for other users.</p>
     <button onclick="openFomLoginFromShutdown()" class="login-btn" style="margin-top:16px;background:#0f172a">🔑 FOM Login</button>
   </div>
 </div>
@@ -419,8 +444,8 @@
         <div class="kpi-box"><span class="lbl">Dep:</span><strong id="kpi-dep" style="color:#fb7185">0</strong></div>
         <div class="kpi-box"><span class="lbl">Inh:</span><strong id="kpi-inh" style="color:#34d399">0</strong></div>
         <div class="kpi-box"><span class="lbl">Clean:</span><strong id="kpi-hk" style="color:#22d3ee">0</strong></div>
-        <button id="btn-shutdown-system" onclick="shutdownSystem()" class="btn btn-sm btn-rose hidden" style="font-weight:700">🛑 Ngừng sử dụng Webapp</button>
-        <button id="btn-resume-system" onclick="resumeSystem()" class="btn btn-sm btn-emerald hidden" style="font-weight:700">▶️ Tiếp tục sử dụng</button>
+        <button id="btn-shutdown-system" onclick="shutdownSystem()" class="btn btn-sm btn-rose hidden" style="font-weight:700">🛑 Stop Using Webapp</button>
+        <button id="btn-resume-system" onclick="resumeSystem()" class="btn btn-sm btn-emerald hidden" style="font-weight:700">▶️ Resume Webapp</button>
         <button onclick="logout()" class="btn btn-sm btn-slate">Logout</button>
       </div>
     </div>
@@ -432,7 +457,7 @@
         <button onclick="switchTab('dep')" id="tab-dep" class="tab-btn">🛫 Dep <span id="badge-dep" class="pill pill-rose">0</span></button>
         <button onclick="switchTab('inv')" id="tab-inv" class="tab-btn">📊 Inventory <span id="badge-inv" class="pill pill-amber">0</span></button>
         <button onclick="switchTab('diary')" id="tab-diary" class="tab-btn">📅 Room Diary <span id="badge-diary" class="pill pill-indigo">0</span></button>
-        <button onclick="switchTab('hk')" id="tab-hk" class="tab-btn">🧹 Housekeeping <span id="badge-hk" class="pill pill-cyan">0</span></button>
+        <button onclick="switchTab('hk')" id="tab-hk" class="tab-btn">🧹 HK <span id="badge-hk" class="pill pill-cyan">0</span></button>
         <button onclick="switchTab('import')" id="tab-import" class="tab-btn">📥 Import</button>
         <button onclick="switchTab('export')" id="tab-export" class="tab-btn">📤 Backup & Logs</button>
         <button onclick="switchTab('users')" id="tab-users" class="tab-btn">👥 User Mgmt</button>
@@ -667,6 +692,10 @@
         </div>
         <div id="diary-search-body" class="diary-search-body">
           <div class="diary-req-note">* Required Field</div>
+          <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:6px 10px;border-radius:4px;font-size:11.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+            <span>⚠️</span>
+            <span><strong>Warning:</strong> Data displayed on the Room Diary may not be completely accurate for <strong>Component Rooms</strong>.</span>
+          </div>
           <div class="diary-filter-grid">
             <div>
               <div class="diary-field">
@@ -685,18 +714,24 @@
             <div>
               <div class="diary-field">
                 <label>Room Type</label>
-                <select id="diary-filter-type" onchange="renderRoomDiary()">
-                  <option value="ALL">All Room Types</option>
-                </select>
+                <div id="diary-type-dropdown" class="dropdown-check-list" style="display:block;width:100%">
+                  <div class="selector" onclick="toggleGenericDropdown('diary-type-dropdown')" style="width:100%;height:28px;padding:2px 8px;border-radius:3px;border-color:#94a3b8;font-size:12px">
+                    <span>Room Types (<span id="diary-type-count">All</span>)</span> ▾
+                  </div>
+                  <div class="items" id="diary-type-checkboxes"></div>
+                </div>
               </div>
             </div>
 
             <div>
               <div class="diary-field">
                 <label>Floor</label>
-                <select id="diary-filter-floor" onchange="renderRoomDiary()">
-                  <option value="ALL">All Floors</option>
-                </select>
+                <div id="diary-floor-dropdown" class="dropdown-check-list" style="display:block;width:100%">
+                  <div class="selector" onclick="toggleGenericDropdown('diary-floor-dropdown')" style="width:100%;height:28px;padding:2px 8px;border-radius:3px;border-color:#94a3b8;font-size:12px">
+                    <span>Floors (<span id="diary-floor-count">All</span>)</span> ▾
+                  </div>
+                  <div class="items" id="diary-floor-checkboxes"></div>
+                </div>
               </div>
             </div>
 
@@ -752,11 +787,12 @@
         <span><strong style="color:#26999e">■</strong> Arrival / Due In</span>
         <span><strong style="color:#9c8412">■</strong> Linked / Sharer</span>
         <span><strong style="color:#8c8d91">■</strong> Out of Service / Block</span>
-        <span><span class="diary-hk-dot diary-hk-DI">D</span> Dirty</span>
-        <span><span class="diary-hk-dot diary-hk-CL">C</span> Clean</span>
         <span><span class="diary-hk-dot diary-hk-IP">I</span> Inspected</span>
-        <span><span class="diary-hk-dot diary-hk-OO">O</span> OO</span>
-        <span><span class="diary-hk-dot diary-hk-OS">S</span> OS</span>
+        <span><span class="diary-hk-dot diary-hk-CL">C</span> Clean</span>
+        <span><span class="diary-hk-dot diary-hk-PU">P</span> Pickup</span>
+        <span><span class="diary-hk-dot diary-hk-DI">D</span> Dirty</span>
+        <span><span class="diary-hk-dot diary-hk-OO">O</span> Out of Order</span>
+        <span><span class="diary-hk-dot diary-hk-OS">S</span> Out of Service</span>
       </div>
 
       <div class="diary-grid-wrap">
@@ -789,7 +825,7 @@
             <div class="selector" onclick="toggleGenericDropdown('hk-type-dropdown')"><span>Room Types (<span id="hk-type-count">All</span>)</span> ▾</div>
             <div class="items" id="hk-type-checkboxes"></div>
           </div>
-          <select id="filter-hk-status" onchange="renderHK()"><option value="ALL">All Statuses</option><option value="IP">IP - Inspected</option><option value="CL">CL - Clean</option><option value="DI">DI - Dirty</option><option value="OO">OO - Out of Order</option><option value="OS">OS - Out of Service</option></select>
+          <select id="filter-hk-status" onchange="renderHK()"><option value="ALL">All Statuses</option><option value="IP">IP - Inspected</option><option value="CL">CL - Clean</option><option value="PU">PU - Pickup</option><option value="DI">DI - Dirty</option><option value="OO">OO - Out of Order</option><option value="OS">OS - Out of Service</option></select>
           <select id="filter-hk-occ" onchange="renderHK()"><option value="ALL">All Occupancy</option><option value="OCC">Occupied (OCC)</option><option value="VAC">Vacant (VAC)</option></select>
         </div>
         <div id="hk-counters" style="display:flex;gap:6px"></div>
@@ -797,10 +833,11 @@
       <div class="bulk-bar">
         <span>Selected (<strong id="selected-hk-count" style="color:#fbbf24">0</strong>):</span>
         <div style="display:flex;gap:6px">
-          <button onclick="bulkUpdateHK('IP')" class="btn btn-sm btn-emerald">Set IP</button>
-          <button onclick="bulkUpdateHK('CL')" class="btn btn-sm btn-blue">Set CL</button>
+          <button onclick="bulkUpdateHK('IP')" class="btn btn-sm" style="background:#4eab49;color:#fff">Set IP</button>
+          <button onclick="bulkUpdateHK('CL')" class="btn btn-sm" style="background:#2d9cdb;color:#fff">Set CL</button>
+          <button onclick="bulkUpdateHK('PU')" class="btn btn-sm" style="background:#f59e0b;color:#fff">Set PU</button>
           <button onclick="bulkUpdateHK('DI')" class="btn btn-sm btn-rose">Set DI</button>
-          <button onclick="bulkUpdateHK('OO')" class="btn btn-sm btn-slate">Set OO</button>
+          <button onclick="bulkUpdateHK('OO')" class="btn btn-sm" style="background:#f97316;color:#fff">Set OO</button>
           <button onclick="clearHKSelection()" class="btn btn-sm btn-light">Clear Selection</button>
         </div>
       </div>
@@ -810,7 +847,7 @@
     <!-- IMPORT TAB -->
     <section id="view-import" class="tab-view hidden">
       <div class="card">
-        <h2 style="font-size:16px;margin-bottom:16px">Import Opera Cloud Report (Chọn đồng thời cả file .pdf và .txt/.tsv để đầy đủ dữ liệu trace & note)</h2>
+        <h2 style="font-size:16px;margin-bottom:16px">Import Opera Cloud Report (Select both .pdf and .txt/.tsv files together for complete trace & note data)</h2>
         <div class="grid-3">
           <div class="drop-box">
             <div><strong>1. In-house List (Delimited data)</strong> <span id="status-file-inh" class="badge" style="background:#e2e8f0">Not imported</span></div>
@@ -826,7 +863,7 @@
           </div>
         </div>
         <div style="margin-top:16px;display:flex;justify-content:space-between">
-          <div id="import-log" style="font-size:13px">Sẵn sàng import dữ liệu. Bạn có thể chọn nhiều file cùng lúc (ví dụ file PDF chứa note/trace và file TXT/TSV chứa thông tin chi tiết).</div>
+          <div id="import-log" style="font-size:13px">Ready to import data. You can select multiple files at once (e.g., PDF file containing notes/traces and TXT/TSV file containing detailed information).</div>
           <button onclick="resetAllData()" class="btn btn-sm btn-rose">🗑️ Clear Cloud Data</button>
         </div>
       </div>
@@ -867,10 +904,10 @@ function updateCloudQuotaIndicator() {
 
   const baseSync = el.getAttribute('data-last-sync') || `Synced (${new Date().toLocaleTimeString('en-US')})`;
   if (ratio >= 0.95) {
-    el.innerHTML = `🔴 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — SẮP VƯỢT GIỚI HẠN 1MB! Hãy backup & Clear Cloud Data ngay.`;
+    el.innerHTML = `🔴 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — APPROACHING 1MB LIMIT! Please backup & Clear Cloud Data immediately.`;
     el.style.color = '#fda4af';
   } else if (ratio >= 0.75) {
-    el.innerHTML = `🟡 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — Dữ liệu đang lớn, nên backup định kỳ.`;
+    el.innerHTML = `🟡 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — Data size is growing, periodic backup recommended.`;
     el.style.color = '#fcd34d';
   } else {
     el.innerHTML = `🟢 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%)`;
@@ -905,7 +942,7 @@ let currentUser = null, selectedHKRooms = new Set(), backupTimer = null;
 let fpWorkingDate = null, fpArr = null, fpDep = null, fpInvStart = null;
 let expandedInvRows = new Set();
 
-// Lưu trữ các booking được tick chọn cho từng tab
+// Store checked/selected bookings for each tab
 let selectedBookings = {
   res: new Set(),
   arr: new Set(),
@@ -913,7 +950,7 @@ let selectedBookings = {
   dep: new Set()
 };
 
-// Lưu danh sách ID đang hiển thị trên từng tab để hỗ trợ nút "Select All"
+// Store visible booking IDs on each tab to support "Select All"
 let currentRenderedIds = {
   res: [],
   arr: [],
@@ -934,7 +971,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (!canCurrentUserChangeWorkingDate()) {
             e.preventDefault();
             e.stopPropagation();
-            alert('Chỉ tài khoản FO và FOM mới có quyền đổi ngày Business Date!');
+            alert('Only FO and FOM accounts are permitted to change the Business Date!');
             return;
           }
           if (isCurrentUserFOM()) return;
@@ -944,7 +981,7 @@ document.addEventListener('DOMContentLoaded', () => {
           if (remainingArr > 0 || remainingDep > 0) {
             e.preventDefault();
             e.stopPropagation();
-            alert(`Chỉ được đổi Business Date khi không còn Arr/Dep trong ngày (${formatDate(curDate)} hiện còn ${remainingArr} Arr, ${remainingDep} Dep).`);
+            alert(`Business Date can only be changed when no Arr/Dep remain for the day (${formatDate(curDate)} currently remaining ${remainingArr} Arr, ${remainingDep} Dep).`);
           }
         }, true);
       }
@@ -1144,15 +1181,15 @@ function pushStateToCloud() {
   updateCloudQuotaIndicator();
   const bytes = estimateStateSizeBytes(state);
   if (bytes > 1000000) {
-    alert(`⚠️ CẢNH BÁO DỮ LIỆU QUÁ LỚN (${formatBytesToKB(bytes)} / 1024 KB)!
-Firestore giới hạn 1 document tối đa 1 MiB (1024 KB). Hãy xuất Backup và bấm Clear Cloud Data để tránh lỗi không lưu được.`);
+    alert(`⚠️ LARGE DATA WARNING (${formatBytesToKB(bytes)} / 1024 KB)!
+Firestore limits each document to a maximum of 1 MiB (1024 KB). Please export a Backup and click Clear Cloud Data to prevent save failures.`);
   }
   docRef.set(state).catch(e => {
     const isTooLarge = /exceeds the maximum allowed size|1048576|too large/i.test(e.message || '');
     if (isTooLarge) {
-      alert(`🔴 LỖI ĐẦY DỮ LIỆU FIRESTORE (Vượt 1 MB)!
-Dữ liệu hiện tại (${formatBytesToKB(bytes)}) đã vượt giới hạn của 1 document.
-Vui lòng vào tab Backup & Logs tải backup về, sau đó vào tab Import bấm "Clear Cloud Data" để làm trống và nhập lại dữ liệu cần thiết.`);
+      alert(`🔴 FIRESTORE STORAGE LIMIT EXCEEDED (Over 1 MB)!
+Current data (${formatBytesToKB(bytes)}) has exceeded the single-document limit.
+Please go to the Backup & Logs tab to download a backup, then go to the Import tab and click "Clear Cloud Data" to clear and re-import required data.`);
     } else {
       alert("Cloud Error: " + e.message);
     }
@@ -1188,7 +1225,7 @@ function handleLogin() {
   if (!found.active) return alert('This account has been deactivated by FOM!');
   const isFomLogin = found.role === 'FOM' || ['FOM', 'HP'].includes(found.username.toUpperCase());
   if (state.isShutdown && !isFomLogin) {
-    return alert('Hệ thống này đã ngừng hoạt động cho các user khác. Chỉ tài khoản FOM mới có thể đăng nhập!');
+    return alert('This system has been stopped for other users. Only FOM accounts can log in!');
   }
   currentUser = found;
   document.getElementById('login-screen').classList.add('hidden');
@@ -1253,10 +1290,10 @@ function updateFomShutdownResumeButtons() {
 
 function shutdownSystem() {
   if(!currentUser || (currentUser.role !== 'FOM' && currentUser.username.toUpperCase() !== 'FOM')) {
-    return alert('Chỉ có tài khoản FOM mới có quyền ngừng sử dụng webapp này!');
+    return alert('Only FOM accounts are authorized to stop using this webapp!');
   }
   
-  if(!confirm('XÁC NHẬN NGỪNG SỬ DỤNG WEBAPP?\n\nHệ thống sẽ khóa truy cập đối với các user khác, xuất toàn bộ dữ liệu In-house, Housekeeping và backup để bạn cập nhật ngược lại vào Opera Cloud.')) {
+  if(!confirm('CONFIRM STOPPING WEBAPP USAGE?\n\nThe system will lock access for other users, export all In-house, Housekeeping, and backup data so you can update Opera Cloud.')) {
     return;
   }
 
@@ -1268,21 +1305,21 @@ function shutdownSystem() {
   addLog('SYSTEM', '-', 'FOM closed downtime access for other users; FOM remains active.');
   updateFomShutdownResumeButtons();
   pushStateToCloud();
-  alert('Đã khóa quyền truy cập đối với các user khác. Tài khoản FOM vẫn tiếp tục sử dụng bình thường.');
+  alert('Access has been locked for other users. FOM accounts can continue using the system normally.');
 }
 
 function resumeSystem() {
   if(!currentUser || (currentUser.role !== 'FOM' && currentUser.username.toUpperCase() !== 'FOM')) {
-    return alert('Chỉ có tài khoản FOM mới có quyền mở lại webapp này!');
+    return alert('Only FOM accounts are authorized to reopen this webapp!');
   }
-  if(!confirm('XÁC NHẬN TIẾP TỤC SỬ DỤNG WEBAPP?\n\nCác user khác sẽ có thể đăng nhập và làm việc lại bình thường.')) {
+  if(!confirm('CONFIRM RESUMING WEBAPP USAGE?\n\nOther users will be able to log in and resume normal work.')) {
     return;
   }
   state.isShutdown = false;
   addLog('SYSTEM', '-', 'FOM resumed downtime PMS access for all users.');
   updateFomShutdownResumeButtons();
   pushStateToCloud();
-  alert('Đã mở lại quyền truy cập cho tất cả các user.');
+  alert('Access has been reopened for all users.');
 }
 
 function createUserAccount() {
@@ -1307,28 +1344,28 @@ function editUserAccount(uname) {
   if (idx === -1) return;
   const u = state.users[idx];
 
-  const usernameInput = prompt(`Username cho user ${u.username}:`, u.username);
+  const usernameInput = prompt(`Username for user ${u.username}:`, u.username);
   if (usernameInput === null) return;
   const cleanUsername = usernameInput.trim();
-  if (!cleanUsername) return alert('Username không được để trống!');
+  if (!cleanUsername) return alert('Username cannot be empty!');
   if (state.users.some((x, i) => i !== idx && x.username.toLowerCase() === cleanUsername.toLowerCase())) {
-    return alert(`Username "${cleanUsername}" đã tồn tại!`);
+    return alert(`Username "${cleanUsername}" already exists!`);
   }
 
-  const newFullName = prompt(`Full Name cho user ${cleanUsername}:`, u.fullName || cleanUsername);
+  const newFullName = prompt(`Full Name for user ${cleanUsername}:`, u.fullName || cleanUsername);
   if (newFullName === null) return;
 
-  const rInput = prompt(`Role cho user ${cleanUsername} (FO / RES / HK / FOM):`, u.role);
+  const rInput = prompt(`Role for user ${cleanUsername} (FO / RES / HK / FOM):`, u.role);
   if (rInput === null) return;
   const cleanRole = rInput.trim().toUpperCase();
   if (!['FO', 'RES', 'HK', 'FOM'].includes(cleanRole)) {
-    return alert('Role không hợp lệ! Chỉ chấp nhận: FO, RES, HK, FOM.');
+    return alert('Invalid Role! Only FO, RES, HK, FOM are accepted.');
   }
 
-  const newPass = prompt(`Password cho user ${cleanUsername}:`, u.password);
+  const newPass = prompt(`Password for user ${cleanUsername}:`, u.password);
   if (newPass === null || !newPass.trim()) return;
 
-  const activeInput = prompt(`Status cho user ${cleanUsername} (Active / Inactive):`, u.active ? 'Active' : 'Inactive');
+  const activeInput = prompt(`Status for user ${cleanUsername} (Active / Inactive):`, u.active ? 'Active' : 'Inactive');
   if (activeInput === null) return;
   const cleanActiveStr = activeInput.trim().toLowerCase();
   let newActive = u.active;
@@ -1337,7 +1374,7 @@ function editUserAccount(uname) {
   } else if (['inactive', 'false', '0', 'i', 'lock', 'locked', 'no', 'n'].includes(cleanActiveStr)) {
     newActive = false;
   } else {
-    return alert('Status không hợp lệ! Nhập Active hoặc Inactive.');
+    return alert('Invalid Status! Enter Active or Inactive.');
   }
 
   const oldUsername = u.username;
@@ -1363,12 +1400,12 @@ function editUserAccount(uname) {
 
 function deleteUserAccount(uname) {
   if (!currentUser || currentUser.role !== 'FOM') return alert('Only FOM can delete users!');
-  if (uname.toUpperCase() === 'HP') return alert('Không thể xóa tài khoản mặc định HP!');
-  if (currentUser && currentUser.username === uname) return alert('Không thể xóa tài khoản đang đăng nhập!');
+  if (uname.toUpperCase() === 'HP') return alert('Cannot delete default HP account!');
+  if (currentUser && currentUser.username === uname) return alert('Cannot delete the currently logged-in account!');
 
   const idx = state.users.findIndex(x => x.username === uname);
   if (idx === -1) return;
-  if (!confirm(`Xác nhận XÓA VĨNH VIỄN user "${uname}"?`)) return;
+  if (!confirm(`Confirm PERMANENTLY DELETING user "${uname}"?`)) return;
 
   state.users.splice(idx, 1);
   addLog('USER MGMT', '-', `Deleted user ${uname}`);
@@ -1438,10 +1475,10 @@ function updateWorkingDatePermission() {
     el.style.cursor = allowed ? 'pointer' : 'not-allowed';
     el.style.opacity = allowed ? '1' : '0.7';
     el.title = isFom
-      ? 'FOM có thể tự do chọn ngày Business Date bất cứ lúc nào'
+      ? 'FOM can freely select the Business Date at any time'
       : (allowed
-        ? 'FO được đổi Business Date khi không còn Arr/Dep trong ngày'
-        : 'Chỉ user FO và FOM mới được quyền đổi Business Date');
+        ? 'FO can change Business Date when no Arr/Dep remain for the day'
+        : 'Only FO and FOM users are allowed to change Business Date');
   });
 }
 
@@ -1450,7 +1487,7 @@ function updateWorkingDate(v) {
   if (!cleanV || cleanV === state.workingDate) return;
 
   if (!canCurrentUserChangeWorkingDate()) {
-    alert('Chỉ tài khoản FO và FOM mới có quyền đổi ngày Business Date!');
+    alert('Only FO and FOM accounts are permitted to change the Business Date!');
     if (fpWorkingDate) fpWorkingDate.setDate(state.workingDate, false);
     return;
   }
@@ -1461,7 +1498,7 @@ function updateWorkingDate(v) {
     const remainingDep = state.inhouse.filter(g => isSameDayDate(g.departure, curDate)).length;
 
     if (remainingArr > 0 || remainingDep > 0) {
-      alert(`Không thể đổi Business Date từ ${formatDate(curDate)} sang ${formatDate(cleanV)} vì vẫn còn Arrival/Departure trong ngày (${remainingArr} Arr, ${remainingDep} Dep).`);
+      alert(`Cannot change Business Date from ${formatDate(curDate)} to ${formatDate(cleanV)} because Arrival/Departure items still remain for the day (${remainingArr} Arr, ${remainingDep} Dep).`);
       if (fpWorkingDate) fpWorkingDate.setDate(curDate, false);
       return;
     }
@@ -1766,8 +1803,45 @@ async function handleFileUpload(e, t) {
     }
   }
 
+function mergeSharerBookings(list) {
+  const result = [];
+  const roomGroupMap = new Map();
+  const sorted = [...list].sort((a, b) => (a.isSharer === b.isSharer ? 0 : a.isSharer ? 1 : -1));
+
+  sorted.forEach(item => {
+    const rm = (item.room || '').trim();
+    const arr = parseDateToISO(item.arrival);
+    const groupKey = rm ? `${rm}_${arr}` : (item.confNo ? `CONF_${item.confNo}` : null);
+
+    if (groupKey && roomGroupMap.has(groupKey)) {
+      const main = roomGroupMap.get(groupKey);
+      const guestName = (item.name || '').trim();
+      if (guestName && !main.name.includes(guestName)) {
+        main.name = main.name ? `${main.name} & ${guestName}` : guestName;
+      }
+      main.adults = (+main.adults || 0) + (+item.adults || 0);
+      main.children = (+main.children || 0) + (+item.children || 0);
+      if (item.comments && item.comments.length) {
+        main.comments = [...new Set([...(main.comments || []), ...item.comments])];
+      }
+      if (item.trace && !(main.trace || '').includes(item.trace)) {
+        main.trace = main.trace ? `${main.trace} | ${item.trace}` : item.trace;
+      }
+      if (!main.vip && item.vip) main.vip = item.vip;
+      if ((!main.rateAmount || main.rateAmount === 0) && item.rateAmount) main.rateAmount = item.rateAmount;
+      main.isSharer = false;
+    } else {
+      const clone = { ...item, isSharer: false };
+      result.push(clone);
+      if (groupKey) roomGroupMap.set(groupKey, clone);
+    }
+  });
+
+  return result;
+}
+
   if (parsedArrivalsMap.size > 0) {
-    const list = Array.from(parsedArrivalsMap.values());
+    const list = mergeSharerBookings(Array.from(parsedArrivalsMap.values()));
     if (t === 'arr' || t === 'res') {
       state.arrivals = list.sort((a, b) => (a.arrival || '').localeCompare(b.arrival || '') || (a.room || '').localeCompare(b.room || ''));
       document.getElementById('status-file-arr').textContent = `OK (${statusTexts.join(', ')})`;
@@ -1852,16 +1926,16 @@ function massCheckIn(tabKey) {
     const rm = g.room;
 
     if (!rm) {
-      errors.push(`${g.name}: Chưa gán số phòng`);
+      errors.push(`${g.name}: Unassigned Room`);
       return;
     }
     if (state.inhouse.some(x => x.room === rm)) {
-      errors.push(`Phòng ${rm} (${g.name}): Đang có khách ở (Occupied)`);
+      errors.push(`Room ${rm} (${g.name}): Currently Occupied`);
       return;
     }
     const rObj = state.rooms[rm];
     if (!rObj || rObj.status !== 'IP') {
-      errors.push(`Phòng ${rm} (${g.name}): Trạng thái phòng là [${rObj ? rObj.status : 'UNKNOWN'}], yêu cầu phải là [IP]`);
+      errors.push(`Room ${rm} (${g.name}): Room status is [${rObj ? rObj.status : 'UNKNOWN'}], [IP] status is required`);
       return;
     }
 
@@ -1881,9 +1955,9 @@ function massCheckIn(tabKey) {
     refreshAllUI();
   }
 
-  let msg = `Đã Mass Check-in thành công ${successCount} booking.`;
+  let msg = `Successfully Mass Checked-in ${successCount} bookings.`;
   if (errors.length > 0) {
-    msg += `\n\nCác booking không thể Check-in (${errors.length}):\n- ` + errors.join('\n- ');
+    msg += `\n\nBookings that could not be Checked-in (${errors.length}):\n- ` + errors.join('\n- ');
   }
   alert(msg);
 }
@@ -1892,7 +1966,7 @@ function massCheckOut(tabKey) {
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
-  if (!confirm(`Xác nhận MASS CHECK-OUT cho ${ids.length} booking đã chọn?\n(Chỉ các phòng có Balance = 0 mới được Check-out và phòng sẽ chuyển sang Dirty - DI)`)) return;
+  if (!confirm(`Confirm MASS CHECK-OUT for ${ids.length} selected bookings?\n(Only rooms with Balance = 0 can be checked out and rooms will be set to Dirty - DI)`)) return;
 
   let successCount = 0;
   let errors = [];
@@ -1903,7 +1977,7 @@ function massCheckOut(tabKey) {
     const g = state.inhouse[idx];
 
     if ((+g.balance || 0) !== 0) {
-      errors.push(`Phòng ${g.room} (${g.name}): Còn công nợ Balance = ${(+g.balance).toLocaleString()}`);
+      errors.push(`Room ${g.room} (${g.name}): Remaining Balance = ${(+g.balance).toLocaleString()}`);
       return;
     }
 
@@ -1922,9 +1996,9 @@ function massCheckOut(tabKey) {
     refreshAllUI();
   }
 
-  let msg = `Đã Mass Check-out thành công ${successCount} booking.`;
+  let msg = `Successfully Mass Checked-out ${successCount} bookings.`;
   if (errors.length > 0) {
-    msg += `\n\nCác booking bị chặn Check-out (${errors.length}):\n- ` + errors.join('\n- ');
+    msg += `\n\nBookings blocked from Check-out (${errors.length}):\n- ` + errors.join('\n- ');
   }
   alert(msg);
 }
@@ -1933,7 +2007,7 @@ function massSettleBalance(tabKey) {
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
-  const paymentNote = prompt(`Xác nhận đưa Balance về 0 cho ${ids.length} booking.\nNhập hình thức thanh toán ghi chú (VD: Paid by Cash / Visa / City Ledger):`, 'Settled');
+  const paymentNote = prompt(`Confirm setting Balance to 0 for ${ids.length} bookings.\nEnter payment method note (e.g., Paid by Cash / Visa / City Ledger):`, 'Settled');
   if (paymentNote === null) return;
 
   let updated = 0;
@@ -1954,7 +2028,7 @@ function massSettleBalance(tabKey) {
     selectedBookings[tabKey].clear();
     pushStateToCloud();
     refreshAllUI();
-    alert(`Đã cập nhật Balance = 0 cho ${updated} booking.`);
+    alert(`Updated Balance = 0 for ${updated} bookings.`);
   }
 }
 
@@ -1963,7 +2037,7 @@ function massUpdateRoomType(tabKey) {
   if (!ids.length) return;
 
   const types = getAllRoomTypes().join(', ');
-  const newType = prompt(`Nhập mã hạng phòng (Room Type) mới cho ${ids.length} booking đã chọn:\n(Gợi ý: ${types})`);
+  const newType = prompt(`Enter new Room Type code for ${ids.length} selected bookings:\n(Suggestions: ${types})`);
   if (!newType || !newType.trim()) return;
 
   const cleanType = newType.trim().toUpperCase();
@@ -1982,7 +2056,7 @@ function massUpdateRoomType(tabKey) {
     selectedBookings[tabKey].clear();
     pushStateToCloud();
     refreshAllUI();
-    alert(`Đã đổi hạng phòng thành [${cleanType}] cho ${updated} booking.`);
+    alert(`Changed room type to [${cleanType}] for ${updated} bookings.`);
   }
 }
 
@@ -1991,7 +2065,7 @@ function massAddNoteTrace(tabKey, fieldType) {
   if (!ids.length) return;
 
   const label = fieldType === 'comment' ? 'Comment / Note' : 'Trace';
-  const text = prompt(`Nhập nội dung ${label} cần thêm cho ${ids.length} booking đã chọn:`);
+  const text = prompt(`Enter ${label} to add for ${ids.length} selected bookings:`);
   if (!text || !text.trim()) return;
 
   const cleanText = text.trim();
@@ -2015,7 +2089,7 @@ function massAddNoteTrace(tabKey, fieldType) {
     selectedBookings[tabKey].clear();
     pushStateToCloud();
     refreshAllUI();
-    alert(`Đã thêm ${label} cho ${updated} booking.`);
+    alert(`Added ${label} for ${updated} bookings.`);
   }
 }
 
@@ -2023,7 +2097,7 @@ function massDeleteBookings(tabKey) {
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
-  if (!confirm(`CẢNH BÁO: Bạn có chắc chắn muốn XÓA VĨNH VIỄN ${ids.length} booking đã chọn khỏi danh sách chờ (Arrivals/Res)?`)) return;
+  if (!confirm(`WARNING: Are you sure you want to PERMANENTLY DELETE ${ids.length} selected bookings from the pending list (Arrivals/Res)?`)) return;
 
   let deleted = 0;
   ids.forEach(id => {
@@ -2039,9 +2113,9 @@ function massDeleteBookings(tabKey) {
   if (deleted > 0) {
     pushStateToCloud();
     refreshAllUI();
-    alert(`Đã xóa ${deleted} booking.`);
+    alert(`Deleted ${deleted} bookings.`);
   } else {
-    alert('Chỉ có thể xóa các booking ở trạng thái RESERVED (chưa Check-in).');
+    alert('Only RESERVED (not yet checked-in) bookings can be deleted.');
   }
 }
 
@@ -2066,7 +2140,7 @@ function checkInGuest(id) {
   }
   if (!rObj || rObj.status !== 'IP') {
     const curStatus = rObj ? rObj.status : 'UNKNOWN';
-    return alert(`CHECK-IN BLOCKED: Room ${rm} đang ở trạng thái [${curStatus}] (phòng dơ/chưa kiểm tra). Chỉ được Check-in phòng VAC và trạng thái IP!`);
+    return alert(`CHECK-IN BLOCKED: Room ${rm} is currently in status [${curStatus}] (dirty/uninspected room). Only VAC rooms with IP status can be checked in!`);
   }
 
   if (!confirm(`Confirm CHECK-IN for guest ${g.name} into room ${rm} (Status: IP)?`)) return;
@@ -2152,16 +2226,16 @@ function getAllRoomTypes() {
 
 function updateBookingTypeCheckboxes(forceReset = false) {
   const types = getAllRoomTypes();
-  ['res', 'arr', 'inh', 'dep', 'inv'].forEach(tabKey => {
+  ['res', 'arr', 'inh', 'dep', 'inv', 'diary'].forEach(tabKey => {
     const cbs = document.getElementById(`${tabKey}-type-checkboxes`);
     if (!cbs) return;
     const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll(`.${tabKey}-type-chk:checked`)).map(cb => cb.value));
-    const allChecked = forceReset || !prevSelected || prevSelected.size === types.length;
+    const allChecked = forceReset || !prevSelected || prevSelected.size === 0 || prevSelected.size === types.length;
 
-    cbs.innerHTML = `<label style="display:block;margin-bottom:4px;cursor:pointer"><input type="checkbox" id="${tabKey}-type-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllBookingTypes('${tabKey}', this)"> <b>Select All</b></label>` +
+    cbs.innerHTML = `<label ><input type="checkbox" id="${tabKey}-type-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllBookingTypes('${tabKey}', this)"> <b>Select All</b></label>` +
       types.map(t => {
         const checked = forceReset || !prevSelected ? true : prevSelected.has(t);
-        return `<label style="display:block;margin-bottom:4px;cursor:pointer"><input type="checkbox" class="${tabKey}-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onBookingTypeChange('${tabKey}')"> ${t}</label>`;
+        return `<label ><input type="checkbox" class="${tabKey}-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onBookingTypeChange('${tabKey}')"> ${t}</label>`;
       }).join('');
 
     updateBookingTypeCountLabel(tabKey, types.length);
@@ -2201,6 +2275,7 @@ function triggerRenderTab(tabKey) {
   else if (tabKey === 'inh') renderInh();
   else if (tabKey === 'dep') renderDep();
   else if (tabKey === 'inv') renderInventory();
+  else if (tabKey === 'diary') renderRoomDiary();
 }
 
 function isRoomTypeAllowed(tabKey, rType) {
@@ -2281,14 +2356,14 @@ function computeInventoryMatrix(startISO, numDays) {
   const dates = getDateSequence(startISO, numDays);
   const allRooms = Object.values(state.rooms);
 
-  // Tập hợp toàn bộ Room Type từ Room Plan và Booking
+  // Collect all Room Types from Room Plan and Bookings
   const typeSet = new Set();
   allRooms.forEach(r => { if (r.type) typeSet.add(r.type.trim()); });
   state.inhouse.forEach(g => { if (g.roomType) typeSet.add(g.roomType.trim()); });
   state.arrivals.forEach(a => { if (a.roomType) typeSet.add(a.roomType.trim()); });
   const allTypes = Array.from(typeSet).sort();
 
-  // Tổng số phòng vật lý theo từng loại dựa vào Room Plan & số phòng OOO
+  // Total physical rooms per type based on Room Plan & OOO count
   const totalByType = {};
   const oooByType = {};
   allTypes.forEach(rt => {
@@ -2308,13 +2383,13 @@ function computeInventoryMatrix(startISO, numDays) {
     }
   });
 
-  // Gom các booking đang chiếm phòng (In-house + Arrivals/Reserved), loại bỏ Sharer để không đếm trùng 1 phòng 2 lần
+  // Group bookings occupying rooms (In-house + Arrivals/Reserved), excluding Sharers to avoid double-counting rooms
   const activeBookings = [
     ...state.inhouse.filter(g => !g.isSharer),
     ...state.arrivals.filter(a => !a.isSharer)
   ];
 
-  // Tính theo từng ngày d:
+  // Calculate per day d:
   // Available = Total (Room Plan) - Booked (arr <= d < dep) - OOO
   const dataByType = {};
   allTypes.forEach(rt => {
@@ -2364,13 +2439,13 @@ function renderInventory() {
 
   const { dates, allTypes, dataByType, houseTotals } = computeInventoryMatrix(startISO, numDays);
 
-  // Cập nhật badge trên tab Inventory = Tổng số phòng trống ngày đầu tiên đang xem (hoặc Business Date)
+  // Update Inventory tab badge = Total available rooms on the first visible day (or Business Date)
   const badgeInv = document.getElementById('badge-inv');
   if (badgeInv) {
     badgeInv.textContent = houseTotals.length ? houseTotals[0].avail : 0;
   }
 
-  // Cập nhật nút Expand All / Collapse All
+  // Update Expand All / Collapse All button
   const expandAllBtn = document.getElementById('btn-inv-expand-all');
   if (expandAllBtn) {
     const allKeys = ['HOUSE', ...allTypes];
@@ -2378,14 +2453,14 @@ function renderInventory() {
     expandAllBtn.textContent = allExpanded ? '⊟ Collapse All' : '⊞ Expand All';
   }
 
-  // Render Header theo mẫu Opera Cloud Property Availability
+  // Render Header in Opera Cloud Property Availability style
   let headHtml = `<tr>
     <th class="col-sticky-1">Room Type</th>
     <th class="col-sticky-2">Availability Metric</th>`;
   dates.forEach(d => {
     headHtml += `<th class="${d.isWeekend ? 'wknd-col' : ''}" style="min-width:62px">
-      <div style="font-size:12px;font-weight:800;color:#0f172a">${d.label}</div>
-      <div style="font-size:10px;font-weight:500;color:${d.isWeekend ? '#be123c' : '#64748b'}">${d.dowName}</div>
+      <div style="font-size:12px;font-weight:800;color:${d.isWeekend ? '#854d0e' : '#0f172a'}">${d.label}</div>
+      <div style="font-size:10px;font-weight:700;color:${d.isWeekend ? '#a16207' : '#64748b'}">${d.dowName}</div>
     </th>`;
   });
   headHtml += `</tr>`;
@@ -2403,10 +2478,10 @@ function renderInventory() {
     return `<td class="${wknd} ${cls}">${val}</td>`;
   }).join('');
 
-  // Lọc Room Type theo dropdown checkbox
+  // Filter Room Type by checkbox dropdown
   const visibleTypes = allTypes.filter(rt => isRoomTypeAllowed('inv', rt));
 
-  // Dòng tổng toàn khách sạn (House)
+  // House total row
   const houseExp = expandedInvRows.has('HOUSE');
   let bodyHtml = `<tr class="row-house">
     <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('HOUSE')">${houseExp ? '−' : '+'}</span>House</td>
@@ -2684,7 +2759,7 @@ function renderInh() {
 }
 
 function toggleGenericDropdown(dropdownId) {
-  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
+  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'diary-type-dropdown', 'diary-floor-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     if (id === dropdownId) el.classList.toggle('visible');
@@ -2693,7 +2768,7 @@ function toggleGenericDropdown(dropdownId) {
 }
 
 window.addEventListener('click', function (e) {
-  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
+  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'diary-type-dropdown', 'diary-floor-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
     const el = document.getElementById(id);
     if (el && !el.contains(e.target)) {
       el.classList.remove('visible');
@@ -2710,10 +2785,10 @@ function updateHkFloorCheckboxes(forceReset = false) {
   const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll('.hk-floor-chk:checked')).map(cb => cb.value));
   const allChecked = forceReset || !prevSelected || prevSelected.size === floors.length;
 
-  cbs.innerHTML = `<label style="display:block;margin-bottom:4px;cursor:pointer"><input type="checkbox" id="hk-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkFloors(this)"> <b>Select All</b></label>` +
+  cbs.innerHTML = `<label ><input type="checkbox" id="hk-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkFloors(this)"> <b>Select All</b></label>` +
     floors.map(fl => {
       const checked = forceReset || !prevSelected ? true : prevSelected.has(fl);
-      return `<label style="display:block;margin-bottom:4px;cursor:pointer"><input type="checkbox" class="hk-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onHkFloorChange()"> Floor ${fl}xx</label>`;
+      return `<label ><input type="checkbox" class="hk-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onHkFloorChange()"> Floor ${fl}xx</label>`;
     }).join('');
 }
 
@@ -2739,10 +2814,10 @@ function updateHkCheckboxes(forceReset = false) {
   const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll('.hk-type-chk:checked')).map(cb => cb.value));
   const allChecked = forceReset || !prevSelected || prevSelected.size === roomTypes.length;
 
-  cbs.innerHTML = `<label style="display:block;margin-bottom:4px;cursor:pointer"><input type="checkbox" id="hk-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkTypes(this)"> <b>Select All</b></label>` +
+  cbs.innerHTML = `<label ><input type="checkbox" id="hk-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkTypes(this)"> <b>Select All</b></label>` +
     roomTypes.map(t => {
       const checked = forceReset || !prevSelected ? true : prevSelected.has(t);
-      return `<label style="display:block;margin-bottom:4px;cursor:pointer"><input type="checkbox" class="hk-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onHkTypeChange()"> ${t}</label>`;
+      return `<label ><input type="checkbox" class="hk-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onHkTypeChange()"> ${t}</label>`;
     }).join('');
 }
 
@@ -2828,7 +2903,7 @@ function renderHK() {
     return matchFloor && matchType && matchStatus && matchOcc && matchSearch && matchOpt;
   });
 
-  const counts = { IP: 0, CL: 0, DI: 0, OO: 0, OS: 0 };
+  const counts = { IP: 0, CL: 0, PU: 0, DI: 0, OO: 0, OS: 0 };
   all.forEach(r => { if (counts[r.status] !== undefined) counts[r.status]++; });
   document.getElementById('hk-counters').innerHTML = Object.entries(counts).map(([k, v]) => `<span class="badge hk-${k}" style="font-size:12px;padding:4px 8px">${k}: ${v}</span>`).join('');
 
@@ -2864,6 +2939,7 @@ function renderHK() {
           <select onchange="changeRoomStatus('${r.room}',this.value)">
             <option value="IP" ${r.status === 'IP' ? 'selected' : ''}>IP</option>
             <option value="CL" ${r.status === 'CL' ? 'selected' : ''}>CL</option>
+            <option value="PU" ${r.status === 'PU' ? 'selected' : ''}>PU</option>
             <option value="DI" ${r.status === 'DI' ? 'selected' : ''}>DI</option>
             <option value="OO" ${r.status === 'OO' ? 'selected' : ''}>OO</option>
             <option value="OS" ${r.status === 'OS' ? 'selected' : ''}>OS</option>
@@ -3156,12 +3232,12 @@ function saveGuestModal() {
   if (t === 'walkin') {
     if (!rm) return alert('Please select a room for Walk-in!');
     if (state.inhouse.some(x => x.room === rm)) {
-      return alert(`WALK-IN BLOCKED: Room ${rm} đang có khách ở (OCC)!`);
+      return alert(`WALK-IN BLOCKED: Room ${rm} is currently occupied (OCC)!`);
     }
     const rObjWalkin = state.rooms[rm];
     if (!rObjWalkin || rObjWalkin.status !== 'IP') {
       const curSt = rObjWalkin ? rObjWalkin.status : 'UNKNOWN';
-      return alert(`WALK-IN BLOCKED: Phòng ${rm} đang ở trạng thái [${curSt}] (phòng dơ/chưa kiểm tra). Walk-in chỉ được nhận phòng VAC và trạng thái IP!`);
+      return alert(`WALK-IN BLOCKED: Room ${rm} is currently in status [${curSt}] (dirty/uninspected room). Walk-ins can only check into VAC rooms with IP status!`);
     }
     state.inhouse.unshift(o);
     addLog('WALK-IN', rm, nm);
@@ -3250,21 +3326,83 @@ function toggleDiaryLegend() {
   el.classList.toggle('hidden');
 }
 
-function populateDiaryFilterOptions() {
-  const rooms = Object.values(state.rooms || {});
-  const typeSel = document.getElementById('diary-filter-type');
-  const floorSel = document.getElementById('diary-filter-floor');
-  if (typeSel) {
-    const curType = typeSel.value || 'ALL';
-    const types = [...new Set(rooms.map(r => (r.type || '').trim()).filter(Boolean))].sort();
-    typeSel.innerHTML = `<option value="ALL">All Room Types</option>` + types.map(t => `<option value="${t}">${t}</option>`).join('');
-    if ([...typeSel.options].some(o => o.value === curType)) typeSel.value = curType;
+function getDiaryAllRoomsList() {
+  const allBookings = [
+    ...(state.inhouse || []).map(b => ({ ...b, _src: 'inh' })),
+    ...(state.arrivals || []).map(b => ({ ...b, _src: 'arr' }))
+  ];
+  const roomsMap = { ...(state.rooms || {}) };
+  allBookings.forEach(b => {
+    const rNo = String(b.room || '').trim();
+    if (rNo && !roomsMap[rNo]) {
+      roomsMap[rNo] = { room: rNo, type: (b.roomType || '').trim(), status: b._src === 'inh' ? 'IP' : 'CL', note: '' };
+    }
+  });
+  return Object.values(roomsMap);
+}
+
+function updateDiaryFloorCheckboxes(forceReset = false) {
+  const rooms = getDiaryAllRoomsList();
+  const floors = [...new Set(rooms.map(r => String(r.room || '').trim().slice(0, 2)).filter(Boolean))].sort();
+  const cbs = document.getElementById('diary-floor-checkboxes');
+  if (!cbs) return;
+
+  const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll('.diary-floor-chk:checked')).map(cb => cb.value));
+  const allChecked = forceReset || !prevSelected || prevSelected.size === 0 || prevSelected.size === floors.length;
+
+  cbs.innerHTML = `<label ><input type="checkbox" id="diary-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllDiaryFloors(this)"> <b>Select All</b></label>` +
+    floors.map(fl => {
+      const checked = allChecked ? true : prevSelected.has(fl);
+      return `<label ><input type="checkbox" class="diary-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onDiaryFloorChange()"> Floor ${fl}xx</label>`;
+    }).join('');
+
+  updateDiaryFloorCountLabel(floors.length);
+}
+
+function toggleAllDiaryFloors(source) {
+  document.querySelectorAll('.diary-floor-chk').forEach(cb => cb.checked = source.checked);
+  updateDiaryFloorCountLabel(document.querySelectorAll('.diary-floor-chk').length);
+  renderRoomDiary();
+}
+
+function onDiaryFloorChange() {
+  const allCbs = document.querySelectorAll('.diary-floor-chk');
+  const checkedCbs = document.querySelectorAll('.diary-floor-chk:checked');
+  const selectAll = document.getElementById('diary-floor-select-all');
+  if (selectAll) selectAll.checked = (allCbs.length > 0 && checkedCbs.length === allCbs.length);
+  updateDiaryFloorCountLabel(allCbs.length);
+  renderRoomDiary();
+}
+
+function updateDiaryFloorCountLabel(totalCount) {
+  const checkedCbs = document.querySelectorAll('.diary-floor-chk:checked');
+  const countSpan = document.getElementById('diary-floor-count');
+  if (!countSpan) return;
+  if (totalCount === 0 || checkedCbs.length === totalCount || checkedCbs.length === 0) {
+    countSpan.textContent = 'All';
+  } else {
+    countSpan.textContent = checkedCbs.length;
   }
-  if (floorSel) {
-    const curFloor = floorSel.value || 'ALL';
-    const floors = [...new Set(rooms.map(r => String(r.room || '').trim().slice(0, 2)).filter(Boolean))].sort();
-    floorSel.innerHTML = `<option value="ALL">All Floors</option>` + floors.map(f => `<option value="${f}">${f}</option>`).join('');
-    if ([...floorSel.options].some(o => o.value === curFloor)) floorSel.value = curFloor;
+}
+
+function isDiaryFloorAllowed(rFloor) {
+  const allCbs = document.querySelectorAll('.diary-floor-chk');
+  const checkedCbs = document.querySelectorAll('.diary-floor-chk:checked');
+  if (allCbs.length === 0 || checkedCbs.length === 0 || checkedCbs.length === allCbs.length) return true;
+  const allowed = Array.from(checkedCbs).map(cb => cb.value);
+  return allowed.includes(rFloor);
+}
+
+function populateDiaryFilterOptions() {
+  const types = getAllRoomTypes();
+  const diaryCbs = document.getElementById('diary-type-checkboxes');
+  if (diaryCbs && document.querySelectorAll('.diary-type-chk').length !== types.length) {
+    updateBookingTypeCheckboxes(true);
+  }
+  const rooms = getDiaryAllRoomsList();
+  const floors = [...new Set(rooms.map(r => String(r.room || '').trim().slice(0, 2)).filter(Boolean))].sort();
+  if (document.querySelectorAll('.diary-floor-chk').length !== floors.length) {
+    updateDiaryFloorCheckboxes(true);
   }
 }
 
@@ -3320,10 +3458,15 @@ function resetDiaryFilters() {
   const baseISO = parseDateToISO(state.workingDate) || '2026-11-19';
   const roomEl = document.getElementById('diary-filter-room');
   if (roomEl) roomEl.value = '';
-  ['diary-filter-type', 'diary-filter-floor'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = 'ALL';
-  });
+  updateDiaryFloorCheckboxes(true);
+  const selectAllDiary = document.getElementById('diary-type-select-all');
+  if (selectAllDiary) {
+    selectAllDiary.checked = true;
+    toggleAllBookingTypes('diary', selectAllDiary);
+  } else {
+    document.querySelectorAll('.diary-type-chk').forEach(cb => { cb.checked = true; });
+    updateBookingTypeCountLabel('diary', getAllRoomTypes().length);
+  }
   const grpEl = document.getElementById('diary-group-type');
   if (grpEl) grpEl.checked = false;
   const startEl = document.getElementById('diary-start-date');
@@ -3350,7 +3493,7 @@ function showDiaryStatistics() {
       return a && a <= dt.iso && dt.iso < d;
     }).length;
     const pct = totalRooms > 0 ? ((occ / totalRooms) * 100).toFixed(1) : '0.0';
-    return `${dt.label} (${dt.dayName}): ${occ}/${totalRooms} rooms (${pct}%)`;
+    return `${dt.label} (${dt.dowName}): ${occ}/${totalRooms} rooms (${pct}%)`;
   });
   alert(`Room Diary Occupancy (${totalRooms} rooms):\n\n` + lines.join('\n'));
 }
@@ -3367,8 +3510,6 @@ function renderRoomDiary() {
   const numDays = parseInt(document.getElementById('diary-days-select')?.value || '7', 10);
   const sortBy = document.getElementById('diary-sort-select')?.value || 'default';
   const roomQ = (document.getElementById('diary-filter-room')?.value || '').trim().toLowerCase();
-  const typeF = document.getElementById('diary-filter-type')?.value || 'ALL';
-  const floorF = document.getElementById('diary-filter-floor')?.value || 'ALL';
   const groupByType = !!document.getElementById('diary-group-type')?.checked;
 
   const dates = getDateSequence(startISO, numDays);
@@ -3382,15 +3523,22 @@ function renderRoomDiary() {
       <th colspan="${dates.length}" style="height:22px;font-size:11px;color:#334155;background:#f8fafc">${monthHeaderLabel}</th>
     </tr>
     <tr>
-      ${dates.map(d => `<th class="${d.isWeekend ? 'diary-wknd-cell' : ''}" style="height:24px;font-size:11px">${d.label} ${d.dayName}</th>`).join('')}
+      ${dates.map(d => `<th class="${d.isWeekend ? 'diary-wknd-cell' : ''}" style="height:24px;font-size:11px">${d.label} ${d.dowName}</th>`).join('')}
     </tr>
   `;
 
-  let rooms = Object.values(state.rooms || {});
   const allBookings = [
     ...(state.inhouse || []).map(b => ({ ...b, _src: 'inh' })),
     ...(state.arrivals || []).map(b => ({ ...b, _src: 'arr' }))
   ];
+  const roomsMap = { ...(state.rooms || {}) };
+  allBookings.forEach(b => {
+    const rNo = String(b.room || '').trim();
+    if (rNo && !roomsMap[rNo]) {
+      roomsMap[rNo] = { room: rNo, type: (b.roomType || '').trim(), status: b._src === 'inh' ? 'IP' : 'CL', note: '' };
+    }
+  });
+  let rooms = Object.values(roomsMap);
 
   rooms = rooms.filter(r => {
     const rNo = String(r.room || '').trim();
@@ -3398,8 +3546,8 @@ function renderRoomDiary() {
     const rFloor = rNo.slice(0, 2);
 
     if (roomQ && !rNo.toLowerCase().includes(roomQ)) return false;
-    if (typeF !== 'ALL' && rType !== typeF) return false;
-    if (floorF !== 'ALL' && rFloor !== floorF) return false;
+    if (!isRoomTypeAllowed('diary', rType)) return false;
+    if (!isDiaryFloorAllowed(rFloor)) return false;
     return true;
   });
 
