@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Opera Cloud Downtime PMS - V35</title>
+  <title>Opera Cloud Downtime PMS - V36</title>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -57,9 +57,9 @@
     .btn-amber{background:#d97706;color:#fff}
     .btn-slate{background:#475569;color:#fff}
     .btn-light{background:#f1f5f9;color:#334155;border:1px solid #cbd5e1}
-    .table-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:8px;overflow-x:auto}
-    table{width:100%;border-collapse:collapse;text-align:left;font-size:13px}
-    th{background:#f8fafc;color:#475569;font-size:11px;text-transform:uppercase;padding:10px 12px;border-bottom:1px solid #e2e8f0;white-space:nowrap}
+    .table-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:8px;overflow:auto;max-height:68vh;position:relative}
+    table{width:100%;border-collapse:separate;border-spacing:0;text-align:left;font-size:13px}
+    th{background:#f8fafc;color:#475569;font-size:11px;text-transform:uppercase;padding:10px 12px;border-bottom:2px solid #cbd5e1;white-space:nowrap;position:sticky;top:0;z-index:12}
     td{padding:10px 12px;border-bottom:1px solid #f1f5f9;vertical-align:middle}
     tr.sharer td{background:#f8fafc;color:#64748b}
     tr.row-selected td{background:#fef9c3!important}
@@ -91,7 +91,8 @@
     .form-group input,.form-group select,.form-group textarea{width:100%}
     .modal-foot{background:#f8fafc;padding:12px 18px;border-top:1px solid #e2e8f0;display:flex;justify-content:flex-end;gap:8px}
     .room-type-section{margin-bottom:20px}
-    .room-type-title{font-size:14px;font-weight:700;color:#1e293b;padding-bottom:6px;border-bottom:2px solid #cbd5e1;margin-bottom:10px}
+    .room-type-title{font-size:14px;font-weight:700;color:#1e293b;padding-bottom:6px;border-bottom:2px solid #cbd5e1;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .room-type-title-left{display:flex;align-items:center;gap:8px;cursor:pointer}
     .hk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:12px}
     .dropdown-check-list{position:relative;display:inline-block}
     .dropdown-check-list .selector{background:#fff;border:1px solid #cbd5e1;padding:6px 10px;border-radius:6px;cursor:pointer;font-size:13px;display:flex;justify-content:space-between;align-items:center;min-width:150px;gap:8px}
@@ -103,7 +104,6 @@
     .flatpickr-calendar{z-index:9999!important}
     input[type="checkbox"]{width:15px;height:15px;cursor:pointer}
 
-    /* INVENTORY / PROPERTY AVAILABILITY (OPERA CLOUD STYLE) */
     .inv-panel-header{background:#1e293b;color:#fff;padding:10px 16px;border-radius:8px 8px 0 0;font-weight:700;font-size:14px;display:flex;justify-content:space-between;align-items:center}
     .inv-search-body{background:#fff;border:1px solid #cbd5e1;border-top:none;border-radius:0 0 8px 8px;padding:14px 16px;margin-bottom:16px}
     .inv-table-wrap{background:#fff;border:1px solid #cbd5e1;border-radius:8px;overflow-x:auto;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.05)}
@@ -127,279 +127,272 @@
     .inv-cell-low{color:#d97706;font-weight:700}
     .inv-expand-btn{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:3px;border:1px solid #94a3b8;background:#fff;color:#334155;font-size:11px;font-weight:800;cursor:pointer;margin-right:6px;line-height:1;user-select:none}
     .inv-expand-btn:hover{background:#2563eb;color:#fff;border-color:#2563eb}
-  
-/* === ROOM DIARY STYLES === */
-.diary-search-card {
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  margin-bottom: 12px;
-  overflow: visible;
-  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
-}
-.diary-search-header {
-  border-radius: 5px 5px 0 0;
-}
-.diary-search-header {
-  background: #2c3545;
-  color: #ffffff;
-  padding: 8px 14px;
-  font-size: 13px;
-  font-weight: 600;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-}
-.diary-search-body {
-  padding: 12px 14px;
-  font-size: 12px;
-}
-.diary-filter-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(180px, 1fr));
-  gap: 12px 18px;
-  align-items: start;
-}
-@media (max-width: 1024px) {
-  .diary-filter-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
-}
-.diary-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-.diary-field label {
-  font-size: 11px;
-  font-weight: 600;
-  color: #334155;
-}
-.diary-field input,
-.diary-field select {
-  height: 28px;
-  padding: 2px 8px;
-  border: 1px solid #94a3b8;
-  border-radius: 3px;
-  font-size: 12px;
-  color: #0f172a;
-  background: #fff;
-}
-.diary-req-note {
-  font-size: 11px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 8px;
-}
-.diary-chk-col label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11.5px;
-  color: #1e293b;
-  margin-bottom: 8px;
-  cursor: pointer;
-}
-.diary-search-actions {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 12px;
-  padding-top: 6px;
-  border-top: 1px solid #e2e8f0;
-}
-.diary-btn-reset {
-  background: transparent;
-  border: none;
-  color: #0284c7;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 4px 8px;
-}
-.diary-btn-search {
-  background: #1e293b;
-  color: #ffffff;
-  border: 1px solid #0f172a;
-  border-radius: 3px;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 14px;
-  cursor: pointer;
-}
-.diary-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-bottom: none;
-  border-radius: 6px 6px 0 0;
-  padding: 8px 12px;
-  font-size: 12px;
-}
-.diary-toolbar-left,
-.diary-toolbar-right {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-.diary-link-btn {
-  background: none;
-  border: none;
-  color: #0284c7;
-  font-size: 12px;
-  cursor: pointer;
-  padding: 2px 4px;
-}
-.diary-link-btn:hover { text-decoration: underline; }
-.diary-grid-wrap {
-  position: relative;
-  overflow-x: auto;
-  max-height: 620px;
-  background: #ffffff;
-  border: 1px solid #cbd5e1;
-  border-radius: 0 0 6px 6px;
-}
-.diary-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed;
-  font-size: 11.5px;
-}
-.diary-table th,
-.diary-table td {
-  border-right: 1px solid #e2e8f0;
-  border-bottom: 1px solid #cbd5e1;
-  height: 28px;
-  padding: 0;
-  box-sizing: border-box;
-}
-.diary-room-col {
-  width: 175px;
-  min-width: 175px;
-  position: sticky;
-  left: 0;
-  z-index: 3;
-  background: #ffffff;
-}
-.diary-table thead th.diary-room-col {
-  z-index: 5;
-  background: #f8fafc;
-  text-align: left;
-  padding: 4px 8px;
-  font-weight: 700;
-  color: #0f172a;
-}
-.diary-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 2;
-  background: #ffffff;
-  font-weight: 600;
-  color: #1e293b;
-  text-align: center;
-}
-.diary-wknd-cell {
-  background-color: #fef9c3 !important;
-}
-.diary-table thead th.diary-wknd-cell {
-  background-color: #fef08a !important;
-  color: #854d0e !important;
-}
-.diary-room-cell-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 6px;
-  height: 100%;
-  gap: 4px;
-}
-.diary-room-left {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.diary-hk-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 8px;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-}
-.diary-hk-IP { background: #4eab49; }
-.diary-hk-CL { background: #2d9cdb; }
-.diary-hk-PU { background: #f59e0b; }
-.diary-hk-DI { background: #e11d48; }
-.diary-hk-OO { background: #f97316; }
-.diary-hk-OS { background: #f97316; }
-.diary-room-no { font-weight: 700; color: #0f172a; }
-.diary-room-type { font-size: 10px; color: #2563eb; font-weight: 600; }
-.diary-day-cell {
-  position: relative;
-  cursor: pointer;
-}
-.diary-day-cell:hover {
-  background-color: #e0f2fe !important;
-}
-.diary-bar {
-  position: absolute;
-  top: 2px;
-  bottom: 2px;
-  border-radius: 2px;
-  color: #ffffff;
-  font-size: 10.5px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 6px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer;
-  z-index: 2;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-}
-.diary-bar-inh { background: #1e5f66; }
-.diary-bar-arr { background: #26999e; }
-.diary-bar-linked { background: #9c8412; }
-.diary-bar-oos {
-  background: #8c8d91;
-  color: #f8fafc;
-  font-weight: 600;
-  cursor: default;
-}
-.diary-group-row td {
-  background: #e2e8f0 !important;
-  font-weight: 700;
-  color: #0f172a;
-  padding-left: 10px !important;
-  font-size: 11px;
-}
 
-
-/* Preserve title/normal casing like Inventory tab */
-.diary-table thead th,
-.diary-field label,
-.diary-search-header,
-.diary-btn-search,
-.diary-btn-reset,
-.diary-link-btn {
-  text-transform: none;
-}
-
+    .diary-search-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      overflow: visible;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    }
+    .diary-search-header {
+      background: #2c3545;
+      color: #ffffff;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      border-radius: 5px 5px 0 0;
+    }
+    .diary-search-body {
+      padding: 12px 14px;
+      font-size: 12px;
+    }
+    .diary-filter-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 12px 18px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .diary-filter-grid { grid-template-columns: repeat(2, minmax(160px, 1fr)); }
+    }
+    .diary-field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .diary-field label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .diary-field input,
+    .diary-field select {
+      height: 28px;
+      padding: 2px 8px;
+      border: 1px solid #94a3b8;
+      border-radius: 3px;
+      font-size: 12px;
+      color: #0f172a;
+      background: #fff;
+    }
+    .diary-req-note {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .diary-chk-col label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #1e293b;
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    .diary-search-actions {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 12px;
+      padding-top: 6px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .diary-btn-reset {
+      background: transparent;
+      border: none;
+      color: #0284c7;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 4px 8px;
+    }
+    .diary-btn-search {
+      background: #1e293b;
+      color: #ffffff;
+      border: 1px solid #0f172a;
+      border-radius: 3px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 14px;
+      cursor: pointer;
+    }
+    .diary-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+    .diary-toolbar-left,
+    .diary-toolbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+    }
+    .diary-link-btn {
+      background: none;
+      border: none;
+      color: #0284c7;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+    .diary-link-btn:hover { text-decoration: underline; }
+    .diary-grid-wrap {
+      position: relative;
+      overflow-x: auto;
+      max-height: 620px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 0 0 6px 6px;
+    }
+    .diary-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 11.5px;
+    }
+    .diary-table th,
+    .diary-table td {
+      border-right: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
+      height: 28px;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .diary-room-col {
+      width: 175px;
+      min-width: 175px;
+      position: sticky;
+      left: 0;
+      z-index: 3;
+      background: #ffffff;
+    }
+    .diary-table thead th.diary-room-col {
+      z-index: 5;
+      background: #f8fafc;
+      text-align: left;
+      padding: 4px 8px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .diary-table thead th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #ffffff;
+      font-weight: 600;
+      color: #1e293b;
+      text-align: center;
+    }
+    .diary-wknd-cell {
+      background-color: #fef9c3 !important;
+    }
+    .diary-table thead th.diary-wknd-cell {
+      background-color: #fef08a !important;
+      color: #854d0e !important;
+    }
+    .diary-room-cell-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6px;
+      height: 100%;
+      gap: 4px;
+    }
+    .diary-room-left {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .diary-hk-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8px;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .diary-hk-IP { background: #4eab49; }
+    .diary-hk-CL { background: #2d9cdb; }
+    .diary-hk-PU { background: #f59e0b; }
+    .diary-hk-DI { background: #e11d48; }
+    .diary-hk-OO { background: #f97316; }
+    .diary-hk-OS { background: #f97316; }
+    .diary-room-no { font-weight: 700; color: #0f172a; }
+    .diary-room-type { font-size: 10px; color: #2563eb; font-weight: 600; }
+    .diary-day-cell {
+      position: relative;
+      cursor: pointer;
+    }
+    .diary-day-cell:hover {
+      background-color: #e0f2fe !important;
+    }
+    .diary-bar {
+      position: absolute;
+      top: 2px;
+      bottom: 2px;
+      border-radius: 2px;
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      z-index: 2;
+      box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+    }
+    .diary-bar-inh { background: #1e5f66; }
+    .diary-bar-arr { background: #26999e; }
+    .diary-bar-linked { background: #9c8412; }
+    .diary-bar-oos {
+      background: #8c8d91;
+      color: #f8fafc;
+      font-weight: 600;
+      cursor: default;
+    }
+    .diary-group-row td {
+      background: #e2e8f0 !important;
+      font-weight: 700;
+      color: #0f172a;
+      padding-left: 10px !important;
+      font-size: 11px;
+    }
+    .diary-table thead th,
+    .diary-field label,
+    .diary-search-header,
+    .diary-btn-search,
+    .diary-btn-reset,
+    .diary-link-btn {
+      text-transform: none;
+    }
   </style>
 </head>
 <body>
@@ -409,7 +402,7 @@
     <div style="text-align:center;margin-bottom:18px">
       <span class="badge" style="background:#f59e0b;color:#090d16;font-size:11px;padding:4px 10px">CLOUD REALTIME PMS</span>
       <h2 style="font-size:20px;margin-top:8px">SYSTEM LOGIN</h2>
-      <p id="cloud-conn-msg" style="font-size:12px;color:#059669;margin-top:4px">🟢 Connecting to cloud database...</p>
+      <p id="cloud-conn-msg" style="font-size:12px;color:#059669;margin-top:4px">Connecting to cloud database...</p>
     </div>
     <label style="font-size:12px;font-weight:700;color:#475569">Username</label>
     <input type="text" id="login-user" placeholder="Enter username" autocomplete="off">
@@ -424,7 +417,7 @@
     <span class="badge" style="background:#e11d48;color:#fff;font-size:12px;padding:6px 12px">DOWNTIME ENDED</span>
     <h2 style="font-size:20px;margin-top:12px;color:#1e293b">System Has Been Deactivated</h2>
     <p style="font-size:13px;color:#64748b;margin-top:8px">Opera Cloud is back online. This downtime webapp has been locked by FOM and ended the session for other users.</p>
-    <button onclick="openFomLoginFromShutdown()" class="login-btn" style="margin-top:16px;background:#0f172a">🔑 FOM Login</button>
+    <button onclick="openFomLoginFromShutdown()" class="login-btn" style="margin-top:16px;background:#0f172a">FOM Login</button>
   </div>
 </div>
 
@@ -435,32 +428,32 @@
         <span id="role-badge" class="badge-role" style="background:#2563eb">FO</span>
         <div>
           <h1 id="header-user-title">OPERA CLOUD DOWNTIME PMS</h1>
-          <p id="sync-status-text">🟢 Cloud Synchronized</p>
+          <p id="sync-status-text">Cloud Synchronized</p>
         </div>
       </div>
       <div class="kpi-bar">
         <div class="kpi-box"><span class="lbl">Business Date:</span><input type="text" id="workingDateInput" placeholder="dd/mm" readonly></div>
-        <div class="kpi-box"><span class="lbl">Arr:</span><strong id="kpi-arr" style="color:#60a5fa">0</strong></div>
-        <div class="kpi-box"><span class="lbl">Dep:</span><strong id="kpi-dep" style="color:#fb7185">0</strong></div>
+        <div class="kpi-box"><span class="lbl">Arr:</span><strong id="kpi-arr" style="color:#60a5fa">0/0</strong></div>
+        <div class="kpi-box"><span class="lbl">Dep:</span><strong id="kpi-dep" style="color:#fb7185">0/0</strong></div>
         <div class="kpi-box"><span class="lbl">Inh:</span><strong id="kpi-inh" style="color:#34d399">0</strong></div>
         <div class="kpi-box"><span class="lbl">Clean:</span><strong id="kpi-hk" style="color:#22d3ee">0</strong></div>
-        <button id="btn-shutdown-system" onclick="shutdownSystem()" class="btn btn-sm btn-rose hidden" style="font-weight:700">🛑 Stop Using Webapp</button>
-        <button id="btn-resume-system" onclick="resumeSystem()" class="btn btn-sm btn-emerald hidden" style="font-weight:700">▶️ Resume Webapp</button>
+        <button id="btn-shutdown-system" onclick="shutdownSystem()" class="btn btn-sm btn-rose hidden" style="font-weight:700">Stop Using Webapp</button>
+        <button id="btn-resume-system" onclick="resumeSystem()" class="btn btn-sm btn-emerald hidden" style="font-weight:700">Resume Webapp</button>
         <button onclick="logout()" class="btn btn-sm btn-slate">Logout</button>
       </div>
     </div>
     <nav>
       <div class="nav-inner">
-        <button onclick="switchTab('res')" id="tab-res" class="tab-btn">📋 Res (All) <span id="badge-res" class="pill pill-indigo">0</span></button>
-        <button onclick="switchTab('arr')" id="tab-arr" class="tab-btn">🛬 Arr (Today) <span id="badge-arr" class="pill pill-blue">0</span></button>
-        <button onclick="switchTab('inh')" id="tab-inh" class="tab-btn">🏨 In-house <span id="badge-inh" class="pill pill-emerald">0</span></button>
-        <button onclick="switchTab('dep')" id="tab-dep" class="tab-btn">🛫 Dep <span id="badge-dep" class="pill pill-rose">0</span></button>
-        <button onclick="switchTab('inv')" id="tab-inv" class="tab-btn">📊 Inventory <span id="badge-inv" class="pill pill-amber">0</span></button>
-        <button onclick="switchTab('diary')" id="tab-diary" class="tab-btn">📅 Room Diary <span id="badge-diary" class="pill pill-indigo">0</span></button>
-        <button onclick="switchTab('hk')" id="tab-hk" class="tab-btn">🧹 HK <span id="badge-hk" class="pill pill-cyan">0</span></button>
-        <button onclick="switchTab('import')" id="tab-import" class="tab-btn">📥 Import</button>
-        <button onclick="switchTab('export')" id="tab-export" class="tab-btn">📤 Backup & Logs</button>
-        <button onclick="switchTab('users')" id="tab-users" class="tab-btn">👥 User Mgmt</button>
+        <button onclick="switchTab('res')" id="tab-res" class="tab-btn">Res (All) <span id="badge-res" class="pill pill-indigo">0</span></button>
+        <button onclick="switchTab('arr')" id="tab-arr" class="tab-btn">Arr <span id="badge-arr" class="pill pill-blue">0/0</span></button>
+        <button onclick="switchTab('inh')" id="tab-inh" class="tab-btn">In-house <span id="badge-inh" class="pill pill-emerald">0</span></button>
+        <button onclick="switchTab('dep')" id="tab-dep" class="tab-btn">Dep <span id="badge-dep" class="pill pill-rose">0/0</span></button>
+        <button onclick="switchTab('inv')" id="tab-inv" class="tab-btn">Inventory</button>
+        <button onclick="switchTab('diary')" id="tab-diary" class="tab-btn">Room Diary <span id="badge-diary" class="pill pill-indigo">0</span></button>
+        <button onclick="switchTab('hk')" id="tab-hk" class="tab-btn">HK <span id="badge-hk" class="pill pill-cyan">0</span></button>
+        <button onclick="switchTab('import')" id="tab-import" class="tab-btn">Import</button>
+        <button onclick="switchTab('export')" id="tab-export" class="tab-btn">Backup & Logs</button>
+        <button onclick="switchTab('users')" id="tab-users" class="tab-btn">User Mgmt</button>
       </div>
     </nav>
   </header>
@@ -483,15 +476,13 @@
         <button onclick="openNewResModal()" class="btn btn-indigo">+ New Booking</button>
       </div>
 
-      <!-- BULK BAR RES -->
       <div id="bulk-bar-res" class="bulk-bar hidden">
         <span>Selected (<strong id="selected-count-res" style="color:#fbbf24">0</strong>) bookings:</span>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <button onclick="massCheckIn('res')" class="btn btn-sm btn-blue">✅ Mass Check-in</button>
-          <button onclick="massUpdateRoomType('res')" class="btn btn-sm btn-indigo">🏷️ Change Room Type</button>
-          <button onclick="massAddNoteTrace('res', 'comment')" class="btn btn-sm btn-amber">📝 Add Comment</button>
-          <button onclick="massAddNoteTrace('res', 'trace')" class="btn btn-sm btn-cyan">📌 Add Trace</button>
-          <button onclick="massDeleteBookings('res')" class="btn btn-sm btn-rose">🗑️ Delete</button>
+          <button onclick="massCheckIn('res')" class="btn btn-sm btn-blue">Mass Check-in</button>
+          <button onclick="massAddNoteTrace('res', 'comment')" class="btn btn-sm btn-amber">Add Comment</button>
+          <button onclick="massAddNoteTrace('res', 'trace')" class="btn btn-sm btn-cyan">Add Trace</button>
+          <button onclick="massDeleteBookings('res')" class="btn btn-sm btn-rose">Delete</button>
           <button onclick="clearBookingSelection('res')" class="btn btn-sm btn-light">Clear</button>
         </div>
       </div>
@@ -521,19 +512,18 @@
           </div>
 
           <label style="font-size:13px"><input type="checkbox" id="hide-sharer-arr" onchange="renderArr()"> Hide Sharers</label>
+          <span class="pill pill-blue" id="arr-progress-label">Arr: 0/0</span>
         </div>
-        <button onclick="openWalkInModal()" class="btn btn-blue">+ Walk-in</button>
+        <button id="btn-arr-walkin" onclick="openWalkInModal()" class="btn btn-blue">+ Walk-in</button>
       </div>
 
-      <!-- BULK BAR ARR -->
       <div id="bulk-bar-arr" class="bulk-bar hidden">
         <span>Selected (<strong id="selected-count-arr" style="color:#fbbf24">0</strong>) arrivals:</span>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <button onclick="massCheckIn('arr')" class="btn btn-sm btn-blue">✅ Mass Check-in</button>
-          <button onclick="massUpdateRoomType('arr')" class="btn btn-sm btn-indigo">🏷️ Change Room Type</button>
-          <button onclick="massAddNoteTrace('arr', 'comment')" class="btn btn-sm btn-amber">📝 Add Comment</button>
-          <button onclick="massAddNoteTrace('arr', 'trace')" class="btn btn-sm btn-cyan">📌 Add Trace</button>
-          <button onclick="massDeleteBookings('arr')" class="btn btn-sm btn-rose">🗑️ Delete</button>
+          <button onclick="massCheckIn('arr')" class="btn btn-sm btn-blue">Mass Check-in</button>
+          <button onclick="massAddNoteTrace('arr', 'comment')" class="btn btn-sm btn-amber">Add Comment</button>
+          <button onclick="massAddNoteTrace('arr', 'trace')" class="btn btn-sm btn-cyan">Add Trace</button>
+          <button onclick="massDeleteBookings('arr')" class="btn btn-sm btn-rose">Delete</button>
           <button onclick="clearBookingSelection('arr')" class="btn btn-sm btn-light">Clear</button>
         </div>
       </div>
@@ -565,17 +555,16 @@
           <label style="font-size:13px"><input type="checkbox" id="hide-sharer-inh" onchange="renderInh()"> Hide Sharers</label>
           <label style="font-size:13px"><input type="checkbox" id="filter-balance-inh" onchange="renderInh()"> Balance ≠ 0</label>
         </div>
-        <button onclick="openWalkInModal()" class="btn btn-emerald">+ Walk-in Check-in</button>
+        <button id="btn-inh-walkin" onclick="openWalkInModal()" class="btn btn-emerald">+ Walk-in Check-in</button>
       </div>
 
-      <!-- BULK BAR INH -->
       <div id="bulk-bar-inh" class="bulk-bar hidden">
         <span>Selected (<strong id="selected-count-inh" style="color:#fbbf24">0</strong>) in-house guests:</span>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <button onclick="massCheckOut('inh')" class="btn btn-sm btn-rose">🛫 Mass Check-out</button>
-          <button onclick="massSettleBalance('inh')" class="btn btn-sm btn-emerald">💰 Settle Balance (0)</button>
-          <button onclick="massAddNoteTrace('inh', 'comment')" class="btn btn-sm btn-amber">📝 Add Comment</button>
-          <button onclick="massAddNoteTrace('inh', 'trace')" class="btn btn-sm btn-cyan">📌 Add Trace</button>
+          <button onclick="massCheckOut('inh')" class="btn btn-sm btn-rose">Mass Check-out</button>
+          <button onclick="massSettleBalance('inh')" class="btn btn-sm btn-emerald">Settle Balance (0)</button>
+          <button onclick="massAddNoteTrace('inh', 'comment')" class="btn btn-sm btn-amber">Add Comment</button>
+          <button onclick="massAddNoteTrace('inh', 'trace')" class="btn btn-sm btn-cyan">Add Trace</button>
           <button onclick="clearBookingSelection('inh')" class="btn btn-sm btn-light">Clear</button>
         </div>
       </div>
@@ -605,17 +594,17 @@
           </div>
 
           <select id="filter-dep-date" onchange="renderDep()"><option value="ALL">All Departure Dates</option></select>
+          <span class="pill pill-rose" id="dep-progress-label">Dep: 0/0</span>
         </div>
       </div>
 
-      <!-- BULK BAR DEP -->
       <div id="bulk-bar-dep" class="bulk-bar hidden">
         <span>Selected (<strong id="selected-count-dep" style="color:#fbbf24">0</strong>) departures:</span>
         <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <button onclick="massCheckOut('dep')" class="btn btn-sm btn-rose">🛫 Mass Check-out</button>
-          <button onclick="massSettleBalance('dep')" class="btn btn-sm btn-emerald">💰 Settle Balance (0)</button>
-          <button onclick="massAddNoteTrace('dep', 'comment')" class="btn btn-sm btn-amber">📝 Add Comment</button>
-          <button onclick="massAddNoteTrace('dep', 'trace')" class="btn btn-sm btn-cyan">📌 Add Trace</button>
+          <button onclick="massCheckOut('dep')" class="btn btn-sm btn-rose">Mass Check-out</button>
+          <button onclick="massSettleBalance('dep')" class="btn btn-sm btn-emerald">Settle Balance (0)</button>
+          <button onclick="massAddNoteTrace('dep', 'comment')" class="btn btn-sm btn-amber">Add Comment</button>
+          <button onclick="massAddNoteTrace('dep', 'trace')" class="btn btn-sm btn-cyan">Add Trace</button>
           <button onclick="clearBookingSelection('dep')" class="btn btn-sm btn-light">Clear</button>
         </div>
       </div>
@@ -633,15 +622,14 @@
       </div>
     </section>
 
-    <!-- INVENTORY / PROPERTY AVAILABILITY TAB -->
+    <!-- INVENTORY TAB -->
     <section id="view-inv" class="tab-view hidden">
       <div class="inv-panel-header">
         <span>Property Availability (Inventory Check)</span>
-        <span style="font-size:11px;font-weight:500;color:#cbd5e1">Formula: Available = Total Room Plan − Booked (In-house + Reserved) − OOO</span>
+        <span style="font-size:11px;font-weight:500;color:#cbd5e1">Formula: Available = Total Room Plan - Booked (In-house + Reserved) - OOO</span>
       </div>
       <div class="inv-search-body">
         <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:6px 10px;border-radius:4px;font-size:11.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-          <span>⚠️</span>
           <span><strong>Warning:</strong> Data displayed on the Inventory may not be completely accurate for <strong>Component Rooms</strong>.</span>
         </div>
         <div class="toolbar">
@@ -667,14 +655,14 @@
               </div>
             </div>
             <div style="align-self:flex-end;display:flex;gap:6px">
-              <button onclick="shiftInventoryDate(-7)" class="btn btn-sm btn-light" title="Previous 7 days">◀ Prev 7d</button>
+              <button onclick="shiftInventoryDate(-7)" class="btn btn-sm btn-light" title="Previous 7 days">&lt; Prev 7d</button>
               <button onclick="resetInventorySearch()" class="btn btn-sm btn-light">Today (Business Date)</button>
-              <button onclick="shiftInventoryDate(7)" class="btn btn-sm btn-light" title="Next 7 days">Next 7d ▶</button>
+              <button onclick="shiftInventoryDate(7)" class="btn btn-sm btn-light" title="Next 7 days">Next 7d &gt;</button>
             </div>
           </div>
           <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center">
-            <button onclick="toggleExpandAllInventory()" id="btn-inv-expand-all" class="btn btn-sm btn-light">⊞ Expand All</button>
-            <button onclick="exportInventoryCSV()" class="btn btn-sm btn-emerald">⬇ Export CSV</button>
+            <button onclick="toggleExpandAllInventory()" id="btn-inv-expand-all" class="btn btn-sm btn-light">+ Expand All</button>
+            <button onclick="exportInventoryCSV()" class="btn btn-sm btn-emerald">Export CSV</button>
           </div>
         </div>
       </div>
@@ -691,13 +679,12 @@
     <section id="view-diary" class="tab-view hidden">
       <div class="diary-search-card">
         <div class="diary-search-header" onclick="toggleDiarySearchPanel()">
-          <span>🔍 Search</span>
-          <span id="diary-search-chevron">⌄</span>
+          <span>Search</span>
+          <span id="diary-search-chevron">▾</span>
         </div>
         <div id="diary-search-body" class="diary-search-body">
           <div class="diary-req-note">* Required Field</div>
           <div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:6px 10px;border-radius:4px;font-size:11.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-            <span>⚠️</span>
             <span><strong>Warning:</strong> Data displayed on the Room Diary may not be completely accurate for <strong>Component Rooms</strong>.</span>
           </div>
           <div class="diary-filter-grid">
@@ -756,8 +743,8 @@
       <div class="diary-toolbar">
         <div class="diary-toolbar-left">
           <input id="diary-start-date" type="date" onchange="syncDiaryFilterFromStart()" style="height:26px;border:1px solid #94a3b8;border-radius:3px;padding:0 6px;font-size:12px" />
-          <button type="button" class="btn btn-sm btn-light" onclick="shiftDiaryDate(-1)" title="Previous Day">◀</button>
-          <button type="button" class="btn btn-sm btn-light" onclick="shiftDiaryDate(1)" title="Next Day">▶</button>
+          <button type="button" class="btn btn-sm btn-light" onclick="shiftDiaryDate(-1)" title="Previous Day">&lt;</button>
+          <button type="button" class="btn btn-sm btn-light" onclick="shiftDiaryDate(1)" title="Next Day">&gt;</button>
 
           <label style="margin-left:6px;color:#334155">View</label>
           <select id="diary-days-select" onchange="renderRoomDiary()" style="height:26px;border:1px solid #94a3b8;border-radius:3px;padding:0 6px;font-size:12px">
@@ -776,7 +763,7 @@
           </select>
 
           <button type="button" class="diary-link-btn" onclick="toggleDiaryLegend()">Legend</button>
-          <button type="button" class="diary-link-btn" onclick="toggleDiarySearchPanel()">▼ Filter Results</button>
+          <button type="button" class="diary-link-btn" onclick="toggleDiarySearchPanel()">Filter Results</button>
         </div>
 
         <div class="diary-toolbar-right">
@@ -787,10 +774,10 @@
       </div>
 
       <div id="diary-legend-bar" class="hidden" style="background:#f8fafc;border:1px solid #cbd5e1;border-bottom:none;padding:6px 12px;font-size:11.5px;display:flex;flex-wrap:wrap;gap:14px;align-items:center">
-        <span><strong style="color:#1e5f66">■</strong> In-house</span>
-        <span><strong style="color:#26999e">■</strong> Arrival / Due In</span>
-        <span><strong style="color:#9c8412">■</strong> Linked / Sharer</span>
-        <span><strong style="color:#8c8d91">■</strong> Out of Service / Block</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#1e5f66;margin-right:4px"></span>In-house</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#26999e;margin-right:4px"></span>Arrival / Due In</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#9c8412;margin-right:4px"></span>Linked / Sharer</span>
+        <span><span style="display:inline-block;width:10px;height:10px;background:#8c8d91;margin-right:4px"></span>Out of Service / Block</span>
         <span><span class="diary-hk-dot diary-hk-IP">I</span> Inspected</span>
         <span><span class="diary-hk-dot diary-hk-CL">C</span> Clean</span>
         <span><span class="diary-hk-dot diary-hk-PU">P</span> Pickup</span>
@@ -815,10 +802,10 @@
           
           <select id="filter-hk-type-opt" onchange="renderHK()">
             <option value="ALL">All Rooms (HK)</option>
-            <option value="ARR">🛬 Arrivals (Arr Today)</option>
-            <option value="CHECKEDIN">✅ Checked-in Today</option>
-            <option value="DEP">🛫 Departures (Dep Today)</option>
-            <option value="STAYOVER">🏨 Stay-over (In-house)</option>
+            <option value="ARR">Arrivals (Arr Today)</option>
+            <option value="CHECKEDIN">Checked-in Today</option>
+            <option value="DEP">Departures (Dep Today)</option>
+            <option value="STAYOVER">Stay-over (In-house)</option>
           </select>
 
           <div id="hk-floor-dropdown" class="dropdown-check-list">
@@ -829,7 +816,18 @@
             <div class="selector" onclick="toggleGenericDropdown('hk-type-dropdown')"><span>Room Types (<span id="hk-type-count">All</span>)</span> ▾</div>
             <div class="items" id="hk-type-checkboxes"></div>
           </div>
-          <select id="filter-hk-status" onchange="renderHK()"><option value="ALL">All Statuses</option><option value="IP">IP - Inspected</option><option value="CL">CL - Clean</option><option value="PU">PU - Pickup</option><option value="DI">DI - Dirty</option><option value="OO">OO - Out of Order</option><option value="OS">OS - Out of Service</option></select>
+          <div id="hk-status-dropdown" class="dropdown-check-list">
+            <div class="selector" onclick="toggleGenericDropdown('hk-status-dropdown')"><span>Room Status (<span id="hk-status-count">All</span>)</span> ▾</div>
+            <div class="items" id="hk-status-checkboxes">
+              <label><input type="checkbox" id="hk-status-select-all" checked onchange="toggleAllHkStatuses(this)"> <b>Select All</b></label>
+              <label><input type="checkbox" class="hk-status-chk" value="IP" checked onchange="onHkStatusChange()"> IP - Inspected</label>
+              <label><input type="checkbox" class="hk-status-chk" value="CL" checked onchange="onHkStatusChange()"> CL - Clean</label>
+              <label><input type="checkbox" class="hk-status-chk" value="PU" checked onchange="onHkStatusChange()"> PU - Pickup</label>
+              <label><input type="checkbox" class="hk-status-chk" value="DI" checked onchange="onHkStatusChange()"> DI - Dirty</label>
+              <label><input type="checkbox" class="hk-status-chk" value="OO" checked onchange="onHkStatusChange()"> OO - Out of Order</label>
+              <label><input type="checkbox" class="hk-status-chk" value="OS" checked onchange="onHkStatusChange()"> OS - Out of Service</label>
+            </div>
+          </div>
           <select id="filter-hk-occ" onchange="renderHK()"><option value="ALL">All Occupancy</option><option value="OCC">Occupied (OCC)</option><option value="VAC">Vacant (VAC)</option></select>
         </div>
         <div id="hk-counters" style="display:flex;gap:6px"></div>
@@ -868,20 +866,20 @@
         </div>
         <div style="margin-top:16px;display:flex;justify-content:space-between">
           <div id="import-log" style="font-size:13px">Ready to import data. You can select multiple files at once (e.g., PDF file containing notes/traces and TXT/TSV file containing detailed information).</div>
-          <button onclick="resetAllData()" class="btn btn-sm btn-rose">🗑️ Clear Cloud Data</button>
+          <button onclick="resetAllData()" class="btn btn-sm btn-rose">Clear Cloud Data</button>
         </div>
       </div>
     </section>
 
     <!-- EXPORT TAB -->
-    <section id="view-export" class="tab-view hidden"><div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:16px"><h2>Hourly Auto-Backup & Export CSV</h2><button onclick="triggerManualBackup()" class="btn btn-slate">💾 Download JSON Backup</button></div><div class="grid-4"><div class="drop-box"><strong>1. In-house</strong><button onclick="exportCSV('inh')" class="btn btn-emerald">⬇ CSV</button></div><div class="drop-box"><strong>2. Reservations</strong><button onclick="exportCSV('arr')" class="btn btn-blue">⬇ CSV</button></div><div class="drop-box"><strong>3. HK Status</strong><button onclick="exportCSV('hk')" class="btn btn-cyan">⬇ CSV</button></div><div class="drop-box"><strong>4. Logs</strong><button onclick="exportCSV('log')" class="btn btn-amber">⬇ CSV</button></div></div><h3 style="font-size:14px;margin:20px 0 10px">Activity Logs (<span id="log-count">0</span>)</h3><div class="table-wrap" style="max-height:250px;overflow-y:auto"><table><thead><tr><th>Time</th><th>User (Role)</th><th>Action</th><th>Room</th><th>Detail</th></tr></thead><tbody id="tbody-logs"></tbody></table></div></div></section>
+    <section id="view-export" class="tab-view hidden"><div class="card"><div style="display:flex;justify-content:space-between;margin-bottom:16px"><h2>Hourly Auto-Backup & Export CSV</h2><button onclick="triggerManualBackup()" class="btn btn-slate">Download JSON Backup</button></div><div class="grid-4"><div class="drop-box"><strong>1. In-house</strong><button onclick="exportCSV('inh')" class="btn btn-emerald">Export CSV</button></div><div class="drop-box"><strong>2. Reservations</strong><button onclick="exportCSV('arr')" class="btn btn-blue">Export CSV</button></div><div class="drop-box"><strong>3. HK Status</strong><button onclick="exportCSV('hk')" class="btn btn-cyan">Export CSV</button></div><div class="drop-box"><strong>4. Logs</strong><button onclick="exportCSV('log')" class="btn btn-amber">Export CSV</button></div></div><h3 style="font-size:14px;margin:20px 0 10px">Activity Logs (<span id="log-count">0</span>)</h3><div class="table-wrap" style="max-height:250px;overflow-y:auto"><table><thead><tr><th>Time</th><th>User (Role)</th><th>Action</th><th>Room</th><th>Detail</th></tr></thead><tbody id="tbody-logs"></tbody></table></div></div></section>
 
     <!-- USERS TAB -->
     <section id="view-users" class="tab-view hidden"><div class="card"><h2 style="font-size:16px;margin-bottom:12px">Staff Accounts & Role Management (FOM Only)</h2><div style="display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;background:#f8fafc;padding:14px;border-radius:8px;border:1px solid #e2e8f0;margin-bottom:18px"><div><label style="display:block;font-size:11px;font-weight:700;margin-bottom:4px">Username</label><input type="text" id="new-u-name" placeholder="e.g. linh.fo"></div><div><label style="display:block;font-size:11px;font-weight:700;margin-bottom:4px">Full Name</label><input type="text" id="new-u-fullname" placeholder="Nguyen Thi Linh"></div><div><label style="display:block;font-size:11px;font-weight:700;margin-bottom:4px">Password</label><input type="text" id="new-u-pass" placeholder="123456"></div><div><label style="display:block;font-size:11px;font-weight:700;margin-bottom:4px">Role</label><select id="new-u-role"><option value="FO">FO (Front Office)</option><option value="RES">RES (Reservations)</option><option value="HK">HK (Housekeeping)</option><option value="FOM">FOM (Full Access)</option></select></div><button onclick="createUserAccount()" class="btn btn-blue">+ Create User</button></div><div class="table-wrap"><table><thead><tr><th>Username</th><th>Full Name</th><th>Role</th><th>Password</th><th>Status</th><th>Actions</th></tr></thead><tbody id="tbody-users"></tbody></table></div></div></section>
   </main>
 </div>
 
-<div id="guestModal" class="modal-bg hidden"><div class="modal"><div class="modal-head"><span id="modalTitle">Booking Details</span><button onclick="closeGuestModal()" style="background:none;border:none;color:#fff;font-size:20px">&times;</button></div><div class="modal-body"><input type="hidden" id="edit-guest-id"><input type="hidden" id="edit-guest-type"><div class="form-grid"><div class="form-group"><label>Room Type (Sold)</label><select id="edit-room-type" onchange="onRoomTypeChange()"></select></div><div class="form-group" style="grid-column:span 2"><label>Room Filter (OCC/VAC & HK Status)</label><div style="display:flex;gap:6px"><select id="filter-room-occ" onchange="populateRoomSelect()"><option value="ALL">All (OCC & VAC)</option><option value="VAC">VAC (Vacant only)</option><option value="OCC">OCC (Occupied)</option></select><select id="filter-room-hk" onchange="populateRoomSelect()"><option value="ALL">HK: IP, CL, DI</option><option value="IP">IP only</option><option value="CL">CL only</option><option value="DI">DI only</option></select></div></div><div class="form-group"><label>Room Number (Assign)</label><select id="edit-room"><option value="">-- Select Room --</option></select></div><div class="form-group"><label>VIP</label><input type="text" id="edit-vip"></div><div class="form-group" style="grid-column:span 2"><label>Guest Name</label><input type="text" id="edit-name"></div><div class="form-group"><label>Adults / Children</label><div style="display:flex;gap:4px"><input type="number" id="edit-adults"><input type="number" id="edit-children"></div></div><div class="form-group"><label>Arrival Date</label><input type="text" id="edit-arr" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Departure Date</label><input type="text" id="edit-dep" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Rate Code</label><input type="text" id="edit-rate-code" list="rate-code-suggestions" placeholder="e.g. RACK, BAR, GRE8"><datalist id="rate-code-suggestions"><option value="RACK"><option value="BAR"><option value="COR"><option value="FIT"><option value="WHO"><option value="CEM"><option value="GRE8"><option value="WHPM10"><option value="COMCERT"><option value="OTADT"></datalist></div><div class="form-group"><label>Rate Amount</label><input type="number" id="edit-rate-amount" step="any"></div><div class="form-group"><label>Balance</label><input type="number" id="edit-balance" step="any"></div></div><div class="form-group"><label>Company</label><input type="text" id="edit-company"></div><div class="form-group"><label>Comments</label><textarea id="edit-comments" rows="3"></textarea></div><div class="form-group"><label>Trace</label><input type="text" id="edit-trace" placeholder="e.g. HSK pls combine bed"></div></div><div class="modal-foot"><button onclick="closeGuestModal()" class="btn btn-light">Close</button><button onclick="saveGuestModal()" class="btn btn-blue">Save & Assign Room</button></div></div></div>
+<div id="guestModal" class="modal-bg hidden"><div class="modal"><div class="modal-head"><span id="modalTitle">Booking Details</span><button onclick="closeGuestModal()" style="background:none;border:none;color:#fff;font-size:20px">&times;</button></div><div class="modal-body"><input type="hidden" id="edit-guest-id"><input type="hidden" id="edit-guest-type"><div class="form-grid"><div class="form-group"><label>Room Type (Sold)</label><select id="edit-room-type" onchange="onRoomTypeChange()"></select></div><div class="form-group" style="grid-column:span 2"><label>Room Filter (OCC/VAC & HK Status)</label><div style="display:flex;gap:6px"><select id="filter-room-occ" onchange="populateRoomSelect()"><option value="ALL">All (OCC & VAC)</option><option value="VAC">VAC (Vacant only)</option><option value="OCC">OCC (Occupied)</option></select><select id="filter-room-hk" onchange="populateRoomSelect()"><option value="ALL">HK: IP, CL, DI</option><option value="IP">IP only</option><option value="CL">CL only</option><option value="DI">DI only</option></select></div></div><div class="form-group"><label>Room Number (Assign)</label><select id="edit-room"><option value="">-- Select Room --</option></select></div><div class="form-group"><label>VIP</label><input type="text" id="edit-vip"></div><div class="form-group" style="grid-column:span 2"><label>Guest Name</label><input type="text" id="edit-name"></div><div class="form-group"><label>Adults / Children</label><div style="display:flex;gap:4px"><input type="number" id="edit-adults"><input type="number" id="edit-children"></div></div><div class="form-group"><label>Arrival Date</label><input type="text" id="edit-arr" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Departure Date</label><input type="text" id="edit-dep" class="date-picker-input" placeholder="dd/mm" readonly></div><div class="form-group"><label>Rate Code</label><input type="text" id="edit-rate-code" list="rate-code-suggestions" placeholder="e.g. RACK, BAR, GRE8"><datalist id="rate-code-suggestions"><option value="RACK"><option value="BAR"><option value="COR"><option value="FIT"><option value="WHO"><option value="CEM"><option value="GRE8"><option value="WHPM10"><option value="COMCERT"><option value="OTADT"></datalist></div><div class="form-group"><label>Rate Amount</label><input type="number" id="edit-rate-amount" step="any"></div><div class="form-group"><label>Balance</label><input type="number" id="edit-balance" step="any"></div></div><div class="form-group"><label>Company</label><input type="text" id="edit-company"></div><div class="form-group"><label>Comments</label><textarea id="edit-comments" rows="3"></textarea></div><div class="form-group"><label>Trace</label><input type="text" id="edit-trace" placeholder="e.g. HSK pls combine bed"></div></div><div class="modal-foot"><button onclick="closeGuestModal()" class="btn btn-light">Close</button><button id="btn-save-guest-modal" onclick="saveGuestModal()" class="btn btn-blue">Save & Assign Room</button></div></div></div>
 
 <script>
 
@@ -899,7 +897,7 @@ function formatBytesToKB(bytes) {
 
 function updateCloudQuotaIndicator() {
   const bytes = estimateStateSizeBytes(state);
-  const maxBytes = 1048576; // 1 MiB Firestore document limit
+  const maxBytes = 1048576;
   const ratio = bytes / maxBytes;
   const pct = (ratio * 100).toFixed(1);
 
@@ -908,13 +906,13 @@ function updateCloudQuotaIndicator() {
 
   const baseSync = el.getAttribute('data-last-sync') || `Synced (${new Date().toLocaleTimeString('en-US')})`;
   if (ratio >= 0.95) {
-    el.innerHTML = `🔴 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — APPROACHING 1MB LIMIT! Please backup & Clear Cloud Data immediately.`;
+    el.textContent = `${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) - APPROACHING 1MB LIMIT! Please backup & Clear Cloud Data immediately.`;
     el.style.color = '#fda4af';
   } else if (ratio >= 0.75) {
-    el.innerHTML = `🟡 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) — Data size is growing, periodic backup recommended.`;
+    el.textContent = `${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%) - Data size is growing, periodic backup recommended.`;
     el.style.color = '#fcd34d';
   } else {
-    el.innerHTML = `🟢 ${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%)`;
+    el.textContent = `${baseSync} | Doc ${formatBytesToKB(bytes)} / 1024 KB (${pct}%)`;
     el.style.color = '';
   }
 }
@@ -946,7 +944,6 @@ let currentUser = null, selectedHKRooms = new Set(), backupTimer = null;
 let fpWorkingDate = null, fpArr = null, fpDep = null, fpInvStart = null;
 let expandedInvRows = new Set();
 
-// Store checked/selected bookings for each tab
 let selectedBookings = {
   res: new Set(),
   arr: new Set(),
@@ -954,13 +951,38 @@ let selectedBookings = {
   dep: new Set()
 };
 
-// Store visible booking IDs on each tab to support "Select All"
 let currentRenderedIds = {
   res: [],
   arr: [],
   inh: [],
   dep: []
 };
+
+function isCurrentUserHK() {
+  return !!(currentUser && currentUser.role === 'HK');
+}
+
+function canCurrentUserEditBookings() {
+  return !isCurrentUserHK();
+}
+
+function applyRolePermissionsToUI() {
+  const isHk = isCurrentUserHK();
+  ['btn-arr-walkin', 'btn-inh-walkin', 'btn-save-guest-modal'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    if (isHk) btn.classList.add('hidden');
+    else btn.classList.remove('hidden');
+  });
+
+  ['res', 'arr', 'inh', 'dep'].forEach(tabKey => {
+    if (isHk) {
+      selectedBookings[tabKey].clear();
+      const bar = document.getElementById(`bulk-bar-${tabKey}`);
+      if (bar) bar.classList.add('hidden');
+    }
+  });
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   fpWorkingDate = flatpickr("#workingDateInput", {
@@ -1117,7 +1139,7 @@ function formatRateAmount(item) {
 let cloudReadyTimer = setTimeout(() => {
   const msgEl = document.getElementById('cloud-conn-msg');
   if (msgEl && msgEl.textContent.includes('Connecting')) {
-    msgEl.textContent = '🟡 Ready for login (waiting for cloud sync...)';
+    msgEl.textContent = 'Ready for login (waiting for cloud sync...)';
   }
 }, 1500);
 
@@ -1147,11 +1169,11 @@ docRef.onSnapshot({ includeMetadataChanges: true }, d => {
       else invDateEl.value = state.workingDate;
     }
 
-    if (msgEl) msgEl.textContent = d.metadata.fromCache ? '🟡 Ready for login (Local cache)' : '🟢 Ready for login';
+    if (msgEl) msgEl.textContent = d.metadata.fromCache ? 'Ready for login (Local cache)' : 'Ready for login';
     if (syncEl) {
       const syncLabel = `${d.metadata.fromCache ? 'Cached' : 'Synced'} (${new Date().toLocaleTimeString('en-US')})`;
       syncEl.setAttribute('data-last-sync', syncLabel);
-      syncEl.textContent = `${d.metadata.fromCache ? '🟡' : '🟢'} ${syncLabel}`;
+      syncEl.textContent = syncLabel;
     }
     updateCloudQuotaIndicator();
     
@@ -1170,7 +1192,7 @@ docRef.onSnapshot({ includeMetadataChanges: true }, d => {
 
     if (currentUser) refreshAllUI();
   } else {
-    if (msgEl) msgEl.textContent = '🟢 Ready for login (New Cloud Doc)';
+    if (msgEl) msgEl.textContent = 'Ready for login (New Cloud Doc)';
     if (!d.metadata.fromCache) {
       pushStateToCloud();
     }
@@ -1178,22 +1200,19 @@ docRef.onSnapshot({ includeMetadataChanges: true }, d => {
 }, e => {
   clearTimeout(cloudReadyTimer);
   const msgEl = document.getElementById('cloud-conn-msg');
-  if (msgEl) msgEl.textContent = `🟡 Ready for login (Offline/Error: ${e.message})`;
+  if (msgEl) msgEl.textContent = `Ready for login (Offline/Error: ${e.message})`;
 });
 
 function pushStateToCloud() {
   updateCloudQuotaIndicator();
   const bytes = estimateStateSizeBytes(state);
   if (bytes > 1000000) {
-    alert(`⚠️ LARGE DATA WARNING (${formatBytesToKB(bytes)} / 1024 KB)!
-Firestore limits each document to a maximum of 1 MiB (1024 KB). Please export a Backup and click Clear Cloud Data to prevent save failures.`);
+    alert(`LARGE DATA WARNING (${formatBytesToKB(bytes)} / 1024 KB)!\nFirestore limits each document to a maximum of 1 MiB (1024 KB). Please export a Backup and click Clear Cloud Data to prevent save failures.`);
   }
   docRef.set(state).catch(e => {
     const isTooLarge = /exceeds the maximum allowed size|1048576|too large/i.test(e.message || '');
     if (isTooLarge) {
-      alert(`🔴 FIRESTORE STORAGE LIMIT EXCEEDED (Over 1 MB)!
-Current data (${formatBytesToKB(bytes)}) has exceeded the single-document limit.
-Please go to the Backup & Logs tab to download a backup, then go to the Import tab and click "Clear Cloud Data" to clear and re-import required data.`);
+      alert(`FIRESTORE STORAGE LIMIT EXCEEDED (Over 1 MB)!\nCurrent data (${formatBytesToKB(bytes)}) has exceeded the single-document limit.\nPlease go to the Backup & Logs tab to download a backup, then go to the Import tab and click "Clear Cloud Data" to clear and re-import required data.`);
     } else {
       alert("Cloud Error: " + e.message);
     }
@@ -1253,12 +1272,13 @@ function handleLogin() {
     switchTab('res');
   } else if (r === 'HK') {
     b.textContent = 'HK'; b.style.background = '#0891b2';
-    ['res', 'arr', 'dep', 'inv', 'import', 'export', 'users'].forEach(t => document.getElementById('tab-' + t).classList.add('hidden'));
+    ['res', 'inv', 'import', 'export', 'users'].forEach(t => document.getElementById('tab-' + t).classList.add('hidden'));
     switchTab('hk');
   } else {
     b.textContent = 'Downtime PMS'; b.style.background = '#d97706';
     switchTab('res');
   }
+  applyRolePermissionsToUI();
   updateWorkingDatePermission();
   if (backupTimer) clearInterval(backupTimer);
   backupTimer = setInterval(() => triggerManualBackup(true), 3600000);
@@ -1706,7 +1726,7 @@ async function handleFileUpload(e, t) {
 
   for (let file of files) {
     if (file.name.endsWith('.pdf')) {
-      document.getElementById('import-log').textContent = `⏳ Parsing PDF ${file.name}...`;
+      document.getElementById('import-log').textContent = `Parsing PDF ${file.name}...`;
       const arrayBuffer = await file.arrayBuffer();
       const pdfBookings = await parseArrivalsPDF(arrayBuffer);
       pdfBookings.forEach(b => {
@@ -1807,42 +1827,42 @@ async function handleFileUpload(e, t) {
     }
   }
 
-function mergeSharerBookings(list) {
-  const result = [];
-  const roomGroupMap = new Map();
-  const sorted = [...list].sort((a, b) => (a.isSharer === b.isSharer ? 0 : a.isSharer ? 1 : -1));
+  function mergeSharerBookings(list) {
+    const result = [];
+    const roomGroupMap = new Map();
+    const sorted = [...list].sort((a, b) => (a.isSharer === b.isSharer ? 0 : a.isSharer ? 1 : -1));
 
-  sorted.forEach(item => {
-    const rm = (item.room || '').trim();
-    const arr = parseDateToISO(item.arrival);
-    const groupKey = rm ? `${rm}_${arr}` : (item.confNo ? `CONF_${item.confNo}` : null);
+    sorted.forEach(item => {
+      const rm = (item.room || '').trim();
+      const arr = parseDateToISO(item.arrival);
+      const groupKey = rm ? `${rm}_${arr}` : (item.confNo ? `CONF_${item.confNo}` : null);
 
-    if (groupKey && roomGroupMap.has(groupKey)) {
-      const main = roomGroupMap.get(groupKey);
-      const guestName = (item.name || '').trim();
-      if (guestName && !main.name.includes(guestName)) {
-        main.name = main.name ? `${main.name} & ${guestName}` : guestName;
+      if (groupKey && roomGroupMap.has(groupKey)) {
+        const main = roomGroupMap.get(groupKey);
+        const guestName = (item.name || '').trim();
+        if (guestName && !main.name.includes(guestName)) {
+          main.name = main.name ? `${main.name} & ${guestName}` : guestName;
+        }
+        main.adults = (+main.adults || 0) + (+item.adults || 0);
+        main.children = (+main.children || 0) + (+item.children || 0);
+        if (item.comments && item.comments.length) {
+          main.comments = [...new Set([...(main.comments || []), ...item.comments])];
+        }
+        if (item.trace && !(main.trace || '').includes(item.trace)) {
+          main.trace = main.trace ? `${main.trace} | ${item.trace}` : item.trace;
+        }
+        if (!main.vip && item.vip) main.vip = item.vip;
+        if ((!main.rateAmount || main.rateAmount === 0) && item.rateAmount) main.rateAmount = item.rateAmount;
+        main.isSharer = false;
+      } else {
+        const clone = { ...item, isSharer: false };
+        result.push(clone);
+        if (groupKey) roomGroupMap.set(groupKey, clone);
       }
-      main.adults = (+main.adults || 0) + (+item.adults || 0);
-      main.children = (+main.children || 0) + (+item.children || 0);
-      if (item.comments && item.comments.length) {
-        main.comments = [...new Set([...(main.comments || []), ...item.comments])];
-      }
-      if (item.trace && !(main.trace || '').includes(item.trace)) {
-        main.trace = main.trace ? `${main.trace} | ${item.trace}` : item.trace;
-      }
-      if (!main.vip && item.vip) main.vip = item.vip;
-      if ((!main.rateAmount || main.rateAmount === 0) && item.rateAmount) main.rateAmount = item.rateAmount;
-      main.isSharer = false;
-    } else {
-      const clone = { ...item, isSharer: false };
-      result.push(clone);
-      if (groupKey) roomGroupMap.set(groupKey, clone);
-    }
-  });
+    });
 
-  return result;
-}
+    return result;
+  }
 
   if (parsedArrivalsMap.size > 0) {
     const list = mergeSharerBookings(Array.from(parsedArrivalsMap.values()));
@@ -1862,12 +1882,13 @@ function mergeSharerBookings(list) {
 
   updateBookingTypeCheckboxes(true);
   addLog('IMPORT', '-', Array.from(files).map(f => f.name).join(', '));
-  document.getElementById('import-log').textContent = `✔ Successfully imported: ${Array.from(files).map(f => f.name).join(', ')}`;
+  document.getElementById('import-log').textContent = `Successfully imported: ${Array.from(files).map(f => f.name).join(', ')}`;
   refreshAllUI();
   pushStateToCloud();
 }
 
 function toggleBookingSelect(tabKey, id) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for Arr, Dep, and In-house bookings.');
   if (selectedBookings[tabKey].has(id)) {
     selectedBookings[tabKey].delete(id);
   } else {
@@ -1878,6 +1899,7 @@ function toggleBookingSelect(tabKey, id) {
 }
 
 function toggleSelectAllBookings(tabKey, checked) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for Arr, Dep, and In-house bookings.');
   const visibleIds = currentRenderedIds[tabKey] || [];
   if (checked) {
     visibleIds.forEach(id => selectedBookings[tabKey].add(id));
@@ -1900,6 +1922,14 @@ function updateBulkBarUI(tabKey) {
   const selectAllChk = document.getElementById(`select-all-${tabKey}`);
   if (!bar || !countSpan) return;
 
+  if (!canCurrentUserEditBookings()) {
+    selectedBookings[tabKey].clear();
+    countSpan.textContent = '0';
+    bar.classList.add('hidden');
+    if (selectAllChk) selectAllChk.checked = false;
+    return;
+  }
+
   const count = selectedBookings[tabKey].size;
   countSpan.textContent = count;
 
@@ -1916,6 +1946,7 @@ function updateBulkBarUI(tabKey) {
 }
 
 function massCheckIn(tabKey) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for bookings.');
   if (currentUser && currentUser.role === 'RES') return alert('RES role is not allowed to Check-in.');
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
@@ -1967,6 +1998,7 @@ function massCheckIn(tabKey) {
 }
 
 function massCheckOut(tabKey) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for bookings.');
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
@@ -2008,6 +2040,7 @@ function massCheckOut(tabKey) {
 }
 
 function massSettleBalance(tabKey) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for bookings.');
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
@@ -2023,7 +2056,7 @@ function massSettleBalance(tabKey) {
         g.comments = g.comments || [];
         g.comments.push(`[Balance 0: ${paymentNote.trim()}]`);
       }
-      addLog('MASS SETTLE', g.room || '-', `${g.name} -> Balance 0 (${paymentNote.trim()})`);
+      addLog('MASS SETTLE', g.room || '-', `${g.name} - Balance 0 (${paymentNote.trim()})`);
       updated++;
     }
   });
@@ -2036,35 +2069,8 @@ function massSettleBalance(tabKey) {
   }
 }
 
-function massUpdateRoomType(tabKey) {
-  const ids = Array.from(selectedBookings[tabKey]);
-  if (!ids.length) return;
-
-  const types = getAllRoomTypes().join(', ');
-  const newType = prompt(`Enter new Room Type code for ${ids.length} selected bookings:\n(Suggestions: ${types})`);
-  if (!newType || !newType.trim()) return;
-
-  const cleanType = newType.trim().toUpperCase();
-  let updated = 0;
-
-  ids.forEach(id => {
-    let target = state.arrivals.find(x => x.id === id) || state.inhouse.find(x => x.id === id);
-    if (target) {
-      target.roomType = cleanType;
-      addLog('MASS ROOM TYPE', target.room || '-', `${target.name} -> ${cleanType}`);
-      updated++;
-    }
-  });
-
-  if (updated > 0) {
-    selectedBookings[tabKey].clear();
-    pushStateToCloud();
-    refreshAllUI();
-    alert(`Changed room type to [${cleanType}] for ${updated} bookings.`);
-  }
-}
-
 function massAddNoteTrace(tabKey, fieldType) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for bookings.');
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
@@ -2098,6 +2104,7 @@ function massAddNoteTrace(tabKey, fieldType) {
 }
 
 function massDeleteBookings(tabKey) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for bookings.');
   const ids = Array.from(selectedBookings[tabKey]);
   if (!ids.length) return;
 
@@ -2124,6 +2131,7 @@ function massDeleteBookings(tabKey) {
 }
 
 function checkInGuest(id) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for Arr, Dep, and In-house bookings.');
   if (currentUser && currentUser.role === 'RES') return alert('RES role is not allowed to Check-in.');
   const i = state.arrivals.findIndex(a => a.id === id);
   if (i === -1) return;
@@ -2158,6 +2166,7 @@ function checkInGuest(id) {
 }
 
 function checkOutGuest(id) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for Arr, Dep, and In-house bookings.');
   const i = state.inhouse.findIndex(g => g.id === id);
   if (i === -1) return;
   const g = state.inhouse[i];
@@ -2181,13 +2190,30 @@ function checkOutGuest(id) {
 
 function changeRoomStatus(r, s) {
   if (!state.rooms[r] || state.rooms[r].status === s) return;
-  addLog('HK', r, `${state.rooms[r].status}->${s}`);
+  addLog('HK', r, `${state.rooms[r].status}-${s}`);
   state.rooms[r].status = s;
   pushStateToCloud();
   refreshAllUI();
 }
 
+function getDailyArrProgress(dateISO) {
+  const w = parseDateToISO(dateISO) || state.workingDate;
+  const pendingArrCount = state.arrivals.filter(a => !a.isSharer && isSameDayDate(a.arrival, w)).length;
+  const checkedInTodayCount = state.inhouse.filter(g => !g.isSharer && isSameDayDate(g.arrival, w)).length;
+  const total = pendingArrCount + checkedInTodayCount;
+  return { done: checkedInTodayCount, total, text: `${checkedInTodayCount}/${total}` };
+}
+
+function getDailyDepProgress(dateISO) {
+  const w = parseDateToISO(dateISO) || state.workingDate;
+  const remainingDepCount = state.inhouse.filter(g => !g.isSharer && isSameDayDate(g.departure, w)).length;
+  const checkedOutTodayCount = state.checkedOut.filter(c => !c.isSharer && isSameDayDate(c.departure, w)).length;
+  const total = remainingDepCount + checkedOutTodayCount;
+  return { done: checkedOutTodayCount, total, text: `${checkedOutTodayCount}/${total}` };
+}
+
 function refreshAllUI() {
+  applyRolePermissionsToUI();
   updateBookingTypeCheckboxes();
   renderArr();
   renderRes();
@@ -2198,17 +2224,24 @@ function refreshAllUI() {
   renderLogs();
   renderUsers();
   const w = state.workingDate;
-  const ac = state.arrivals.filter(a => parseDateToISO(a.arrival) === w).length;
-  const dc = state.inhouse.filter(g => isSameDayDate(g.departure, w)).length;
-  document.getElementById('kpi-arr').textContent = ac;
-  document.getElementById('kpi-dep').textContent = dc;
+  const arrProg = getDailyArrProgress(w);
+  const depProg = getDailyDepProgress(w);
+
+  document.getElementById('kpi-arr').textContent = arrProg.text;
+  document.getElementById('kpi-dep').textContent = depProg.text;
   document.getElementById('kpi-inh').textContent = state.inhouse.length;
   document.getElementById('kpi-hk').textContent = Object.values(state.rooms).filter(r => r.status === 'CL' || r.status === 'IP').length;
-  document.getElementById('badge-arr').textContent = ac;
+  document.getElementById('badge-arr').textContent = arrProg.text;
   document.getElementById('badge-res').textContent = state.arrivals.length + state.inhouse.length + state.checkedOut.length;
-  document.getElementById('badge-dep').textContent = dc;
+  document.getElementById('badge-dep').textContent = depProg.text;
   document.getElementById('badge-inh').textContent = state.inhouse.length;
   document.getElementById('badge-hk').textContent = Object.keys(state.rooms).length;
+
+  const arrProgLbl = document.getElementById('arr-progress-label');
+  if (arrProgLbl) arrProgLbl.textContent = `Arr: ${arrProg.text}`;
+  const depProgLbl = document.getElementById('dep-progress-label');
+  if (depProgLbl) depProgLbl.textContent = `Dep: ${depProg.text}`;
+
   const badgeDiary = document.getElementById('badge-diary');
   if (badgeDiary) badgeDiary.textContent = Object.keys(state.rooms).length;
   if (typeof renderRoomDiary === 'function') renderRoomDiary();
@@ -2236,10 +2269,10 @@ function updateBookingTypeCheckboxes(forceReset = false) {
     const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll(`.${tabKey}-type-chk:checked`)).map(cb => cb.value));
     const allChecked = forceReset || !prevSelected || prevSelected.size === 0 || prevSelected.size === types.length;
 
-    cbs.innerHTML = `<label ><input type="checkbox" id="${tabKey}-type-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllBookingTypes('${tabKey}', this)"> <b>Select All</b></label>` +
+    cbs.innerHTML = `<label><input type="checkbox" id="${tabKey}-type-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllBookingTypes('${tabKey}', this)"> <b>Select All</b></label>` +
       types.map(t => {
         const checked = forceReset || !prevSelected ? true : prevSelected.has(t);
-        return `<label ><input type="checkbox" class="${tabKey}-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onBookingTypeChange('${tabKey}')"> ${t}</label>`;
+        return `<label><input type="checkbox" class="${tabKey}-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onBookingTypeChange('${tabKey}')"> ${t}</label>`;
       }).join('');
 
     updateBookingTypeCountLabel(tabKey, types.length);
@@ -2288,8 +2321,6 @@ function isRoomTypeAllowed(tabKey, rType) {
   const allowed = Array.from(checkedCbs).map(cb => cb.value);
   return allowed.includes(rType);
 }
-
-/* ================= INVENTORY / PROPERTY AVAILABILITY ================= */
 
 function getDateSequence(startISO, numDays) {
   const dates = [];
@@ -2360,14 +2391,12 @@ function computeInventoryMatrix(startISO, numDays) {
   const dates = getDateSequence(startISO, numDays);
   const allRooms = Object.values(state.rooms);
 
-  // Collect all Room Types from Room Plan and Bookings
   const typeSet = new Set();
   allRooms.forEach(r => { if (r.type) typeSet.add(r.type.trim()); });
   state.inhouse.forEach(g => { if (g.roomType) typeSet.add(g.roomType.trim()); });
   state.arrivals.forEach(a => { if (a.roomType) typeSet.add(a.roomType.trim()); });
   const allTypes = Array.from(typeSet).sort();
 
-  // Total physical rooms per type based on Room Plan & OOO count
   const totalByType = {};
   const oooByType = {};
   allTypes.forEach(rt => {
@@ -2387,14 +2416,11 @@ function computeInventoryMatrix(startISO, numDays) {
     }
   });
 
-  // Group bookings occupying rooms (In-house + Arrivals/Reserved), excluding Sharers to avoid double-counting rooms
   const activeBookings = [
     ...state.inhouse.filter(g => !g.isSharer),
     ...state.arrivals.filter(a => !a.isSharer)
   ];
 
-  // Calculate per day d:
-  // Available = Total (Room Plan) - Booked (arr <= d < dep) - OOO
   const dataByType = {};
   allTypes.forEach(rt => {
     dataByType[rt] = dates.map(dt => {
@@ -2443,21 +2469,13 @@ function renderInventory() {
 
   const { dates, allTypes, dataByType, houseTotals } = computeInventoryMatrix(startISO, numDays);
 
-  // Update Inventory tab badge = Total available rooms on the first visible day (or Business Date)
-  const badgeInv = document.getElementById('badge-inv');
-  if (badgeInv) {
-    badgeInv.textContent = houseTotals.length ? houseTotals[0].avail : 0;
-  }
-
-  // Update Expand All / Collapse All button
   const expandAllBtn = document.getElementById('btn-inv-expand-all');
   if (expandAllBtn) {
     const allKeys = ['HOUSE', ...allTypes];
     const allExpanded = allKeys.length > 0 && allKeys.every(k => expandedInvRows.has(k));
-    expandAllBtn.textContent = allExpanded ? '⊟ Collapse All' : '⊞ Expand All';
+    expandAllBtn.textContent = allExpanded ? '- Collapse All' : '+ Expand All';
   }
 
-  // Render Header in Opera Cloud Property Availability style
   let headHtml = `<tr>
     <th class="col-sticky-1">Room Type</th>
     <th class="col-sticky-2">Availability Metric</th>`;
@@ -2482,13 +2500,11 @@ function renderInventory() {
     return `<td class="${wknd} ${cls}">${val}</td>`;
   }).join('');
 
-  // Filter Room Type by checkbox dropdown
   const visibleTypes = allTypes.filter(rt => isRoomTypeAllowed('inv', rt));
 
-  // House total row
   const houseExp = expandedInvRows.has('HOUSE');
   let bodyHtml = `<tr class="row-house">
-    <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('HOUSE')">${houseExp ? '−' : '+'}</span>House</td>
+    <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('HOUSE')">${houseExp ? '-' : '+'}</span>House</td>
     <td class="col-sticky-2">Max. Available Rooms</td>
     ${renderCells(houseTotals, 'avail')}
   </tr>`;
@@ -2496,17 +2512,17 @@ function renderInventory() {
   if (houseExp) {
     bodyHtml += `<tr class="row-sub">
       <td class="col-sticky-1"></td>
-      <td class="col-sticky-2">• Total Rooms (Room Plan)</td>
+      <td class="col-sticky-2">Total Rooms (Room Plan)</td>
       ${renderCells(houseTotals, 'total')}
     </tr>
     <tr class="row-sub">
       <td class="col-sticky-1"></td>
-      <td class="col-sticky-2">• Booked Rooms (Inh + Res)</td>
+      <td class="col-sticky-2">Booked Rooms (Inh + Res)</td>
       ${renderCells(houseTotals, 'booked')}
     </tr>
     <tr class="row-sub">
       <td class="col-sticky-1"></td>
-      <td class="col-sticky-2">• Out of Order (OOO)</td>
+      <td class="col-sticky-2">Out of Order (OOO)</td>
       ${renderCells(houseTotals, 'ooo')}
     </tr>`;
   }
@@ -2518,7 +2534,7 @@ function renderInventory() {
       const isExp = expandedInvRows.has(rt);
       const rowsData = dataByType[rt];
       bodyHtml += `<tr class="row-type">
-        <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('${rt}')">${isExp ? '−' : '+'}</span>${rt}</td>
+        <td class="col-sticky-1"><span class="inv-expand-btn" onclick="toggleInvRowExpand('${rt}')">${isExp ? '-' : '+'}</span>${rt}</td>
         <td class="col-sticky-2">Max. Available Rooms</td>
         ${renderCells(rowsData, 'avail')}
       </tr>`;
@@ -2526,17 +2542,17 @@ function renderInventory() {
       if (isExp) {
         bodyHtml += `<tr class="row-sub">
           <td class="col-sticky-1"></td>
-          <td class="col-sticky-2">• Total Rooms (Room Plan)</td>
+          <td class="col-sticky-2">Total Rooms (Room Plan)</td>
           ${renderCells(rowsData, 'total')}
         </tr>
         <tr class="row-sub">
           <td class="col-sticky-1"></td>
-          <td class="col-sticky-2">• Booked Rooms (Inh + Res)</td>
+          <td class="col-sticky-2">Booked Rooms (Inh + Res)</td>
           ${renderCells(rowsData, 'booked')}
         </tr>
         <tr class="row-sub">
           <td class="col-sticky-1"></td>
-          <td class="col-sticky-2">• Out of Order (OOO)</td>
+          <td class="col-sticky-2">Out of Order (OOO)</td>
           ${renderCells(rowsData, 'ooo')}
         </tr>`;
       }
@@ -2574,6 +2590,7 @@ function exportInventoryCSV() {
 }
 
 function renderArr() {
+  const isHk = isCurrentUserHK();
   const q = document.getElementById('search-arr').value.toLowerCase();
   const hs = document.getElementById('hide-sharer-arr').checked;
   const w = state.workingDate;
@@ -2583,7 +2600,7 @@ function renderArr() {
   updateBulkBarUI('arr');
 
   document.getElementById('tbody-arr').innerHTML = f.length ? f.map(a => {
-    const isSel = selectedBookings.arr.has(a.id);
+    const isSel = !isHk && selectedBookings.arr.has(a.id);
     const unassigned = !a.room ? `<span class="badge" style="background:#fee2e2;color:#991b1b">Unassigned</span>` : `<strong>${a.room}</strong>`;
 
     let roomStatusBadge = '-';
@@ -2596,18 +2613,20 @@ function renderArr() {
       roomStatusBadge = `<span class="badge ${hkClass}">${st}</span>${occBadge}`;
     }
 
+    const actionHtml = isHk
+      ? `<span class="badge" style="background:#e2e8f0;color:#475569">View Only</span>`
+      : `<button onclick="openGuestModal('arr','${a.id}')" class="btn btn-sm btn-light">Assign/Edit</button>
+         <button onclick="checkInGuest('${a.id}')" class="btn btn-sm btn-blue">Check-in</button>`;
+
     return `<tr class="${a.isSharer ? 'sharer' : ''} ${isSel ? 'row-selected' : ''}">
-      <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('arr','${a.id}')"></td>
-      <td style="white-space:nowrap">
-        <button onclick="openGuestModal('arr','${a.id}')" class="btn btn-sm btn-light">Assign/Edit</button>
-        <button onclick="checkInGuest('${a.id}')" class="btn btn-sm btn-blue">Check-in</button>
-      </td>
+      <td><input type="checkbox" ${isHk ? 'disabled' : ''} ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('arr','${a.id}')"></td>
+      <td style="white-space:nowrap">${actionHtml}</td>
       <td>${unassigned}</td>
       <td>${roomStatusBadge}</td>
       <td>${a.roomType}</td>
       <td><strong>${a.name}</strong></td>
       <td>${a.vip || '-'}</td>
-      <td><strong style="color:#1d4ed8">${formatDate(a.arrival)}</strong> → ${formatDate(a.departure)}</td>
+      <td><strong style="color:#1d4ed8">${formatDate(a.arrival)}</strong> - ${formatDate(a.departure)}</td>
       <td>${a.adults}A/${a.children}C</td>
       <td>${a.eta || '-'}</td>
       <td>${a.rateCode}</td>
@@ -2662,7 +2681,7 @@ function renderRes() {
       <td>${a.roomType}</td>
       <td><strong>${a.name}</strong></td>
       <td>${a.vip || '-'}</td>
-      <td><strong>${formatDate(a.arrival)}</strong> → ${formatDate(a.departure)}</td>
+      <td><strong>${formatDate(a.arrival)}</strong> - ${formatDate(a.departure)}</td>
       <td>${a.adults}A/${a.children}C</td>
       <td>${statusBadge} ${a.eta || ''}</td>
       <td>${a.rateCode}</td>
@@ -2685,6 +2704,7 @@ function isSameDayDate(d1, d2) {
 }
 
 function renderDep() {
+  const isHk = isCurrentUserHK();
   const q = document.getElementById('search-dep').value.toLowerCase();
   const w = state.workingDate;
   const ds = [...new Set(state.inhouse.map(g => parseDateToISO(g.departure)).filter(Boolean))].sort();
@@ -2704,18 +2724,19 @@ function renderDep() {
   updateBulkBarUI('dep');
 
   document.getElementById('tbody-dep').innerHTML = f.length ? f.map(g => {
-    const isSel = selectedBookings.dep.has(g.id);
+    const isSel = !isHk && selectedBookings.dep.has(g.id);
+    const actionHtml = isHk
+      ? `<span class="badge" style="background:#e2e8f0;color:#475569">View Only</span>`
+      : `<button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
+         <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>`;
     return `<tr class="${isSel ? 'row-selected' : ''}">
-      <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('dep','${g.id}')"></td>
-      <td style="white-space:nowrap">
-        <button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
-        <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>
-      </td>
+      <td><input type="checkbox" ${isHk ? 'disabled' : ''} ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('dep','${g.id}')"></td>
+      <td style="white-space:nowrap">${actionHtml}</td>
       <td><strong>${g.room || '<span class="badge" style="background:#fee2e2;color:#991b1b">No Room</span>'}</strong></td>
       <td>${g.roomType}</td>
       <td><strong>${g.name}</strong></td>
       <td>${g.vip || '-'}</td>
-      <td>${formatDate(g.arrival)} → <strong style="color:#be123c">${formatDate(g.departure)}</strong></td>
+      <td>${formatDate(g.arrival)} - <strong style="color:#be123c">${formatDate(g.departure)}</strong></td>
       <td>${g.adults}A/${g.children}C</td>
       <td>${g.rateCode || '-'}</td>
       <td><strong>${formatRateAmount(g)}</strong></td>
@@ -2730,6 +2751,7 @@ function renderDep() {
 }
 
 function renderInh() {
+  const isHk = isCurrentUserHK();
   const q = document.getElementById('search-inh').value.toLowerCase();
   const hs = document.getElementById('hide-sharer-inh').checked;
   const ob = document.getElementById('filter-balance-inh').checked;
@@ -2739,18 +2761,19 @@ function renderInh() {
   updateBulkBarUI('inh');
 
   document.getElementById('tbody-inh').innerHTML = f.length ? f.map(g => {
-    const isSel = selectedBookings.inh.has(g.id);
+    const isSel = !isHk && selectedBookings.inh.has(g.id);
+    const actionHtml = isHk
+      ? `<span class="badge" style="background:#e2e8f0;color:#475569">View Only</span>`
+      : `<button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
+         <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>`;
     return `<tr class="${g.isSharer ? 'sharer' : ''} ${isSel ? 'row-selected' : ''}">
-      <td><input type="checkbox" ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('inh','${g.id}')"></td>
-      <td style="white-space:nowrap">
-        <button onclick="openGuestModal('inh','${g.id}')" class="btn btn-sm btn-light">Edit</button>
-        <button onclick="checkOutGuest('${g.id}')" class="btn btn-sm btn-rose">Check-out</button>
-      </td>
+      <td><input type="checkbox" ${isHk ? 'disabled' : ''} ${isSel ? 'checked' : ''} onchange="toggleBookingSelect('inh','${g.id}')"></td>
+      <td style="white-space:nowrap">${actionHtml}</td>
       <td><strong>${g.room || '<span class="badge" style="background:#fee2e2;color:#991b1b">No Room</span>'}</strong></td>
       <td>${g.roomType}</td>
       <td><strong>${g.name}</strong></td>
       <td>${g.vip || '-'}</td>
-      <td>${formatDate(g.arrival)} → ${formatDate(g.departure)}</td>
+      <td>${formatDate(g.arrival)} - ${formatDate(g.departure)}</td>
       <td>${g.adults}A/${g.children}C</td>
       <td>${g.rateCode}</td>
       <td><strong>${formatRateAmount(g)}</strong></td>
@@ -2763,7 +2786,7 @@ function renderInh() {
 }
 
 function toggleGenericDropdown(dropdownId) {
-  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'diary-type-dropdown', 'diary-floor-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
+  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'diary-type-dropdown', 'diary-floor-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown', 'hk-status-dropdown'].forEach(id => {
     const el = document.getElementById(id);
     if (!el) return;
     if (id === dropdownId) el.classList.toggle('visible');
@@ -2772,13 +2795,26 @@ function toggleGenericDropdown(dropdownId) {
 }
 
 window.addEventListener('click', function (e) {
-  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'diary-type-dropdown', 'diary-floor-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown'].forEach(id => {
+  ['res-type-dropdown', 'arr-type-dropdown', 'inh-type-dropdown', 'dep-type-dropdown', 'inv-type-dropdown', 'diary-type-dropdown', 'diary-floor-dropdown', 'hk-floor-dropdown', 'hk-type-dropdown', 'hk-status-dropdown'].forEach(id => {
     const el = document.getElementById(id);
     if (el && !el.contains(e.target)) {
       el.classList.remove('visible');
     }
   });
 });
+
+function toggleAllHkStatuses(source) {
+  document.querySelectorAll('.hk-status-chk').forEach(cb => cb.checked = source.checked);
+  renderHK();
+}
+
+function onHkStatusChange() {
+  const allCbs = document.querySelectorAll('.hk-status-chk');
+  const checkedCbs = document.querySelectorAll('.hk-status-chk:checked');
+  const selectAll = document.getElementById('hk-status-select-all');
+  if (selectAll) selectAll.checked = (allCbs.length > 0 && checkedCbs.length === allCbs.length);
+  renderHK();
+}
 
 function updateHkFloorCheckboxes(forceReset = false) {
   const all = Object.values(state.rooms);
@@ -2789,10 +2825,10 @@ function updateHkFloorCheckboxes(forceReset = false) {
   const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll('.hk-floor-chk:checked')).map(cb => cb.value));
   const allChecked = forceReset || !prevSelected || prevSelected.size === floors.length;
 
-  cbs.innerHTML = `<label ><input type="checkbox" id="hk-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkFloors(this)"> <b>Select All</b></label>` +
+  cbs.innerHTML = `<label><input type="checkbox" id="hk-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkFloors(this)"> <b>Select All</b></label>` +
     floors.map(fl => {
       const checked = forceReset || !prevSelected ? true : prevSelected.has(fl);
-      return `<label ><input type="checkbox" class="hk-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onHkFloorChange()"> Floor ${fl}xx</label>`;
+      return `<label><input type="checkbox" class="hk-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onHkFloorChange()"> Floor ${fl}xx</label>`;
     }).join('');
 }
 
@@ -2818,10 +2854,10 @@ function updateHkCheckboxes(forceReset = false) {
   const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll('.hk-type-chk:checked')).map(cb => cb.value));
   const allChecked = forceReset || !prevSelected || prevSelected.size === roomTypes.length;
 
-  cbs.innerHTML = `<label ><input type="checkbox" id="hk-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkTypes(this)"> <b>Select All</b></label>` +
+  cbs.innerHTML = `<label><input type="checkbox" id="hk-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllHkTypes(this)"> <b>Select All</b></label>` +
     roomTypes.map(t => {
       const checked = forceReset || !prevSelected ? true : prevSelected.has(t);
-      return `<label ><input type="checkbox" class="hk-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onHkTypeChange()"> ${t}</label>`;
+      return `<label><input type="checkbox" class="hk-type-chk" value="${t}" ${checked ? 'checked' : ''} onchange="onHkTypeChange()"> ${t}</label>`;
     }).join('');
 }
 
@@ -2871,8 +2907,19 @@ function renderHK() {
     typeCountSpan.textContent = selectedTypes.length;
   }
 
+  const allStatusChks = document.querySelectorAll('.hk-status-chk');
+  const selectedStatuses = Array.from(document.querySelectorAll('.hk-status-chk:checked')).map(cb => cb.value);
+  const totalStatusesCount = allStatusChks.length;
+  const statusCountSpan = document.getElementById('hk-status-count');
+  if (statusCountSpan) {
+    if (totalStatusesCount === 0 || selectedStatuses.length === totalStatusesCount) {
+      statusCountSpan.textContent = 'All';
+    } else {
+      statusCountSpan.textContent = selectedStatuses.length;
+    }
+  }
+
   const q = document.getElementById('search-hk').value.toLowerCase();
-  const sf = document.getElementById('filter-hk-status').value;
   const of = document.getElementById('filter-hk-occ').value;
   const opt = document.getElementById('filter-hk-type-opt').value;
   const w = parseDateToISO(state.workingDate);
@@ -2881,7 +2928,7 @@ function renderHK() {
     const occ = state.inhouse.some(g => g.room === r.room);
     const matchFloor = (totalFloorsCount === 0 || selectedFloors.length === 0) ? true : selectedFloors.includes(r.room.slice(0, 2));
     const matchType = (totalTypesCount === 0 || selectedTypes.length === 0) ? true : selectedTypes.includes(r.type);
-    const matchStatus = (sf === 'ALL' || r.status === sf);
+    const matchStatus = (totalStatusesCount === 0) ? true : selectedStatuses.includes(r.status);
     const matchOcc = (of === 'ALL' || (of === 'OCC' && occ) || (of === 'VAC' && !occ));
     const matchSearch = (!q || `${r.room} ${r.type}`.toLowerCase().includes(q));
 
@@ -2926,7 +2973,17 @@ function renderHK() {
 
   let html = '';
   for (const [rt, rooms] of Object.entries(grouped)) {
-    html += `<div class="room-type-section"><div class="room-type-title">Room Type: ${rt} (${rooms.length} rooms)</div><div class="hk-grid">`;
+    const allInTypeSelected = rooms.length > 0 && rooms.every(r => selectedHKRooms.has(r.room));
+    const safeRtId = encodeURIComponent(rt);
+    html += `<div class="room-type-section">
+      <div class="room-type-title">
+        <label class="room-type-title-left">
+          <input type="checkbox" ${allInTypeSelected ? 'checked' : ''} onchange="toggleSelectRoomTypeHK('${safeRtId}', this.checked)">
+          <span>Room Type: ${rt} (${rooms.length} rooms)</span>
+        </label>
+        <span style="font-size:11px;color:#64748b">Select all rooms in ${rt}</span>
+      </div>
+      <div class="hk-grid">`;
     rooms.forEach(r => {
       const gs = state.inhouse.filter(g => g.room === r.room), occ = gs.length > 0, sel = selectedHKRooms.has(r.room);
       html += `<div class="room-card st-${r.status} ${sel ? 'selected' : ''}">
@@ -2955,6 +3012,18 @@ function renderHK() {
   }
   container.innerHTML = html;
   document.getElementById('selected-hk-count').textContent = selectedHKRooms.size;
+}
+
+function toggleSelectRoomTypeHK(encodedType, checked) {
+  const targetType = decodeURIComponent(encodedType);
+  Object.values(state.rooms).forEach(r => {
+    const rt = r.type || 'UNKNOWN';
+    if (rt === targetType && r.room) {
+      if (checked) selectedHKRooms.add(r.room);
+      else selectedHKRooms.delete(r.room);
+    }
+  });
+  renderHK();
 }
 
 function toggleHKSelect(r) {
@@ -3067,6 +3136,20 @@ function populateRoomSelect() {
   });
 }
 
+function setGuestModalReadOnly(readOnly) {
+  const modalBody = document.querySelector('#guestModal .modal-body');
+  if (!modalBody) return;
+  modalBody.querySelectorAll('input, select, textarea').forEach(el => {
+    if (el.type === 'hidden') return;
+    el.disabled = readOnly;
+  });
+  const saveBtn = document.getElementById('btn-save-guest-modal');
+  if (saveBtn) {
+    if (readOnly) saveBtn.classList.add('hidden');
+    else saveBtn.classList.remove('hidden');
+  }
+}
+
 function openGuestModal(t, id) {
   let g = null;
   if (t === 'inh') g = state.inhouse.find(x => x.id === id);
@@ -3074,6 +3157,9 @@ function openGuestModal(t, id) {
   else g = state.arrivals.find(x => x.id === id);
 
   if (!g) return;
+
+  const readOnlyForHk = isCurrentUserHK() && ['arr', 'inh', 'dep', 'CHECKED OUT'].includes(t);
+  document.getElementById('modalTitle').textContent = readOnlyForHk ? 'Booking Details (Read-only for HK)' : 'Booking Details';
 
   document.getElementById('edit-guest-type').value = t;
   document.getElementById('edit-guest-id').value = g.id;
@@ -3103,10 +3189,13 @@ function openGuestModal(t, id) {
   if (document.getElementById('filter-room-hk')) document.getElementById('filter-room-hk').value = 'ALL';
   document.getElementById('edit-room').setAttribute('data-current', g.room || '');
   populateRoomTypeSelect(g.roomType || '2F2KS');
+  setGuestModalReadOnly(readOnlyForHk);
   document.getElementById('guestModal').classList.remove('hidden');
 }
 
 function openWalkInModal() {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for Arr, Dep, and In-house bookings.');
+  document.getElementById('modalTitle').textContent = 'Walk-in Check-in';
   document.getElementById('edit-guest-type').value = 'walkin';
   document.getElementById('edit-guest-id').value = 'WI_' + Date.now();
   document.getElementById('edit-vip').value = '';
@@ -3133,10 +3222,12 @@ function openWalkInModal() {
   if (document.getElementById('filter-room-hk')) document.getElementById('filter-room-hk').value = 'ALL';
   document.getElementById('edit-room').setAttribute('data-current', '');
   populateRoomTypeSelect('2F2KS');
+  setGuestModalReadOnly(false);
   document.getElementById('guestModal').classList.remove('hidden');
 }
 
 function openNewResModal() {
+  document.getElementById('modalTitle').textContent = 'New Booking';
   document.getElementById('edit-guest-type').value = 'new_res';
   document.getElementById('edit-guest-id').value = 'RES_' + Date.now();
   document.getElementById('edit-vip').value = '';
@@ -3163,14 +3254,17 @@ function openNewResModal() {
   if (document.getElementById('filter-room-hk')) document.getElementById('filter-room-hk').value = 'ALL';
   document.getElementById('edit-room').setAttribute('data-current', '');
   populateRoomTypeSelect('2F2KS');
+  setGuestModalReadOnly(false);
   document.getElementById('guestModal').classList.remove('hidden');
 }
 
 function closeGuestModal() {
+  setGuestModalReadOnly(false);
   document.getElementById('guestModal').classList.add('hidden');
 }
 
 function saveGuestModal() {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for bookings.');
   const t = document.getElementById('edit-guest-type').value;
   const id = document.getElementById('edit-guest-id').value;
   const rm = document.getElementById('edit-room').value.trim();
@@ -3315,13 +3409,12 @@ function resetAllData() {
   }
 }
 
-// === ROOM DIARY LOGIC ===
 function toggleDiarySearchPanel() {
   const body = document.getElementById('diary-search-body');
   const chev = document.getElementById('diary-search-chevron');
   if (!body) return;
   const isHidden = body.classList.toggle('hidden');
-  if (chev) chev.textContent = isHidden ? '▸' : '⌄';
+  if (chev) chev.textContent = isHidden ? '▸' : '▾';
 }
 
 function toggleDiaryLegend() {
@@ -3354,10 +3447,10 @@ function updateDiaryFloorCheckboxes(forceReset = false) {
   const prevSelected = forceReset ? null : new Set(Array.from(document.querySelectorAll('.diary-floor-chk:checked')).map(cb => cb.value));
   const allChecked = forceReset || !prevSelected || prevSelected.size === 0 || prevSelected.size === floors.length;
 
-  cbs.innerHTML = `<label ><input type="checkbox" id="diary-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllDiaryFloors(this)"> <b>Select All</b></label>` +
+  cbs.innerHTML = `<label><input type="checkbox" id="diary-floor-select-all" ${allChecked ? 'checked' : ''} onchange="toggleAllDiaryFloors(this)"> <b>Select All</b></label>` +
     floors.map(fl => {
       const checked = allChecked ? true : prevSelected.has(fl);
-      return `<label ><input type="checkbox" class="diary-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onDiaryFloorChange()"> Floor ${fl}xx</label>`;
+      return `<label><input type="checkbox" class="diary-floor-chk" value="${fl}" ${checked ? 'checked' : ''} onchange="onDiaryFloorChange()"> Floor ${fl}xx</label>`;
     }).join('');
 
   updateDiaryFloorCountLabel(floors.length);
@@ -3613,7 +3706,7 @@ function renderRoomDiary() {
             }
             const barCls = booking.isSharer ? 'diary-bar-linked' : (booking._src === 'inh' ? 'diary-bar-inh' : 'diary-bar-arr');
             const labelText = booking.name || booking.confNo || 'Guest';
-            barHtml = `<div class="diary-bar ${barCls}" style="width:calc(${spanDays * 100}% - 4px);left:2px" onclick="event.stopPropagation();openGuestModal('${booking._src}','${booking.id}')" title="${labelText} (${booking.arrival || ''} → ${booking.departure || ''})">${labelText}</div>`;
+            barHtml = `<div class="diary-bar ${barCls}" style="width:calc(${spanDays * 100}% - 4px);left:2px" onclick="event.stopPropagation();openGuestModal('${booking._src}','${booking.id}')" title="${labelText} (${booking.arrival || ''} - ${booking.departure || ''})">${labelText}</div>`;
           }
         }
       }
@@ -3658,6 +3751,7 @@ function renderRoomDiary() {
 }
 
 function openWalkInModalForRoom(roomNo, isoDate) {
+  if (!canCurrentUserEditBookings()) return alert('HK role is view-only for Arr, Dep, and In-house bookings.');
   if (typeof openWalkInModal === 'function') openWalkInModal();
   const rmEl = document.getElementById('edit-room');
   const arrEl = document.getElementById('edit-arr');
